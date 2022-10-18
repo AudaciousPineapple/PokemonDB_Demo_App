@@ -1,0 +1,3 @@
+101 = Trade Evolution
+102 = Thunder Stone
+103 = Moon Stone
