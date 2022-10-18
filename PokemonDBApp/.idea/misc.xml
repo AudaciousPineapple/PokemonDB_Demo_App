@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PokemonDBApp/PokemonDBApp/app/src/main/res/drawable/001_g1_sprite_background.xml" value="0.3405" />
         <entry key="..\:/PokemonDBApp/PokemonDBApp/app/src/main/res/layout/fragment_pokemon_data_page.xml" value="0.35260416666666666" />
         <entry key="..\:/PokemonDBApp/PokemonDBApp/app/src/main/res/layout/fragment_pokemon_entry_page.xml" value="0.35260416666666666" />
         <entry key="..\:/PokemonDBApp/PokemonDBApp/app/src/main/res/layout/fragment_welcome_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/PokemonDBApp/PokemonDBApp/app/src/main/res/mipmap-anydpi-v26/001_g1_sprite.xml" value="0.3405" />
       </map>
     </option>
   </component>

@@ -11,4 +11,5 @@
     <string name="select_your_pokemon">Select your Pokémon:</string>
     <string name="placeholder_text">Placeholder text!</string>
     <string name="name_placeholder">Name</string>
+    <string name="num_placeholder">Num</string>
 </resources>
