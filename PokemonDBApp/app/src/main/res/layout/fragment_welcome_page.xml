@@ -5,12 +5,58 @@
     android:layout_height="match_parent"
     tools:context=".WelcomePage">
 
+    <!-- TODO This is a bare-bones layout, will update to look better -->
     <TextView
         android:id="@+id/welcome_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/welcome_message" />
+        android:layout_centerVertical="false"
+        android:layout_marginVertical="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/welcome_message"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/pokemon_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/welcome_text"
+        android:text="@string/pokemon_btn"/>
+
+    <Button
+        android:id="@+id/moves_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/pokemon_btn"
+        android:text="@string/moves"/>
+
+    <Button
+        android:id="@+id/items_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/moves_btn"
+        android:text="@string/items"/>
+
+    <Button
+        android:id="@+id/locations_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/items_btn"
+        android:text="@string/locations"/>
 
 </RelativeLayout>
