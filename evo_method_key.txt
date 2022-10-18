@@ -1,3 +1,7 @@
+0   = Special (Eevee)
 101 = Trade Evolution
 102 = Thunder Stone
 103 = Moon Stone
+104 = Fire Stone
+105 = Leaf Stone
+106 = Water Stone
