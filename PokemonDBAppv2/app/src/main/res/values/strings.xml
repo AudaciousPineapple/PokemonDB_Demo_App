@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Pokemon DB App v2</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="welcome_fragment_label">Welcome</string>
+    <string name="pokemon_fragment_label">Pokédex</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="welcome_message">Welcome to the Pokémon Database App!</string>
+    <string name="pokemon">Pokémon</string>
+    <string name="moves">Moves</string>
+    <string name="items">Items</string>
+    <string name="locations">Locations</string>
+    <string name="select_your_pokemon_">Select your Pokémon:\ </string>
+    <string name="pokemon_welcome">Welcome to the Pokédex!</string>
+
+    <string name="placeholder_num">Num</string>
+    <string name="placeholder_name">Name</string>
+    <string name="classification_">Classification:\ </string>
+    <string name="placeholder_text">Placeholder text</string>
+    <string name="height_">Height:\ </string>
+    <string name="placeholder_dec">0.0</string>
+    <string name="m">m</string>
+    <string name="weight_">Weight:\ </string>
+    <string name="kg">kg</string>
+    <string name="capture_rate_">Capture Rate:\ </string>
+    <string name="placeholder_int">0</string>
+    <string name="experience_growth_">Experience Growth:\ </string>
+    <string name="placeholder_xp_growth">0 | None</string>
+    <string name="stats_">Stats:\ </string>
+    <string name="hp_">HP:\ </string>
+    <string name="attack_">Attack:\ </string>
+    <string name="defense_">Defense:\ </string>
+    <string name="special_">Special:\ </string>
+    <string name="speed_">Speed:\ </string>
+    <string name="placeholder_evolution_graphic">Evolution graphic will be filled in at runtime!</string>
+    <string name="locations_">Locations:\ </string>
+    <string name="red_">Red:\ </string>
+    <string name="placeholder_location_text">Locations will be filled at runtime!</string>
+    <string name="green_jp_amp_blue_intl_"><![CDATA[Green(Jp.) & Blue(Intl.): ]]></string>
+    <string name="blue_jp_">Blue(Jp.):\ </string>
+    <string name="yellow_">Yellow:\ </string>
+    <string name="generation_1_level_up_">Generation I Level Up:</string>
+    <string name="level">Level</string>
+    <string name="attack_name">Attack Name</string>
+    <string name="type">Type</string>
+    <string name="power">Power</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="pp">PP</string>
+    <string name="tm_amp_hm_moves_"><![CDATA[TM & HM Moves:]]></string>
+    <string name="tm_hm">TM/HM</string>
+    <string name="enter_a_pok_mon">Enter a Pokémon #</string>
+    <string name="go">GO!</string>
+    <string name="g1_image_3">G1 Image 3</string>
+    <string name="g1_image_2">G1 Image 2</string>
+    <string name="g1_image_1">G1 Image 1</string>
+    <string name="type_1">Type 1</string>
+    <string name="type_2">Type 2</string>
+    <string name="title_activity_pokemon">PokemonActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="title_activity_database_builder">DatabaseBuilderActivity</string>
+
+    <string name="bullshit"><![CDATA[0=Chosen Target
+1=User
+2=All Opponents
+3=Field
+4=User Team
+5=Random Target]]></string>
+</resources>

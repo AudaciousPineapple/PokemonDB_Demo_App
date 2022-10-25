@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="ExtraText">
+
+            <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="name"/>
+
+            <EditText
+                android:id="@+id/type_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="type" />
+
+            <EditText
+                android:id="@+id/pp_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="PP" />
+
+            <EditText
+                android:id="@+id/power_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="power" />
+
+            <EditText
+                android:id="@+id/acc_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="accuracy" />
+
+            <EditText
+                android:id="@+id/effect_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="effect" />
+
+            <EditText
+                android:id="@+id/detail_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="details" />
+
+            <EditText
+                android:id="@+id/eRate_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="effect rate" />
+
+            <EditText
+                android:id="@+id/tm_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="TM/HM" />
+
+            <EditText
+                android:id="@+id/prior_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Priority" />
+
+            <EditText
+                android:id="@+id/target_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Target" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/submit_btn"
+                android:text="Submit"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PokemonSelectFragment">
+
+    <!-- TODO This is a bare-bones layout, will update to look better -->
+    <TextView
+        android:id="@+id/pokemon_welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginVertical="20dp"
+        android:text="@string/pokemon_welcome"
+        android:textSize="20sp"/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pokemon_welcome_text"
+        android:layout_centerHorizontal="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/num_box"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="@string/enter_a_pok_mon"/>
+
+            <Button
+                android:id="@+id/pkm_go_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/go"/>
+        </TableRow>
+
+    </TableLayout>
+</RelativeLayout>
