@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
         pokemonBtn = findViewById(R.id.pokemon_btn);
         pokemonBtn.setOnClickListener(view -> moveToPokemonActivity());
 
-        itemsBtn = findViewById(R.id.items_btn);
-        itemsBtn.setOnClickListener(view -> moveToBullshitActivity());
-
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -47,11 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void moveToPokemonActivity() {
         Intent switchActivityIntent = new Intent(this, PokemonActivity.class);
-        startActivity(switchActivityIntent);
-    }
-
-    private void moveToBullshitActivity() {
-        Intent switchActivityIntent = new Intent (this, DatabaseBuilderActivity.class);
         startActivity(switchActivityIntent);
     }
 

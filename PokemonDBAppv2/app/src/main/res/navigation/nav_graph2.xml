@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/PokemonDataFragment"
         android:name="com.example.pokemondbappv2.PokemonDataFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/pokemon_fragment_label"
         tools:layout="@layout/fragment_pokemon_data">
 
     </fragment>
