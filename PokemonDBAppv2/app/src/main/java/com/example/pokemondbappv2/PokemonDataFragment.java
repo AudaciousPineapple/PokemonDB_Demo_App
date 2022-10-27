@@ -116,9 +116,13 @@ public class PokemonDataFragment extends Fragment {
             imgView = binding.type2;
 
         imgView.setImageDrawable(checkTypeImage(type));
-
     }
 
+    /**
+     * FIXME
+     * @param type
+     * @return
+     */
     private Drawable checkTypeImage(Type type) {
         switch (type) {
             case NOR:
@@ -149,6 +153,8 @@ public class PokemonDataFragment extends Fragment {
                 return ResourcesCompat.getDrawable(res, R.drawable.type_rock, null);
             case GHO:
                 return ResourcesCompat.getDrawable(res, R.drawable.type_ghost, null);
+            case DRA:
+                return ResourcesCompat.getDrawable(res, R.drawable.type_dragon, null);
             default:
                 return null;
         }
@@ -173,73 +179,6 @@ public class PokemonDataFragment extends Fragment {
         binding.sprite3.setImageDrawable(ResourcesCompat.getDrawable(res, id + 2, null));
 
         return id;
-        /*switch (dexNum) {
-            case 1:
-                binding.sprite1.setImageDrawable(ResourcesCompat.getDrawable(res, R.drawable.g1_001_1, null));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_001_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_001_3));
-                Log.d("**TESTING**", Integer.toString(R.drawable.g1_001_1));
-                return res.getDrawable(R.drawable.g1_001_1);
-            case 2:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_002_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_002_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_002_3));
-                return res.getDrawable(R.drawable.g1_002_1);
-            case 3:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_003_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_003_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_003_3));
-                return res.getDrawable(R.drawable.g1_003_1);
-            case 4:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_004_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_004_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_004_3));
-                return res.getDrawable(R.drawable.g1_004_1);
-            case 5:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_005_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_005_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_005_3));
-                return res.getDrawable(R.drawable.g1_005_1);
-            case 6:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_006_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_006_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_006_3));
-                return res.getDrawable(R.drawable.g1_006_1);
-            case 7:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_007_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_007_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_007_3));
-                return res.getDrawable(R.drawable.g1_007_1);
-            case 8:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_008_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_008_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_008_3));
-                return res.getDrawable(R.drawable.g1_008_1);
-            case 9:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_009_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_009_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_009_3));
-                return res.getDrawable(R.drawable.g1_009_1);
-            case 10:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_010_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_010_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_010_3));
-                return res.getDrawable(R.drawable.g1_010_1);
-            case 11:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_011_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_011_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_011_3));
-                return res.getDrawable(R.drawable.g1_011_1);
-            case 12:
-                binding.sprite1.setImageDrawable(res.getDrawable(R.drawable.g1_012_1));
-                binding.sprite2.setImageDrawable(res.getDrawable(R.drawable.g1_012_2));
-                binding.sprite3.setImageDrawable(res.getDrawable(R.drawable.g1_012_3));
-                return res.getDrawable(R.drawable.g1_012_1);
-            default:
-                return null;
-
-
-        }*/
     }
 
     /**
@@ -334,6 +273,11 @@ public class PokemonDataFragment extends Fragment {
         }
     }
 
+    /**
+     * FIXME
+     * @param evoLvl
+     * @return
+     */
     private Drawable getEvoArrow(int evoLvl) {
         switch (evoLvl) {
             case 7:
@@ -399,6 +343,11 @@ public class PokemonDataFragment extends Fragment {
         }
     }
 
+    /**
+     * FIXME
+     * @param locString
+     * @return
+     */
     private String modLocString(String locString) {
         StringBuffer strBuf = new StringBuffer(locString);
 
@@ -420,6 +369,10 @@ public class PokemonDataFragment extends Fragment {
         return strBuf.toString();
     }
 
+    /**
+     * FIXME
+     * @param dexNum
+     */
     private void setMoveset(int dexNum) {
         ArrayList<ModelMoveset> list = pokemonLookup.getMoveset(dexNum);
         TableRow newRow;
@@ -500,7 +453,7 @@ public class PokemonDataFragment extends Fragment {
                 textView = new TextView(this.getContext());
                 tempString = moveName;
                 if(list.get(i).isYellow())
-                    tempString += R.string.yellow_only;
+                    tempString += getString(R.string.yellow_only);
                 textView.setText(tempString);
                 newRow.addView(textView, 1);
 
@@ -534,7 +487,7 @@ public class PokemonDataFragment extends Fragment {
 
         if (tmCount == 0) {
             binding.tmMoveTable.removeAllViews();
-            binding.specialMoveTxt.setText("");
+            binding.tmMoveTxt.setText("");
         }
         if (specialCount == 0) {
             binding.specialMoveTable.removeAllViews();
