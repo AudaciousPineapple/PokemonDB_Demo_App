@@ -18,8 +18,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button pokemonBtn, itemsBtn;
-
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -30,21 +28,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        pokemonBtn = findViewById(R.id.pokemon_btn);
-        pokemonBtn.setOnClickListener(view -> moveToPokemonActivity());
-
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-
-    }
-
-    private void moveToPokemonActivity() {
-        Intent switchActivityIntent = new Intent(this, PokemonActivity.class);
-        startActivity(switchActivityIntent);
     }
 
     @Override

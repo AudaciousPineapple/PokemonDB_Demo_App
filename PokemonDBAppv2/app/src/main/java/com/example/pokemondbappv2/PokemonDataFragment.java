@@ -1,7 +1,6 @@
 package com.example.pokemondbappv2;
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PokemonDataFragment extends Fragment {
+public class PokemonDataFragment extends Fragment{
 
     private DecimalFormat dFormat, dFormat2, dFormat3;
 
@@ -32,7 +31,7 @@ public class PokemonDataFragment extends Fragment {
     private ModelPokemonG1 pokemon;
     private LinearLayout evoLay;
     private Resources res;
-    private TableLayout levelTable, yellowTable, tmTable, prevoTable;
+    private TableLayout levelTable, yellowTable, tmTable, prevoTable, specialTable;
 
     @Override
     public View onCreateView(
@@ -49,7 +48,7 @@ public class PokemonDataFragment extends Fragment {
 
         res = getResources();
         pokemonLookup = new DBHandler(this.getContext());
-        dFormat = new DecimalFormat("0.0");
+        dFormat = new DecimalFormat("0.#");
         dFormat2 = new DecimalFormat("#,###");
         dFormat3 = new DecimalFormat("00");
         evoLay = binding.evoLayout;
@@ -57,6 +56,7 @@ public class PokemonDataFragment extends Fragment {
         yellowTable = binding.yellowLevelMoveTable;
         tmTable = binding.tmMoveTable;
         prevoTable = binding.prevoMoveTable;
+        specialTable = binding.specialMoveTable;
 
         getParentFragmentManager().setFragmentResultListener("num", this,
                 ((requestKey, result) -> {
@@ -100,7 +100,6 @@ public class PokemonDataFragment extends Fragment {
                     setMoveset(dexNum);
 
                 }));
-
     }
 
     /**
@@ -115,55 +114,14 @@ public class PokemonDataFragment extends Fragment {
         else
             imgView = binding.type2;
 
-        imgView.setImageDrawable(checkTypeImage(type));
-    }
-
-    /**
-     * FIXME
-     * @param type
-     * @return
-     */
-    private Drawable checkTypeImage(Type type) {
-        switch (type) {
-            case NOR:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_normal, null);
-            case FIR:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_fire, null);
-            case WAT:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_water, null);
-            case GRA:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_grass, null);
-            case ELE:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_electric, null);
-            case ICE:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_ice, null);
-            case FIG:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_fighting, null);
-            case POI:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_poison, null);
-            case GRO:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_ground, null);
-            case FLY:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_flying, null);
-            case PSY:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_psychic, null);
-            case BUG:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_bug, null);
-            case ROC:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_rock, null);
-            case GHO:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_ghost, null);
-            case DRA:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_dragon, null);
-            default:
-                return null;
-        }
+        imgView.setImageDrawable(PokemonMethods.getTypeImg(res, type));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        pokemonLookup.close();
     }
 
     /**
@@ -201,7 +159,7 @@ public class PokemonDataFragment extends Fragment {
                 idx--;
 
                 evoLayout[idx] = new ImageView(this.getContext());
-                evoLayout[idx].setImageDrawable(getEvoArrow(pokemonLookup.getPokemon(pNum).getEvoLvl()));
+                evoLayout[idx].setImageDrawable(PokemonMethods.getEvoArrow(res, pokemonLookup.getPokemon(pNum).getEvoLvl()));
 
                 idx--;
 
@@ -229,7 +187,7 @@ public class PokemonDataFragment extends Fragment {
                 idx++;
 
                 evoLayout[idx] = new ImageView(this.getContext());
-                evoLayout[idx].setImageDrawable(getEvoArrow(vNum)); //TODO add specific level-up arrows
+                evoLayout[idx].setImageDrawable(PokemonMethods.getEvoArrow(res, vNum)); //TODO add specific level-up arrows
 
                 idx++;
 
@@ -252,13 +210,13 @@ public class PokemonDataFragment extends Fragment {
             evoLayout[2].setImageDrawable(ResourcesCompat.getDrawable(res, drawId, null));
 
             evoLayout[1] = new ImageView(this.getContext());
-            evoLayout[1].setImageDrawable(getEvoArrow(pokemonLookup.getPokemon(pNum).getEvoLvl()));
+            evoLayout[1].setImageDrawable(PokemonMethods.getEvoArrow(res, pokemonLookup.getPokemon(pNum).getEvoLvl()));
 
             evoLayout[0] = new ImageView(this.getContext());
             evoLayout[0].setImageDrawable(ResourcesCompat.getDrawable(res, drawId + ((pNum - curNum) * 3), null));
 
             evoLayout[3] = new ImageView(this.getContext());
-            evoLayout[3].setImageDrawable(getEvoArrow(vNum));
+            evoLayout[3].setImageDrawable(PokemonMethods.getEvoArrow(res, vNum));
 
             evoLayout[4] = new ImageView(this.getContext());
             evoLayout[4].setImageDrawable(ResourcesCompat.getDrawable(res, drawId + ((eNum - curNum) * 3), null));
@@ -270,76 +228,6 @@ public class PokemonDataFragment extends Fragment {
                     idx++;
                 }
             }
-        }
-    }
-
-    /**
-     * FIXME
-     * @param evoLvl
-     * @return
-     */
-    private Drawable getEvoArrow(int evoLvl) {
-        switch (evoLvl) {
-            case 7:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_07, null);
-            case 10:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_10, null);
-            case 16:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_16, null);
-            case 18:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_18, null);
-            case 20:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_20, null);
-            case 21:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_21, null);
-            case 22:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_22, null);
-            case 24:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_24, null);
-            case 25:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_25, null);
-            case 26:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_26, null);
-            case 28:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_28, null);
-            case 30:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_30, null);
-            case 31:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_31, null);
-            case 32:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_32, null);
-            case 33:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_33, null);
-            case 34:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_34, null);
-            case 35:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_35, null);
-            case 36:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_36, null);
-            case 37:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_37, null);
-            case 38:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_38, null);
-            case 40:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_40, null);
-            case 42:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_42, null);
-            case 55:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_55, null);
-            case 101:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_trade, null);
-            case 102:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_thunderstone, null);
-            case 103:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_moonstone, null);
-            case 104:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_firestone, null);
-            case 105:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_leafstone, null);
-            case 106:
-                return ResourcesCompat.getDrawable(res, R.drawable.l_waterstone, null);
-            default:
-                return null;
         }
     }
 
@@ -406,11 +294,11 @@ public class PokemonDataFragment extends Fragment {
                     finishMovesetEntry(move, newRow);
 
                     if (list.get(i).isYellow()) {
-                        binding.yellowLevelMoveTable.addView(newRow, ylwCount + 1);
+                        yellowTable.addView(newRow, ylwCount + 1);
                         ylwCount++;
                     }
                     else {
-                        binding.levelMoveTable.addView(newRow, lvlCount + 1);
+                        levelTable.addView(newRow, lvlCount + 1);
                         lvlCount++;
                     }
                 }
@@ -433,7 +321,7 @@ public class PokemonDataFragment extends Fragment {
 
                     finishMovesetEntry(move, newRow);
 
-                    binding.prevoMoveTable.addView(newRow, prevoCount + 1);
+                    prevoTable.addView(newRow, prevoCount + 1);
                     prevoCount++;
 
                 }
@@ -459,7 +347,7 @@ public class PokemonDataFragment extends Fragment {
 
                 finishMovesetEntry(move, newRow);
 
-                binding.tmMoveTable.addView(newRow, tmCount + 1);
+                tmTable.addView(newRow, tmCount + 1);
                 tmCount++;
 
             }
@@ -480,27 +368,27 @@ public class PokemonDataFragment extends Fragment {
 
                 finishMovesetEntry(move, newRow);
 
-                binding.specialMoveTable.addView(newRow, specialCount + 1);
+                specialTable.addView(newRow, specialCount + 1);
                 specialCount++;
             }
         }
 
         if (tmCount == 0) {
-            binding.tmMoveTable.removeAllViews();
+            tmTable.removeAllViews();
             binding.tmMoveTxt.setText("");
         }
         if (specialCount == 0) {
-            binding.specialMoveTable.removeAllViews();
+            specialTable.removeAllViews();
             binding.specialMoveTxt.setText("");
         }
         if (prevoCount == 0) {
-            binding.prevoMoveTable.removeAllViews();
+            prevoTable.removeAllViews();
             binding.prevoMoveTxt.setText("");
         }
         if (ylwCount == 0) {
             binding.levelTxt.setText(R.string.generation_1_level_up_);
             binding.yellowLevelTxt.setText("");
-            binding.yellowLevelMoveTable.removeAllViews();
+            yellowTable.removeAllViews();
         }
     }
 
@@ -512,7 +400,7 @@ public class PokemonDataFragment extends Fragment {
     private void finishMovesetEntry(ModelMove move, TableRow row) {
         // move type
         ImageView img = new ImageView(this.getContext());
-        img.setImageDrawable(checkTypeImage(move.getType()));
+        img.setImageDrawable(PokemonMethods.getTypeImg(res, move.getType()));
         row.addView(img, 2);
 
         // Base power
@@ -543,5 +431,6 @@ public class PokemonDataFragment extends Fragment {
         textView.setText(move.getEffect());
         row.addView(textView, 7);
     }
+
 }
 

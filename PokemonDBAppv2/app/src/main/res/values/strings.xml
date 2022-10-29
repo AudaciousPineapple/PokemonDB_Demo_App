@@ -76,4 +76,40 @@
     <string name="yellow_only">\nYellow Only</string>
     <string name="special_moves">Special Moves</string>
     <string name="red_green_amp_blue_level_up"><![CDATA[Red, Green, & Blue Level Up:]]></string>
+    <string name="select_generation_">Select Generation:\ </string>
+
+    <string-array name="gen_select_arr">
+        <item>Gen I</item>
+        <item>Gen II</item>
+        <item>Gen III</item>
+        <item>Gen IV</item>
+        <item>Gen V</item>
+        <item>Gen VI</item>
+        <item>Gen VII</item>
+        <item>Gen VIII</item>
+        <item>Gen IX</item>
+    </string-array>
+    <string name="title_activity_moves">MovesActivity</string>
+    <string name="movedex">Movedex</string>
+    <string name="pick_your_move_">Pick your move:\ </string>
+    <string name="welcome_to_the_movedex">Welcome to the Movedex</string>
+    <string name="move_type">Move Type</string>
+    <string name="base_power">Base Power</string>
+    <string name="power_points">Power Points</string>
+    <string name="battle_effect_">Battle Effect:\ </string>
+    <string name="details_">Details:</string>
+    <string name="effect_rate">Effect Rate</string>
+    <string name="tm_num">TM #</string>
+    <string name="speed_priority">Speed Priority</string>
+    <string name="pokemon_hit_in_battle">Pokémon Hit in Battle</string>
+    <string name="no">No.</string>
+    <string name="pic">Pic</string>
+    <string name="base_stats">Base Stats</string>
+    <string name="hp">HP</string>
+    <string name="atk">Atk</string>
+    <string name="def">Def</string>
+    <string name="spc">Spc</string>
+    <string name="spd">Spd</string>
+    <string name="y">Y</string>
+    <string name="rb">RB</string>
 </resources>

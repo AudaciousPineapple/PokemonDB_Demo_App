@@ -16,28 +16,24 @@
         android:text="@string/pokemon_welcome"
         android:textSize="20sp"/>
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/pokemon_welcome_text"
-        android:layout_centerHorizontal="true">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/num_box"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:hint="@string/enter_a_pok_mon"/>
+                android:hint="@string/enter_a_pok_mon" />
 
             <Button
                 android:id="@+id/pkm_go_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/go"/>
-        </TableRow>
 
-    </TableLayout>
+    </LinearLayout>
 </RelativeLayout>

@@ -15,7 +15,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DB_PATH = "/app/src/main/assets/PokemonDB.db";
     private static final int DB_VERSION = 1;
 
-    // Used for the Enum_Target table
+    // Used for the Target table
     private static final String TARGET_TABLE_NAME = "Enum_Target";
     private static final String TARGET_ID_COL = "targetId";
     private static final String TARGET_VALUE_COL = "targetValue";
@@ -110,8 +110,6 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public ModelPokemonG1 getPokemon(int dexNum) {
 
-        // Log.d("**TESTING**", Integer.toString(dexNum));
-
         SQLiteDatabase pokemonDb = this.getReadableDatabase();
 
         Cursor curPok = pokemonDb.query(
@@ -135,7 +133,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     curPok.getDouble(5),
                     curPok.getDouble(6),
                     curPok.getInt(7),
-                    Enum_XpGrowth.valueOf(curPok.getString(8)),
+                    XpGrowth.valueOf(curPok.getString(8)),
                     curPok.getString(9),
                     curPok.getString(10),
                     curPok.getString(11),
@@ -159,9 +157,9 @@ public class DBHandler extends SQLiteOpenHelper {
     // FIXME
     public ModelMove getMove(String name) {
 
-        SQLiteDatabase moveDB = this.getReadableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor moveCursor = moveDB.query(
+        Cursor moveCursor = db.query(
                 MOVE_TABLE_NAME,
                 null,
                 MOVE_NAME_COL + " = ?",
@@ -227,5 +225,57 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
         return returnMoveset;
 
+    }
+
+    public ArrayList<CharSequence> getAllMoveNames() {
+        ArrayList<CharSequence> returnArray = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                MOVE_TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        while (cursor.moveToNext()) {
+            returnArray.add(cursor.getString(0));
+        }
+
+        return returnArray;
+    }
+
+    public ArrayList<ModelMoveset> getAllLearners(String moveName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        ArrayList<ModelMoveset> list = new ArrayList<>();
+
+        Cursor cursor = db.query(
+          MOVESET_TABLE_NAME,
+          null,
+          MOVESET_MOVE_COL + " = ?",
+          new String[]{moveName},
+          null,
+          null,
+          MOVESET_ID_COL
+        );
+
+        while (cursor.moveToNext()) {
+            list.add(new ModelMoveset(
+                    cursor.getInt(1),
+                    cursor.getInt(2),
+                    cursor.getInt(3),
+                    cursor.getString(4),
+                    cursor.getString(5).contentEquals("true"),
+                    cursor.getInt(6),
+                    cursor.getString(7)));
+        }
+
+        cursor.close();
+        return list;
     }
 }

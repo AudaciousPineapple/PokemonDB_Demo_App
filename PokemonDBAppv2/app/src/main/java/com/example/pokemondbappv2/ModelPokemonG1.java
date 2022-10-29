@@ -6,7 +6,7 @@ public class ModelPokemonG1 {
     private String name, classification, redLoc, blueLoc, greenLoc, yellowLoc;
     private double height, weight;
     private Type type1, type2;
-    private Enum_XpGrowth xpGrowth;
+    private XpGrowth xpGrowth;
 
     // getters
     public int getDexNum() { return this.dexNum; }
@@ -29,11 +29,11 @@ public class ModelPokemonG1 {
     public double getWeight() { return weight; }
     public Type getType1() { return type1; }
     public Type getType2() { return type2; }
-    public Enum_XpGrowth getXpGrowth() { return xpGrowth; }
+    public XpGrowth getXpGrowth() { return xpGrowth; }
 
     // Constructor
     public ModelPokemonG1(int dexNum, String name, Type type1, Type type2, String classification,
-                          double height, double weight, int captureRate, Enum_XpGrowth xpGrowth,
+                          double height, double weight, int captureRate, XpGrowth xpGrowth,
                           String redLoc, String blueLoc, String greenLoc, String yellowLoc, int hp,
                           int atk, int def, int spc, int spe, int evo, int evoLvl, int prEvo) {
 

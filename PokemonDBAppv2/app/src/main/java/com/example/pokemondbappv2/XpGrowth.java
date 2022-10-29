@@ -1,6 +1,6 @@
 package com.example.pokemondbappv2;
 
-public enum Enum_XpGrowth {
+public enum XpGrowth {
 
     F (800000, "Fast", "F"),
     MF (1000000, "Medium Fast", "MF"),
@@ -11,7 +11,7 @@ public enum Enum_XpGrowth {
     private final int rate;
     private final String value, abbr;
 
-    Enum_XpGrowth(int rate, String value, String abbr) {
+    XpGrowth(int rate, String value, String abbr) {
         this.value = value;
         this.rate = rate;
         this.abbr = abbr;

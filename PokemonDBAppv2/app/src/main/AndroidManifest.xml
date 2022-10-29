@@ -12,10 +12,15 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.PokemonDBAppV2"
-        android:screenOrientation="portrait"
         tools:targetApi="31">
+        <activity
+            android:name=".MovesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_moves"
+            android:theme="@style/Theme.PokemonDBAppV2.NoActionBar" />
         <activity
             android:name=".PokemonActivity"
             android:exported="false"

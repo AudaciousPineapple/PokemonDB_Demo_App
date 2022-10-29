@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph3"
+    app:startDestination="@id/MoveSelectFragment">
+
+    <fragment
+        android:id="@+id/MoveSelectFragment"
+        android:name="com.example.pokemondbappv2.MoveSelectFragment"
+        android:label="@string/movedex"
+        tools:layout="@layout/fragment_moves_select">
+
+        <action
+            android:id="@+id/action_MoveSelectFragment_to_MoveDataFragment"
+            app:destination="@id/MoveDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MoveDataFragment"
+        android:name="com.example.pokemondbappv2.MovesDataFragment"
+        android:label="@string/movedex"
+        tools:layout="@layout/fragment_moves_data">
+
+    </fragment>
+</navigation>

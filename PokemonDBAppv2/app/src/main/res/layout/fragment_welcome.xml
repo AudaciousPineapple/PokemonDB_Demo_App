@@ -21,6 +21,27 @@
         android:text="@string/welcome_message"
         android:textSize="20sp" />
 
+    <LinearLayout
+        android:id="@+id/gen_select_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_text"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_generation_"
+            android:textSize="18sp"/>
+
+        <Spinner
+            android:id="@+id/gen_select_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/pokemon_btn"
         android:layout_width="wrap_content"
@@ -28,7 +49,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
         android:layout_marginVertical="10dp"
-        android:layout_below="@id/welcome_text"
+        android:layout_below="@id/gen_select_layout"
         android:text="@string/pokemon"
         android:textAllCaps="false"/>
 
