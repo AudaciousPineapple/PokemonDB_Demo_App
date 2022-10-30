@@ -215,11 +215,11 @@ public class MovesDataFragment extends Fragment {
                         lv = mm.getLevel();
                         if (lv == 0)
                             lv = 1;
-                        txt = createIntTextView("Lv. %d", lv, 40);
+                        txt = createIntTextView("Lv. %d", lv, 50);
 
                         if (!mm.isYellow()) {
                             linLayRB.addView(txt, rbCount);
-                            txt = createIntTextView("Lv. %d", lv, 40);
+                            txt = createIntTextView("Lv. %d", lv, 50);
                             linLayY.addView(txt, rbCount);
                             rbCount++;
                         }
@@ -257,6 +257,10 @@ public class MovesDataFragment extends Fragment {
         if (tmCount == 0) {
             monTable2.removeAllViews();
             binding.moveTmTitleTxt.setText("");
+        }
+        if (lvlCount == 0) {
+            monTable.removeAllViews();
+            binding.moveLevelTitleTxt.setText("");
         }
     }
 
