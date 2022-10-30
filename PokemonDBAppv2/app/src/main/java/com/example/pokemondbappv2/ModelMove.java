@@ -1,11 +1,11 @@
 package com.example.pokemondbappv2;
 
 public class ModelMove {
-    private String name, effect;
-    private int pp, power, details, effectRate, tmNum, priority;
-    private double accuracy;
-    private Type type;
-    private Target target;
+    private final String name, effect;
+    private final int pp, power, details, effectRate, tmNum, priority;
+    private final double accuracy;
+    private final Type type;
+    private final Target target;
 
     public String getName() { return name; }
 

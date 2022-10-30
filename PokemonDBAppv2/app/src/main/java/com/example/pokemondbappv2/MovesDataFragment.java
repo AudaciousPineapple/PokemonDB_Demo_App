@@ -1,8 +1,11 @@
 package com.example.pokemondbappv2;
 
+import android.app.ActionBar;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import com.example.pokemondbappv2.databinding.FragmentMovesDataBinding;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MovesDataFragment extends Fragment {
@@ -73,10 +77,14 @@ public class MovesDataFragment extends Fragment {
                     binding.moveAccValueTxt.setText(new DecimalFormat("0.#").format(move.getAccuracy()));
 
                     binding.moveBattleEffectTxt.setText(move.getEffect());
-                    String tmpStr = move.getEffectRate() + "%";
+                    String tmpStr;
+                    if(move.getEffectRate() == 0)
+                        tmpStr = "--";
+                    else
+                        tmpStr = move.getEffectRate() + "%";
                     binding.moveEffectRateTxt.setText(tmpStr);
 
-                    //TODO make code for the detail special cases cases
+                    //TODO make code for the detail special cases
 
                     binding.moveTmTxt.setText(PokemonMethods.getTmString(move.getTmNum()));
                     binding.movePriorityTxt.setText(String.format(Locale.getDefault(), "%d", move.getPriority()));
@@ -107,18 +115,22 @@ public class MovesDataFragment extends Fragment {
      * @param list
      */
     private void fillLearnerTables(ArrayList<ModelMoveset> list) {
-        int lvlCount = 0, tmCount = 0, index = 0, dexNum;
+        int lvlCount = 0, tmCount = 0, index = 0, dexNum, idx, rbCount, yCount;
+        int[] stats = new int[5];
         ModelMoveset mm;
-        TableRow row, inRow;
+        TableRow row;
         TextView txt;
         ImageView img;
-        LinearLayout linLay;
+        LinearLayout linLay, linLayRB, linLayY;
+        ModelPokemonG1 entryMon;
 
         while (index < list.size()) {
             mm = list.get(index);
+            entryMon = lookup.getPokemon(mm.getDexNum());
             if (mm.getPrEvo() == 0) {
                 dexNum = mm.getDexNum();
                 row = new TableRow(this.getContext());
+                row.setGravity(Gravity.CENTER);
 
                 // No. Column
                 txt = new TextView(this.getContext());
@@ -139,7 +151,7 @@ public class MovesDataFragment extends Fragment {
                 // Name Column
                 txt = new TextView(this.getContext());
                 txt.setGravity(Gravity.CENTER);
-                txt.setText(lookup.getPokemon(dexNum).getName());
+                txt.setText(entryMon.getName());
 
                 row.addView(txt, 2);
 
@@ -150,59 +162,83 @@ public class MovesDataFragment extends Fragment {
                 img = new ImageView(this.getContext());
                 img.setScaleType(ImageView.ScaleType.CENTER);
                 img.setImageDrawable(PokemonMethods.getTypeImg(res,
-                        lookup.getPokemon(dexNum).getType1()));
+                        entryMon.getType1()));
                 linLay.addView(img, 0);
 
-                if (lookup.getPokemon(dexNum).getType2() != Type.NON) {
+                if (entryMon.getType2() != Type.NON) {
                     img = new ImageView(this.getContext());
                     img.setScaleType(ImageView.ScaleType.CENTER);
                     img.setImageDrawable(PokemonMethods.getTypeImg(res,
-                            lookup.getPokemon(dexNum).getType2()));
+                            entryMon.getType2()));
                     linLay.addView(img, 1);
                 }
 
                 row.addView(linLay, 3);
 
                 // Base Stats Column
-                TableLayout temptbl = new TableLayout(this.getContext());
-                inRow = new TableRow(this.getContext());
-                temptbl.setShrinkAllColumns(true);
-                temptbl.setStretchAllColumns(true);
+                stats[0] = entryMon.getHp();
+                stats[1] = entryMon.getAtk();
+                stats[2] = entryMon.getDef();
+                stats[3] = entryMon.getSpc();
+                stats[4] = entryMon.getSpe();
 
-                txt = new TextView(this.getContext());
-                txt.setGravity(Gravity.CENTER);
-                txt.setText(String.format(Locale.getDefault(), "%d",
-                        lookup.getPokemon(dexNum).getHp()));
-                inRow.addView(txt, 0);
+                linLay = new LinearLayout(this.getContext());
+                linLay.setOrientation(LinearLayout.HORIZONTAL);
 
-                txt = new TextView(this.getContext());
-                txt.setGravity(Gravity.CENTER);
-                txt.setText(String.format(Locale.getDefault(), "%d",
-                        lookup.getPokemon(dexNum).getAtk()));
-                inRow.addView(txt, 1);
-
-                txt = new TextView(this.getContext());
-                txt.setGravity(Gravity.CENTER);
-                txt.setText(String.format(Locale.getDefault(), "%d",
-                        lookup.getPokemon(dexNum).getDef()));
-                inRow.addView(txt, 2);
-
-                txt = new TextView(this.getContext());
-                txt.setGravity(Gravity.CENTER);
-                txt.setText(String.format(Locale.getDefault(), "%d",
-                        lookup.getPokemon(dexNum).getSpc()));
-                inRow.addView(txt, 3);
-
-                txt = new TextView(this.getContext());
-                txt.setGravity(Gravity.CENTER);
-                txt.setText(String.format(Locale.getDefault(), "%d",
-                        lookup.getPokemon(dexNum).getSpe()));
-                inRow.addView(txt, 4);
-
-                temptbl.addView(inRow, 0);
-                row.addView(temptbl, 4);
+                for (int i = 0; i < stats.length; i++) {
+                    txt = createIntTextView("%d", stats[i], 36);
+                    linLay.addView(txt, i);
+                }
+                row.addView(linLay, 4);
 
                 // TODO Level Column
+                if (mm.getLevel() != -1) {
+
+                    linLay = new LinearLayout(this.getContext());
+                    linLay.setOrientation(LinearLayout.HORIZONTAL);
+
+                    linLayRB = new LinearLayout(this.getContext());
+                    linLayRB.setOrientation(LinearLayout.VERTICAL);
+
+                    linLayY = new LinearLayout(this.getContext());
+                    linLayY.setOrientation(LinearLayout.VERTICAL);
+
+                    idx = 0;
+                    rbCount = 0;
+                    yCount = 0;
+                    int lv;
+                    while ((index + idx) < list.size()
+                            && list.get(index + idx).getDexNum() == dexNum
+                            && list.get(index + idx).getLevel() != -1) {
+
+                        mm = list.get(index + idx);
+                        lv = mm.getLevel();
+                        if (lv == 0)
+                            lv = 1;
+                        txt = createIntTextView("Lv. %d", lv, 40);
+
+                        if (!mm.isYellow()) {
+                            linLayRB.addView(txt, rbCount);
+                            txt = createIntTextView("Lv. %d", lv, 40);
+                            linLayY.addView(txt, rbCount);
+                            rbCount++;
+                        }
+                        else {
+                            if (yCount == 0)
+                                linLayY.removeAllViews();
+                            linLayY.addView(txt, yCount);
+                            yCount++;
+                        }
+
+                        idx++;
+                    }
+                    linLay.addView(linLayRB, 0);
+                    linLay.addView(linLayY, 1);
+                    index += idx;
+
+                    row.addView(linLay, 5);
+
+                }
 
 
                 // Adds the column to the appropriate table and increments
@@ -214,10 +250,23 @@ public class MovesDataFragment extends Fragment {
                     lvlCount++;
                     monTable.addView(row, lvlCount);
                 }
-
             }
             index++;
         }
+
+        if (tmCount == 0) {
+            monTable2.removeAllViews();
+            binding.moveTmTitleTxt.setText("");
+        }
+    }
+
+    private TextView createIntTextView(String format, int entry, int width) {
+        TextView text = new TextView(this.getContext());
+        text.setText(String.format(Locale.getDefault(), format, entry));
+        text.setGravity(Gravity.CENTER);
+        text.setWidth((int)(width * res.getDisplayMetrics().density));
+
+        return text;
     }
 
 }
