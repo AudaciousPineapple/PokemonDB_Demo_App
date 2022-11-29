@@ -1,7 +1,8 @@
-package com.example.pokemondbappv2;
+package com.example.pokemondbappv2.pokedex;
 
 import android.os.Bundle;
 
+import com.example.pokemondbappv2.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;

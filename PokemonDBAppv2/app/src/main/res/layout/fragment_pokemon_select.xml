@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonSelectFragment">
+    tools:context=".pokedex.PokemonSelectFragment">
 
     <!-- TODO This is a bare-bones layout, will update to look better -->
     <TextView

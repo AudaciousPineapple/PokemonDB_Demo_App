@@ -7,7 +7,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import java.text.DecimalFormat;
 
-abstract class PokemonMethods {
+public abstract class PokemonMethods {
 
     /**
      * FIXME

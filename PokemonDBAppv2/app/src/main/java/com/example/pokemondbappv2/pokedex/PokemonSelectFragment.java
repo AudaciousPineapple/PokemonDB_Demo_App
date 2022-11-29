@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2;
+package com.example.pokemondbappv2.pokedex;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.pokemondbappv2.R;
 import com.example.pokemondbappv2.databinding.FragmentPokemonSelectBinding;
 
 public class PokemonSelectFragment extends Fragment {

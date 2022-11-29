@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2;
+package com.example.pokemondbappv2.pokedex;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -15,6 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.pokemondbappv2.DBHandler;
+import com.example.pokemondbappv2.ModelMove;
+import com.example.pokemondbappv2.ModelMoveset;
+import com.example.pokemondbappv2.ModelPokemonG1;
+import com.example.pokemondbappv2.PokemonMethods;
+import com.example.pokemondbappv2.R;
+import com.example.pokemondbappv2.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonDataBinding;
 
 import java.text.DecimalFormat;
@@ -46,6 +53,7 @@ public class PokemonDataFragment extends Fragment{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /*
         res = getResources();
         pokemonLookup = new DBHandler(this.getContext());
         dFormat = new DecimalFormat("0.#");
@@ -99,15 +107,15 @@ public class PokemonDataFragment extends Fragment{
 
                     setMoveset(dexNum);
 
-                }));
+                })); */
     }
 
-    /**
+    /*
      * setTypePic method - Sets the resource for the selected ImageView for Pokemon Types
      * @param type - The type being used
      * @param type1 - true if the ImageView is for the pokemon's first type, false for the 2nd
      */
-    private void setTypePic(Type type, boolean type1) {
+    /*private void setTypePic(Type type, boolean type1) {
         ImageView imgView;
         if (type1)
             imgView = binding.type1;
@@ -115,7 +123,7 @@ public class PokemonDataFragment extends Fragment{
             imgView = binding.type2;
 
         imgView.setImageDrawable(PokemonMethods.getTypeImg(res, type));
-    }
+    }*/
 
     @Override
     public void onDestroyView() {
@@ -129,7 +137,7 @@ public class PokemonDataFragment extends Fragment{
      * @param dexNum - The dex number of the pokemon who's images will be loaded
      * @return - The id of the 1st drawable resource used within the method
      */
-    private int setDexPics(int dexNum) {
+/*    private int setDexPics(int dexNum) {
         int id = R.drawable.g1_001_1 + ((dexNum - 1) * 3);
 
         binding.sprite1.setImageDrawable(ResourcesCompat.getDrawable(res, id, null));
@@ -137,7 +145,7 @@ public class PokemonDataFragment extends Fragment{
         binding.sprite3.setImageDrawable(ResourcesCompat.getDrawable(res, id + 2, null));
 
         return id;
-    }
+    }*/
 
     /**
      * setEvoImages - Sets the images in the pokemon's evolution graphic
@@ -145,7 +153,7 @@ public class PokemonDataFragment extends Fragment{
      * @param prevoNum - The dex num of the pokemon who is the pre-evolution
      * @param drawId the int ID of the current pokemon's first drawable
      */
-    private void setEvoImages(int curNum, int evoNum, int evoLvl, int prevoNum, int drawId) {
+/*    private void setEvoImages(int curNum, int evoNum, int evoLvl, int prevoNum, int drawId) {
         int idx, pNum = prevoNum, eNum = evoNum, cNum = curNum, vNum = evoLvl;
         ImageView[] evoLayout = new ImageView[5];
 
@@ -229,14 +237,14 @@ public class PokemonDataFragment extends Fragment{
                 }
             }
         }
-    }
+    }*/
 
     /**
      * FIXME
      * @param locString
      * @return
      */
-    private String modLocString(String locString) {
+/*    private String modLocString(String locString) {
         StringBuffer strBuf = new StringBuffer(locString);
 
         int idx = 0;
@@ -255,13 +263,13 @@ public class PokemonDataFragment extends Fragment{
                 cont = false;
         }
         return strBuf.toString();
-    }
+    }*/
 
     /**
      * FIXME
      * @param dexNum
      */
-    private void setMoveset(int dexNum) {
+/*    private void setMoveset(int dexNum) {
         ArrayList<ModelMoveset> list = pokemonLookup.getMoveset(dexNum);
         TableRow newRow;
         String moveName, tempString;
@@ -390,14 +398,14 @@ public class PokemonDataFragment extends Fragment{
             binding.yellowLevelTxt.setText("");
             yellowTable.removeAllViews();
         }
-    }
+    }*/
 
     /**
      * FIXME
      * @param move
      * @param row
      */
-    private void finishMovesetEntry(ModelMove move, TableRow row) {
+/*    private void finishMovesetEntry(ModelMove move, TableRow row) {
         // move type
         ImageView img = new ImageView(this.getContext());
         img.setImageDrawable(PokemonMethods.getTypeImg(res, move.getType()));
@@ -430,7 +438,7 @@ public class PokemonDataFragment extends Fragment{
         textView = new TextView(this.getContext());
         textView.setText(move.getEffect());
         row.addView(textView, 7);
-    }
+    }*/
 
 }
 

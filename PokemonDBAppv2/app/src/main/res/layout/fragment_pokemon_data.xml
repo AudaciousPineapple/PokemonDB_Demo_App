@@ -3,334 +3,172 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonDataFragment" >
+    tools:context=".pokedex.PokemonDataFragment" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TableLayout
-            android:layout_margin="10dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <!-- Name & num -->
+            <!-- Pokemon Nat. Dex number & name -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/num_text"
+                    android:id="@+id/pokemon_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/placeholder_num"
-                    android:textSize="20sp"
-                    android:layout_marginHorizontal="5dp" />
+                    android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/name_text"
-                    android:text="@string/placeholder_name"
-                    android:textSize="40sp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/pokemon_name"
                     android:layout_width="wrap_content"
-                    android:layout_marginHorizontal="5dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/placeholder_name"
+                    android:textSize="30sp" />
 
             </LinearLayout>
 
-            <!-- Sprites -->
+            <!-- Pokemon Image & names -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:id="@+id/sprite1"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/g1_001_1"
-                    android:contentDescription="@string/g1_image_1"/>
-
-                <ImageView
-                    android:id="@+id/sprite2"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/g1_001_1"
-                    android:contentDescription="@string/g1_image_2"/>
-
-                <ImageView
-                    android:id="@+id/sprite3"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/g1_001_1"
-                    android:contentDescription="@string/g1_image_3" />
-
-            </LinearLayout>
-
-            <!-- Various stats -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/type1"
-                    android:layout_height="30dp"
-                    android:layout_width="80dp"
-                    android:scaleType="fitCenter"
-                    android:layout_marginHorizontal="20dp"
-                    android:contentDescription="@string/type_1"/>
-
-                <ImageView
-                    android:id="@+id/type2"
-                    android:layout_height="30dp"
-                    android:layout_width="80dp"
-                    android:scaleType="fitCenter"
-                    android:layout_marginHorizontal="20dp"
-                    android:contentDescription="@string/type_2" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/classification_"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/class_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_text"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="5dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/height_"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/height_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_dec"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/m"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="5dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weight_"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/weight_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_dec"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kg"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="5dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/capture_rate_"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/cap_rate_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_int"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="5dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/experience_growth_"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/xp_rate_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/placeholder_xp_growth"
-                    android:textSize="15sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="5dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stats_"
-                    android:textSize="20sp"
-                    android:layout_gravity="center_vertical"/>
+                    android:id="@+id/pokemon_img"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".50"
+                    android:src="@drawable/p1" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:layout_weight=".50"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/names"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/hp_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/placeholder_int"
-                            android:textSize="15sp"/>
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/hp_"
-                            android:textSize="15sp"/>
+                            android:text="@string/english_"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/pokemon_name_eng"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_text" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/atk_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/placeholder_int"
-                            android:textSize="15sp"/>
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/attack_"
-                            android:textSize="15sp"/>
+                            android:text="@string/japan_"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/pokemon_name_jp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/placeholder_text" />
+
+                            <TextView
+                                android:id="@+id/pokemon_name_jp_eng"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/placeholder_text" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/def_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/placeholder_int"
-                            android:textSize="15sp"/>
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/defense_"
-                            android:textSize="15sp"/>
+                            android:text="@string/french_"
+                            android:textStyle="bold" />
 
-
+                        <TextView
+                            android:id="@+id/pokemon_name_fr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_text" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/spc_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/placeholder_int"
-                            android:textSize="15sp"/>
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_"
-                            android:textSize="15sp"/>
+                            android:text="@string/german_"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/pokemon_name_ger"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_text" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/spd_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/placeholder_int"
-                            android:textSize="15sp"/>
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/speed_"
-                            android:textSize="15sp"/>
+                            android:text="@string/korean_"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/pokemon_name_kor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_text" />
 
                     </LinearLayout>
 
@@ -338,470 +176,571 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/evolution_"
-                android:textSize="20sp"
-                android:gravity="center_horizontal"/>
-
-            <!-- Evolution graphic, which will be populated at runtime -->
+            <!-- Dex nums, types, class, height, weight, gender ratio, cap rate & egg steps -->
             <LinearLayout
-                android:id="@+id/evo_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
+
+                <!-- Dex Nums -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dex_numbers_"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/dexNum_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Type, Classification, Height & Weight -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.40"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/type"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/pokemon_type1_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/type_grass" />
+
+                        <ImageView
+                            android:id="@+id/pokemon_type2_img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:src="@drawable/type_poison" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/classification"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_class_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_text" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/height"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_height_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weight"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_weight_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.30"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender_ratio"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/male_" />
+
+                        <TextView
+                            android:id="@+id/pokemon_male_percent_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_num" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/female_" />
+
+                        <TextView
+                            android:id="@+id/pokemon_female_percent_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/placeholder_num" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/capture_rate"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_cap_rate_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/base_egg_steps"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_egg_steps_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <!-- Pokemon Locations -->
+            <!-- Abilities -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/locations_"
-                android:textSize="20sp"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/red_"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/red_locations_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placeholder_location_text" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/green_jp_amp_blue_intl_"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/jp_green_us_blue_locations_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placeholder_location_text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blue_jp_"
+                android:text="@string/abilities"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/jp_blue_locations_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_location_text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/yellow_"
+                android:text="@string/placeholder_name"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/yellow_locations_txt"
-                android:layout_width="wrap_content"
+                android:id="@+id/pokemon_ability_1_txt"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_location_text" />
+                android:text="@string/placeholder_text" />
 
             <TextView
-                android:id="@+id/level_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pokemon_ability_2_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/red_green_amp_blue_level_up"
-                android:gravity="center_horizontal"
-                android:textSize="20sp" />
+                android:text="@string/placeholder_text" />
 
-            <!-- Gen 1 Level-up table -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_name"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pokemon_ability_hidden_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_text" />
+
+            <!-- XP Growth, Base Happiness, EVs earned & Dynamax capable -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- XP Growth -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xp_growth"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_xp_growth_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_name" />
+
+                </LinearLayout>
+
+                <!-- Base Happiness -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/base_happiness"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_base_happy_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+                </LinearLayout>
+
+                <!-- EVs Earned -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/evs_earned"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_ev_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_num" />
+
+                </LinearLayout>
+
+                <!-- Can Dynamax?-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.25"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/can_dynamax"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_dynamax_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_name" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- XP Growth, Base Happiness, EVs earned & Dynamax capable -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Wild Hold Item -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wild_hold_item"
+                        android:textStyle="bold" />
+
+                    <ListView
+                        android:id="@+id/wild_hold_item_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <!-- Egg Groups -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.50"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/egg_groups"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/pokemon_egg1_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_name" />
+
+                    <TextView
+                        android:id="@+id/pokemon_egg2_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_name" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/evo_chain_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/evolutionary_chain"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <LinearLayout
+                android:id="@+id/evo_chain_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/gender_diff_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/gender_differences"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:id="@+id/gender_diff_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/alt_forms_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/alternate_forms"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:id="@+id/alt_forms_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/locations_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/locations"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:id="@+id/locations_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/flavor_text_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/flavor_text"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:id="@+id/flavor_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/move_lvl_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/standard_level_up"
+                android:clickable="true"
+                android:focusable="true"/>
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
-                 <TableLayout
-                     android:id="@+id/level_move_table"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:id="@+id/move_level_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
                             android:text="@string/level"
-                            android:layout_marginHorizontal="3dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/attack_name"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/power"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/accuracy"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pp"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/effect"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/battle_effect"
-                            android:layout_marginHorizontal="3dp" />
-
-                    </TableRow>
-                 </TableLayout>
-
-
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/yellow_level_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/yellow_level_up"
-                android:gravity="center_horizontal"
-                android:textSize="20sp" />
-
-            <!-- Yellow Level-up Table -->
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TableLayout
-                    android:id="@+id/yellow_level_move_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/level"
-                            android:layout_marginHorizontal="3dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/attack_name"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/power"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/accuracy"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pp"
-                            android:layout_marginHorizontal="3dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/effect"
-                            android:layout_marginHorizontal="3dp"
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/battle_effect"
-                            android:layout_marginHorizontal="3dp"
-                            />
-
-                    </TableRow>
-                </TableLayout>
-
-
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/tm_move_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tm_amp_hm_moves_"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                />
-
-            <!-- TM/HM Level-up Table -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableLayout
-                    android:id="@+id/tm_move_table"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/tm_hm"
+                            android:textStyle="bold"
                             android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
                             android:text="@string/attack_name"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/type"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/power"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/accuracy"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pp"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/effect"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/battle_effect"
-                            android:layout_marginHorizontal="2dp" />
-
-                    </TableRow>
-                </TableLayout>
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/prevo_move_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/pre_evolution_only_moves_"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                />
-
-            <!-- Pre-Evolution Level-up Table -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableLayout
-                    android:id="@+id/prevo_move_table"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/method"
+                            android:textStyle="bold"
                             android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/attack_name"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:text="@string/type"
-                            android:layout_marginHorizontal="2dp" />
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
-                            android:text="@string/power"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/accuracy"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pp"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/effect"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/battle_effect"
-                            android:layout_marginHorizontal="2dp" />
-
-                    </TableRow>
-                </TableLayout>
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/special_move_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/special_moves"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                />
-
-            <!-- Pre-Evolution Level-up Table -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TableLayout
-                    android:id="@+id/special_move_table"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/method"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
                             android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
-                            android:text="@string/attack_name"
-                            android:layout_marginHorizontal="2dp" />
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/type"
-                            android:layout_marginHorizontal="2dp" />
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/power"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/accuracy"
-                            android:layout_marginHorizontal="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
                             android:text="@string/pp"
-                            android:layout_marginHorizontal="2dp" />
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
-                            android:text="@string/effect"
-                            android:layout_marginHorizontal="2dp" />
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/battle_effect"
-                            android:layout_marginHorizontal="2dp" />
+                    </LinearLayout>
 
-                    </TableRow>
-                </TableLayout>
+                </LinearLayout>
+
+
             </HorizontalScrollView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:visibility="invisible"
-                android:text="@string/placeholder_location_text"/>
+        </LinearLayout>
 
-        </TableLayout>
     </ScrollView>
 </RelativeLayout>
