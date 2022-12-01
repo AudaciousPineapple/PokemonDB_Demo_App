@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.pokemondbappv2.databinding.FragmentWelcomeBinding;
-import com.example.pokemondbappv2.pokedex.PokemonActivity;
+import com.example.pokemondbappv2.pokedex.fragments.PokemonActivity;
 
 public class WelcomeFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener  {
 

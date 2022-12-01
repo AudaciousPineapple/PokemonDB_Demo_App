@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/PokemonSelectFragment"
-        android:name="com.example.pokemondbappv2.pokedex.PokemonSelectFragment"
+        android:name="com.example.pokemondbappv2.pokedex.fragments.PokemonSelectFragment"
         android:label="@string/pokemon_fragment_label"
         tools:layout="@layout/fragment_pokemon_select">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/PokemonDataFragment"
-        android:name="com.example.pokemondbappv2.pokedex.PokemonDataFragment"
+        android:name="com.example.pokemondbappv2.pokedex.fragments.PokemonDataFragment"
         android:label="@string/pokemon_fragment_label"
         tools:layout="@layout/fragment_pokemon_data">
 

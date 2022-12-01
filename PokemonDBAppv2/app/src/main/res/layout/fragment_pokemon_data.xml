@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pokedex.PokemonDataFragment" >
+    tools:context=".pokedex.fragments.PokemonDataFragment" >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -362,37 +362,40 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/pokemon_ability_1_name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_name"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/pokemon_ability_1_txt"
+                android:id="@+id/pokemon_ability_1_desc_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_text" />
 
             <TextView
+                android:id="@+id/pokemon_ability_2_name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_name"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/pokemon_ability_2_txt"
+                android:id="@+id/pokemon_ability_2_desc_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_text" />
 
             <TextView
+                android:id="@+id/pokemon_ability_hidden_name_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_name"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/pokemon_ability_hidden_txt"
+                android:id="@+id/pokemon_ability_hidden_desc_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/placeholder_text" />
@@ -555,6 +558,7 @@
 
             </LinearLayout>
 
+            <!-- Gen select spinner -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -574,7 +578,7 @@
 
             </LinearLayout>
 
-
+            <!-- Evo chain graphic -->
             <TextView
                 android:id="@+id/evo_chain_lbl"
                 android:layout_width="match_parent"
@@ -593,6 +597,7 @@
                 android:gravity="center_horizontal"
                 android:visibility="gone"/>
 
+            <!-- Gender difference graphic -->
             <TextView
                 android:id="@+id/gender_diff_lbl"
                 android:layout_width="match_parent"
@@ -611,6 +616,7 @@
                 android:gravity="center_horizontal"
                 android:visibility="gone"/>
 
+            <!-- Alt. Forms graphic -->
             <TextView
                 android:id="@+id/alt_forms_lbl"
                 android:layout_width="match_parent"
@@ -629,6 +635,7 @@
                 android:gravity="center_horizontal"
                 android:visibility="gone"/>
 
+            <!-- Locations List -->
             <TextView
                 android:id="@+id/locations_lbl"
                 android:layout_width="match_parent"
@@ -646,6 +653,7 @@
                 android:orientation="vertical"
                 android:visibility="gone"/>
 
+            <!-- Flavor text list -->
             <TextView
                 android:id="@+id/flavor_text_lbl"
                 android:layout_width="match_parent"
@@ -663,6 +671,7 @@
                 android:orientation="vertical"
                 android:visibility="gone"/>
 
+            <!-- Movesets -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -1457,7 +1466,7 @@
                             android:gravity="center_horizontal"/>
 
                         <TextView
-                            android:layout_width="40dp"
+                            android:layout_width="80dp"
                             android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
                             android:text="@string/cat"
@@ -1465,7 +1474,7 @@
                             android:layout_marginHorizontal="2dp"/>
 
                         <TextView
-                            android:layout_width="40dp"
+                            android:layout_width="150dp"
                             android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
                             android:text="@string/atk"
@@ -1544,6 +1553,187 @@
                             android:gravity="center_horizontal"/>
 
                         <TextView
+                            android:layout_width="80dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Max Move Table -->
+            <TextView
+                android:id="@+id/move_max_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/usable_max_moves"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_max_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/max_atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/forms"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Pre_Evolution Moves Table -->
+            <TextView
+                android:id="@+id/move_prevo_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/pre_evolution_only_moves"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_prevo_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
                             android:layout_width="40dp"
                             android:gravity="center_horizontal"
                             android:layout_height="wrap_content"
@@ -1583,9 +1773,553 @@
                             android:textStyle="bold"
                             android:layout_marginHorizontal="2dp"/>
 
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/method"
+                            android:textStyle="bold"/>
+
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
+
+            <!-- Stats Table -->
+            <TextView
+                android:id="@+id/stats_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/stats"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/stats_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Header Row -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hp"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/attack"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/defense"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sp_attack"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sp_defense"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/speed"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+                    <!-- Base stats row -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/stats_total_txt"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/base_stats_total_"/>
+
+                        <TextView
+                            android:id="@+id/base_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/base_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/base_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/base_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/base_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/base_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <!-- Hindering Nature stats row -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:text="@string/max_stats"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="top"
+                                android:text="@string/hindering_nature"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/lv_50"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_50_hp_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_50_atk_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_50_def_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_50_spa_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_50_spd_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_50_spe_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/lv_100"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_100_hp_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_100_atk_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_100_def_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_100_spa_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_100_spd_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/hinder_100_spe_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Neutral Nature stats row -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:text="@string/max_stats"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="top"
+                                android:text="@string/neutral_nature"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/lv_50"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_50_hp_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_50_atk_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_50_def_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_50_spa_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_50_spd_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_50_spe_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/lv_100"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_100_hp_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_100_atk_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_100_def_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_100_spa_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_100_spd_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/neutral_100_spe_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Beneficial Nature stats row -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom"
+                                android:text="@string/max_stats"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="top"
+                                android:text="@string/beneficial_nature"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/lv_50"/>
+
+                                <TextView
+                                    android:id="@+id/good_50_hp_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_50_atk_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_50_def_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_50_spa_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_50_spd_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_50_spe_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start"
+                                    android:text="@string/lv_100"/>
+
+                                <TextView
+                                    android:id="@+id/good_100_hp_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_100_atk_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_100_def_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_100_spa_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_100_spd_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:id="@+id/good_100_spe_txt"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_horizontal"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <!-- Mega Evolution Data will be added here at runtime if needed -->
+
+            <!-- Gigantamax Data will be added here at runtime if needed -->
+
         </LinearLayout>
 
     </ScrollView>

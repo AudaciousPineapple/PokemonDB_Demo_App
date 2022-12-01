@@ -4,11 +4,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="welcome_fragment_label">Welcome</string>
     <string name="pokemon_fragment_label">Pokédex</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="welcome_message">Welcome to the Pokémon Database App!</string>
     <string name="pokemon">Pokémon</string>
     <string name="moves">Moves</string>
@@ -17,30 +12,22 @@
     <string name="select_your_pokemon_">Select your Pokémon:\ </string>
     <string name="pokemon_welcome">Welcome to the Pokédex!</string>
 
+    <!-- Placeholder text -->
     <string name="placeholder_num">Num</string>
     <string name="placeholder_name">Name</string>
-    <string name="classification_">Classification:\ </string>
-    <string name="classification_2">\ Pokémon</string>
     <string name="placeholder_text">Placeholder text</string>
-    <string name="height_">Height:\ </string>
     <string name="placeholder_dec">0.0</string>
-    <string name="m">m</string>
-    <string name="weight_">Weight:\ </string>
-    <string name="kg">kg</string>
-    <string name="capture_rate_">Capture Rate:\ </string>
     <string name="placeholder_int">0</string>
-    <string name="experience_growth_">Experience Growth:\ </string>
     <string name="placeholder_xp_growth">0 | None</string>
-    <string name="stats_">Stats:\ </string>
-    <string name="hp_">\ HP</string>
-    <string name="attack_">\ Attack</string>
-    <string name="defense_">\ Defense</string>
-    <string name="special_">\ Special</string>
-    <string name="speed_">\ Speed</string>
     <string name="placeholder_evolution_graphic">Evolution graphic will be filled in at runtime!</string>
+    <string name="placeholder_location_text">Locations will be filled at runtime!</string>
+
+    <string name="classification_2">\ Pokémon</string>
+    <string name="height_">Height:\ </string>
+    <string name="m">m</string>
+    <string name="kg">kg</string>
     <string name="locations_">Locations:</string>
     <string name="red_">Red:\ </string>
-    <string name="placeholder_location_text">Locations will be filled at runtime!</string>
     <string name="green_jp_amp_blue_intl_"><![CDATA[Green(Jp.) & Blue(Intl.): ]]></string>
     <string name="blue_jp_">Blue(Jp.):\ </string>
     <string name="yellow_">Yellow:\ </string>
@@ -51,9 +38,6 @@
     <string name="power">\ Power\ </string>
     <string name="accuracy">\ Accuracy\ </string>
     <string name="pp">\ PP\ </string>
-    <string name="effect">Effect %</string>
-    <string name="tm_amp_hm_moves_"><![CDATA[TM & HM Moves:]]></string>
-    <string name="tm_hm">TM/HM</string>
     <string name="enter_a_pok_mon">Enter a Pokémon #</string>
     <string name="go">GO!</string>
     <string name="g1_image_3">G1 Image 3</string>
@@ -112,6 +96,18 @@
     <string name="spd">Spd</string>
     <string name="y">Y</string>
     <string name="rb">RB</string>
+
+    <!-- Strings used in the pokemon select fragment -->
+    <string name="kanto_nums">Kanto: 001 – 151</string>
+    <string name="johto_nums">Johto: 152 – 251</string>
+    <string name="hoenn_nums">Hoenn: 252 – 386</string>
+    <string name="sinnoh_nums">Sinnoh: 387 – 493</string>
+    <string name="unova_nums">Unova: 494 – 649</string>
+    <string name="kalos_nums">Kalos: 650 – 721</string>
+    <string name="alola_nums">Alola: 722 – 809</string>
+    <string name="galar_hisui_nums">Galar/Hisui: 810 – 905</string>
+
+    <!-- String used in the pokemon Data Fragment -->
     <string name="names">Names</string>
     <string name="english_">English:\ </string>
     <string name="japan_">Japan:\ </string>
@@ -151,4 +147,28 @@
     <string name="move_tutor_moves">Move Tutor Moves</string>
     <string name="usable_z_moves">Usable Z Moves</string>
     <string name="usable_z_moves_improved">Usable Z Moves (Transfer Only/Improved)</string>
+    <string name="max_atk">Max Atk.</string>
+    <string name="forms">Forms</string>
+    <string name="usable_max_moves">Usable Max Moves</string>
+    <string name="pre_evolution_only_moves">Pre-Evolution Only Moves</string>
+    <string name="stats">Stats</string>
+    <string name="attack">Attack</string>
+    <string name="defense">Defense</string>
+    <string name="sp_attack">Sp. Attack</string>
+    <string name="sp_defense">Sp. Defense</string>
+    <string name="speed">Speed</string>
+    <string name="base_stats_total_">Base Stats - Total:\ </string>
+    <string name="max_stats">Max Stats</string>
+    <string name="hindering_nature">Hindering Nature</string>
+    <string name="lv_50">Lv. 50</string>
+    <string name="lv_100">Lv. 100</string>
+    <string name="neutral_nature">Neutral Nature</string>
+    <string name="beneficial_nature">Beneficial Nature</string>
+    <string name="mega_evolution">Mega Evolution</string>
+    <string name="stats_mega_evolution">Stats - Mega Evolution</string>
+    <string name="gigantamax_form">Gigantamax Form</string>
+    <string name="effect">Effect %</string>
+    <string name="tm_hm">TM/HM</string>
+    <string name="search_by_pok_dex_number">Search by Pokédex Number</string>
+    <string name="search_by_pok_mon_name">Search By Pokémon Name</string>
 </resources>

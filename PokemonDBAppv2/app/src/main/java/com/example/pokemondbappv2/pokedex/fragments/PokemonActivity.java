@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2.pokedex;
+package com.example.pokemondbappv2.pokedex.fragments;
 
 import android.os.Bundle;
 

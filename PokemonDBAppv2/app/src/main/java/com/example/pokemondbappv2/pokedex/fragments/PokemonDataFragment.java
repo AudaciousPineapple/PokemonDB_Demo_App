@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2.pokedex;
+package com.example.pokemondbappv2.pokedex.fragments;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -52,6 +52,8 @@ public class PokemonDataFragment extends Fragment{
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
 
         /*
         res = getResources();

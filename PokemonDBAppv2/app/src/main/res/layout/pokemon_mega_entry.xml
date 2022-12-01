@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Mega Evolution -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/mega_evolution"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <!-- Mega Image & names -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/mega_img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".50"
+            android:src="@drawable/p1" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/names"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english_"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mega_name_eng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/japan_"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mega_name_jp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_text" />
+
+                    <TextView
+                        android:id="@+id/mega_name_jp_eng"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_text" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/french_"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mega_name_fr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/german_"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mega_name_ger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/korean_"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/mega_name_kor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Mega dex num, types, height & weight -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Mega Dex Nums & Types -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dex_numbers_"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mega_dexNum_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/mega_type1_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/type_grass" />
+
+                <ImageView
+                    android:id="@+id/mega_type2_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/type_poison" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Mega Height & Weight -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/height"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mega_height_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mega_weight_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Mega Ability -->
+    <TextView
+        android:id="@+id/pokemon_ability_mega_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_name"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pokemon_ability_mega_desc_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_text" />
+
+    <!-- Mega Stats Table -->
+    <TextView
+        android:id="@+id/mega_stats_lbl"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:text="@string/stats_mega_evolution"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/mega_stats_table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hp"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attack"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/defense"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sp_attack"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sp_defense"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/speed"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <!-- Base stats row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mega_stats_total_txt"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/base_stats_total_"/>
+
+                <TextView
+                    android:id="@+id/mega_base_hp_txt"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/mega_base_atk_txt"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/mega_base_def_txt"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/mega_base_spa_txt"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/mega_base_spd_txt"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/mega_base_spe_txt"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+            <!-- Hindering Nature stats row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="@string/max_stats"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="@string/hindering_nature"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/lv_50"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_50_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_50_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_50_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_50_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_50_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_50_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/lv_100"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_100_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_100_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_100_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_100_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_100_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_hinder_100_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Neutral Nature stats row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="@string/max_stats"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="@string/neutral_nature"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/lv_50"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_50_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_50_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_50_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_50_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_50_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_50_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/lv_100"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_100_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_100_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_100_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_100_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_100_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_neutral_100_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Beneficial Nature stats row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:text="@string/max_stats"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="@string/beneficial_nature"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/lv_50"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_50_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_50_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_50_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_50_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_50_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_50_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/lv_100"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_100_hp_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_100_atk_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_100_def_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_100_spa_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_100_spd_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:id="@+id/mega_good_100_spe_txt"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>
