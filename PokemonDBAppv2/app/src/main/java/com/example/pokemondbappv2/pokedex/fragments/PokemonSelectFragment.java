@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -41,6 +42,8 @@ public class PokemonSelectFragment extends Fragment {
     private Button numberBtn, nameBtn;
     private Spinner kantoSpinner, johtoSpinner, hoennSpinner, sinnohSpinner, unovaSpinner,
     kalosSpinner, alolaSpinner, galarHisuiSpinner;
+
+    private DecimalFormat format;
 
     @Override
     public View onCreateView(
@@ -56,7 +59,8 @@ public class PokemonSelectFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Context context = this.getContext();
+        format = new DecimalFormat("000");
+
         kantoSpinner = binding.kantoSpinner;
         johtoSpinner = binding.johtoSpinner;
         hoennSpinner = binding.hoennSpinner;
@@ -164,9 +168,24 @@ public class PokemonSelectFragment extends Fragment {
                         tempStr = pokemonEntry.getString("name");
                         tempStr = tempStr.substring(0, 1).toUpperCase() + tempStr.substring(1).toLowerCase();
 
-                        if (i < 151) {
-                            kantoList.add()
-                        }
+                        if (i < 151)
+                            kantoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 251)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 386)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 493)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 649)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 721)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 809)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else if (i < 905)
+                            johtoList.add(format.format(i+1) + " " + tempStr);
+                        else
+                            break;
                     }
 
 
