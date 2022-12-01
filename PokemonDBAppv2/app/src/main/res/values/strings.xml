@@ -142,4 +142,13 @@
     <string name="cat">Cat.</string>
     <string name="acc">Acc.</string>
     <string name="effect_p">Effect %</string>
+    <string name="movesets">Movesets</string>
+    <string name="tm_hm_moves">TM/HM Moves</string>
+    <string name="tm">TM #</string>
+    <string name="tr">TR #</string>
+    <string name="egg_moves">Egg Moves</string>
+    <string name="tr_moves">TR Moves</string>
+    <string name="move_tutor_moves">Move Tutor Moves</string>
+    <string name="usable_z_moves">Usable Z Moves</string>
+    <string name="usable_z_moves_improved">Usable Z Moves (Transfer Only/Improved)</string>
 </resources>

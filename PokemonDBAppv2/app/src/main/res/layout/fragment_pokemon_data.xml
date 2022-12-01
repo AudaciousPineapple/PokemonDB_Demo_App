@@ -498,7 +498,7 @@
 
             </LinearLayout>
 
-            <!-- XP Growth, Base Happiness, EVs earned & Dynamax capable -->
+            <!-- Wild Hold Items & Egg Groups -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -554,6 +554,26 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_generation_"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/gen_select_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/evo_chain_lbl"
@@ -644,13 +664,22 @@
                 android:visibility="gone"/>
 
             <TextView
-                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/movesets"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <!-- Standard Level-up Table -->
+            <TextView
                 android:id="@+id/move_lvl_lbl"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textStyle="bold"
-                android:text="@string/standard_level_up"
+                android:text="@string/placeholder_text"
                 android:clickable="true"
                 android:focusable="true"/>
 
@@ -734,12 +763,829 @@
                             android:layout_marginHorizontal="2dp"/>
 
                     </LinearLayout>
-
                 </LinearLayout>
-
-
             </HorizontalScrollView>
 
+            <!-- Game 2 Level-up Table -->
+            <TextView
+                android:id="@+id/move_lvl_2_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/placeholder_text"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_level_2_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/level"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- TM/HM Table -->
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/move_tm_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/placeholder_text"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_tm_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/tm"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Game 2 TM/HM Table -->
+            <TextView
+                android:id="@+id/move_tm_2_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/placeholder_text"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_tm_2_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/tm"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- TR Table -->
+            <TextView
+                android:id="@+id/move_tr_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/tr_moves"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_tr_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/tr"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Egg Move Table -->
+            <TextView
+                android:id="@+id/move_egg_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/egg_moves"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_egg_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:id="@+id/move_egg_extra_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Move Tutor Table -->
+            <TextView
+                android:id="@+id/move_tutor_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/move_tutor_moves"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_tutor_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Move Tutor 2 Table -->
+            <TextView
+                android:id="@+id/move_tutor_2_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/placeholder_text"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_tutor_2_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Z Move Table -->
+            <TextView
+                android:id="@+id/move_z_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/usable_z_moves"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_z_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Z Move Improved/Transfer Only Table -->
+            <TextView
+                android:id="@+id/move_z_improved_lbl"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="@string/usable_z_moves_improved"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/move_z_improved_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/attack_name"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cat"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/atk"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="@string/acc"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pp"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:gravity="center_horizontal"
+                            android:layout_height="wrap_content"
+                            android:text="@string/effect_p"
+                            android:textStyle="bold"
+                            android:layout_marginHorizontal="2dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
         </LinearLayout>
 
     </ScrollView>
