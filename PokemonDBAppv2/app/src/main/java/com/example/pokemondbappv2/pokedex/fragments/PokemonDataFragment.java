@@ -1,12 +1,17 @@
 package com.example.pokemondbappv2.pokedex.fragments;
 
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -14,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.pokemondbappv2.DBHandler;
 import com.example.pokemondbappv2.ModelMove;
@@ -23,9 +29,23 @@ import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.R;
 import com.example.pokemondbappv2.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonDataBinding;
+import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class PokemonDataFragment extends Fragment{
@@ -34,11 +54,11 @@ public class PokemonDataFragment extends Fragment{
 
     private FragmentPokemonDataBinding binding;
     private int dexNum;
-    private DBHandler pokemonLookup;
-    private ModelPokemonG1 pokemon;
-    private LinearLayout evoLay;
+
+    private static final String NAME = "name";
+    private static final String NUM = "num";
+    ArrayList<HashMap<String, String>> inflationList;
     private Resources res;
-    private TableLayout levelTable, yellowTable, tmTable, prevoTable, specialTable;
 
     @Override
     public View onCreateView(
@@ -53,63 +73,17 @@ public class PokemonDataFragment extends Fragment{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        dFormat = new DecimalFormat("000");
+        inflationList = new ArrayList<HashMap<String, String>>();
+        res = this.getResources();
 
-
-        /*
-        res = getResources();
-        pokemonLookup = new DBHandler(this.getContext());
-        dFormat = new DecimalFormat("0.#");
-        dFormat2 = new DecimalFormat("#,###");
-        dFormat3 = new DecimalFormat("00");
-        evoLay = binding.evoLayout;
-        levelTable = binding.levelMoveTable;
-        yellowTable = binding.yellowLevelMoveTable;
-        tmTable = binding.tmMoveTable;
-        prevoTable = binding.prevoMoveTable;
-        specialTable = binding.specialMoveTable;
-
-        getParentFragmentManager().setFragmentResultListener("num", this,
+        getParentFragmentManager().setFragmentResultListener("dex_num", this,
                 ((requestKey, result) -> {
                     dexNum = result.getInt("dex_num");
-                    // Log.d("**TESTING**", "dexNum is "+dexNum);
-                    pokemon = pokemonLookup.getPokemon(dexNum);
-                    String tempStr;
-                    int tempInt;
+                    Log.d("**TESTING**", dFormat.format(dexNum));
 
-                    binding.nameText.setText(pokemon.getName());
-                    binding.numText.setText(String.format(Locale.getDefault(), "%d", dexNum));
-
-                    tempInt = setDexPics(dexNum);
-
-                    setTypePic(pokemon.getType1(), true);
-                    setTypePic(pokemon.getType2(), false);
-
-                    tempStr = pokemon.getClassification() + getString(R.string.classification_2);
-                    binding.classText.setText(tempStr);
-                    binding.heightText.setText(dFormat.format(pokemon.getHeight()));
-                    binding.weightText.setText(dFormat.format(pokemon.getWeight()));
-                    binding.capRateText.setText(String.format(Locale.getDefault(), "%d", pokemon.getCaptureRate()));
-
-                    tempStr = dFormat2.format(pokemon.getXpGrowth().getRate()) + " | "
-                            + pokemon.getXpGrowth().getValue();
-                    binding.xpRateText.setText(tempStr);
-
-                    binding.hpText.setText(String.format(Locale.getDefault(), "%d", pokemon.getHp()));
-                    binding.atkText.setText(String.format(Locale.getDefault(), "%d", pokemon.getAtk()));
-                    binding.defText.setText(String.format(Locale.getDefault(), "%d", pokemon.getDef()));
-                    binding.spcText.setText(String.format(Locale.getDefault(), "%d", pokemon.getSpc()));
-                    binding.spdText.setText(String.format(Locale.getDefault(), "%d", pokemon.getSpe()));
-
-                    setEvoImages(dexNum, pokemon.getEvo(), pokemon.getEvoLvl(), pokemon.getPrEvo(), tempInt);
-
-                    binding.redLocationsTxt.setText(modLocString(pokemon.getRedLoc()));
-                    binding.jpGreenUsBlueLocationsTxt.setText(modLocString(pokemon.getBlueLoc()));
-                    binding.jpBlueLocationsTxt.setText(modLocString(pokemon.getGreenLoc()));
-                    binding.yellowLocationsTxt.setText(modLocString(pokemon.getYellowLoc()));
-
-                    setMoveset(dexNum);
-
-                })); */
+                    new getPokemonData().execute();
+        }));
     }
 
     /*
@@ -131,144 +105,132 @@ public class PokemonDataFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        pokemonLookup.close();
+    }
+
+    private class getPokemonData extends AsyncTask<Void, Void, Void> {
+        String speciesResult = "";
+        String pokemonResult = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpURLConnection urlConnection;
+            BufferedReader reader;
+
+            try {
+                // pulls a list of all pokemon species and stores the result in a String
+                String tempStr = "https://pokeapi.co/api/v2/pokemon-species/" + dexNum;
+                URL url = new URL(tempStr);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                InputStream inputStream = urlConnection.getInputStream();
+
+                if (inputStream == null)
+                    return null;
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                while ((tempStr = reader.readLine()) != null)
+                    speciesResult += tempStr;
+
+                Log.d("API request returned: ", speciesResult);
+
+                urlConnection.disconnect();
+                reader.close();
+
+                tempStr = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
+                url = new URL(tempStr);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                inputStream = urlConnection.getInputStream();
+
+                if (inputStream == null)
+                    return null;
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                while ((tempStr = reader.readLine()) != null)
+                    pokemonResult += tempStr;
+
+                Log.d("API request returned: ", pokemonResult);
+
+                urlConnection.disconnect();
+                reader.close();
+
+
+            } catch (IOException e) {
+                Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
+            }
+
+            // Log.d("API request returned: ", speciesResult);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void r) {
+            super.onPostExecute(r);
+
+
+                try {
+                    JSONObject speciesObj = new JSONObject(speciesResult);
+                    JSONObject pokemonObj = new JSONObject(pokemonResult);
+
+                    binding.pokemonNum.setText(dFormat.format(dexNum));
+
+                    String pokemonName = speciesObj.getString(NAME);
+                    pokemonName = PokemonMethods.fixPokemonName(pokemonName);
+
+                    binding.pokemonName.setText(pokemonName);
+
+                    String tempStr = pokemonObj.getJSONObject("sprites").getJSONObject("other")
+                            .getJSONObject("official-artwork").getString("front_default");
+
+                    // Log.d("**TESTING**", tempStr);
+                    new APICalls.ImageLoadTask(tempStr, binding.pokemonImg).execute();
+
+                    JSONArray tempArray = speciesObj.getJSONArray("names");
+
+                    binding.pokemonNameEng.setText(pokemonName);
+                    binding.pokemonNameJp.setText(tempArray.getJSONObject(0).getString(NAME));
+                    binding.pokemonNameJpEng.setText(tempArray.getJSONObject(1).getString(NAME));
+                    binding.pokemonNameFr.setText(tempArray.getJSONObject(4).getString(NAME));
+                    binding.pokemonNameGer.setText(tempArray.getJSONObject(5).getString(NAME));
+                    binding.pokemonNameKor.setText(tempArray.getJSONObject(2).getString(NAME));
+
+                    tempArray = speciesObj.getJSONArray("pokedex_numbers");
+                    for (int i = 0; i < tempArray.length(); i++) {
+                        HashMap<String, String> tempInfo = new HashMap<>();
+                        JSONObject tempObj = tempArray.getJSONObject(i);
+
+                        tempStr = tempObj.getJSONObject("pokedex").getString(NAME);
+                        tempStr = PokemonMethods.fixPokemonName(tempStr);
+                        View child = getLayoutInflater().inflate(R.layout.pokemon_dexnum_entry, null);
+                        ((TextView)(child.findViewById(R.id.dexName_listEntry_txt))).setText(tempStr);
+
+                        tempStr =  "# " + tempObj.getInt("entry_number");
+                        ((TextView)(child.findViewById(R.id.dexNum_listEntry_txt))).setText(tempStr);
+                        binding.dexNumList.addView(child);
+                    }
+
+                } catch (JSONException e) {
+                    Log.i("JSON Parsing", "EXCEPTION: " + e.getMessage());
+                }
+
+        }
     }
 
     /**
-     * setDexPics method - Sets the resources for the 3 main ImageViews for the pokemon's sprites
-     * @param dexNum - The dex number of the pokemon who's images will be loaded
-     * @return - The id of the 1st drawable resource used within the method
-     */
-/*    private int setDexPics(int dexNum) {
-        int id = R.drawable.g1_001_1 + ((dexNum - 1) * 3);
-
-        binding.sprite1.setImageDrawable(ResourcesCompat.getDrawable(res, id, null));
-        binding.sprite2.setImageDrawable(ResourcesCompat.getDrawable(res, id + 1, null));
-        binding.sprite3.setImageDrawable(ResourcesCompat.getDrawable(res, id + 2, null));
-
-        return id;
-    }*/
-
-    /**
-     * setEvoImages - Sets the images in the pokemon's evolution graphic
-     * @param evoNum - The dex num of the pokemon who is the evolution
-     * @param prevoNum - The dex num of the pokemon who is the pre-evolution
-     * @param drawId the int ID of the current pokemon's first drawable
-     */
-/*    private void setEvoImages(int curNum, int evoNum, int evoLvl, int prevoNum, int drawId) {
-        int idx, pNum = prevoNum, eNum = evoNum, cNum = curNum, vNum = evoLvl;
-        ImageView[] evoLayout = new ImageView[5];
-
-        if (eNum == 0) {
-            idx = 4;
-
-            evoLayout[idx] = new ImageView(this.getContext());
-            evoLayout[idx].setImageDrawable(ResourcesCompat.getDrawable(res, drawId, null));
-
-            while (pNum != 0) {
-                idx--;
-
-                evoLayout[idx] = new ImageView(this.getContext());
-                evoLayout[idx].setImageDrawable(PokemonMethods.getEvoArrow(res, pokemonLookup.getPokemon(pNum).getEvoLvl()));
-
-                idx--;
-
-                evoLayout[idx] = new ImageView(this.getContext());
-                evoLayout[idx].setImageDrawable(ResourcesCompat.getDrawable(res, drawId + ((pNum - curNum) * 3) , null));
-
-                cNum = pNum;
-                // String str = "The prevo of " + pNum;
-                pNum = pokemonLookup.getPokemon(cNum).getPrEvo();
-                //Log.d("**TESTING**", str + " is " + pNum);
-            }
-
-            for (int i = 0; idx <= 4; i++) {
-                evoLay.addView(evoLayout[idx], i);
-                idx++;
-            }
-        }
-        else if (pNum == 0) {
-            idx = 0;
-
-            evoLayout[idx] = new ImageView(this.getContext());
-            evoLayout[idx].setImageDrawable(ResourcesCompat.getDrawable(res, drawId, null));
-
-            while (eNum != 0) {
-                idx++;
-
-                evoLayout[idx] = new ImageView(this.getContext());
-                evoLayout[idx].setImageDrawable(PokemonMethods.getEvoArrow(res, vNum)); //TODO add specific level-up arrows
-
-                idx++;
-
-                evoLayout[idx] = new ImageView(this.getContext());
-                evoLayout[idx].setImageDrawable(ResourcesCompat.getDrawable(res, drawId + ((eNum - curNum) * 3), null));
-
-                cNum = eNum;
-                eNum = pokemonLookup.getPokemon(cNum).getEvo();
-                vNum = pokemonLookup.getPokemon(cNum).getEvoLvl();
-            }
-
-            for (int i = 0; i <= 4; i++) {
-                if (evoLayout[i] == null)
-                    break;
-                evoLay.addView(evoLayout[i]);
-            }
-        }
-        else {
-            evoLayout[2] = new ImageView(this.getContext());
-            evoLayout[2].setImageDrawable(ResourcesCompat.getDrawable(res, drawId, null));
-
-            evoLayout[1] = new ImageView(this.getContext());
-            evoLayout[1].setImageDrawable(PokemonMethods.getEvoArrow(res, pokemonLookup.getPokemon(pNum).getEvoLvl()));
-
-            evoLayout[0] = new ImageView(this.getContext());
-            evoLayout[0].setImageDrawable(ResourcesCompat.getDrawable(res, drawId + ((pNum - curNum) * 3), null));
-
-            evoLayout[3] = new ImageView(this.getContext());
-            evoLayout[3].setImageDrawable(PokemonMethods.getEvoArrow(res, vNum));
-
-            evoLayout[4] = new ImageView(this.getContext());
-            evoLayout[4].setImageDrawable(ResourcesCompat.getDrawable(res, drawId + ((eNum - curNum) * 3), null));
-
-            idx = 0;
-            for (ImageView imageView : evoLayout) {
-                if (imageView != null) {
-                    evoLay.addView(imageView, idx);
-                    idx++;
-                }
-            }
-        }
-    }*/
-
-    /**
-     * FIXME
-     * @param locString
-     * @return
-     */
-/*    private String modLocString(String locString) {
-        StringBuffer strBuf = new StringBuffer(locString);
-
-        int idx = 0;
-        boolean cont = true;
-        while (cont) {
-            if (Character.isDigit(strBuf.charAt(idx)))
-                strBuf.insert(idx, "Route ");
-
-            // Log.d("**TESTING**", strBuf.toString());
-
-            if (strBuf.indexOf(",") != -1) {
-                strBuf.replace(strBuf.indexOf(","), strBuf.indexOf(",") + 1, " | ");
-                idx = strBuf.indexOf("|", idx) + 2;
-            }
-            else
-                cont = false;
-        }
-        return strBuf.toString();
-    }*/
-
-    /**
-     * FIXME
+     * setMoveset method - FIXME
      * @param dexNum
      */
 /*    private void setMoveset(int dexNum) {
@@ -403,7 +365,7 @@ public class PokemonDataFragment extends Fragment{
     }*/
 
     /**
-     * FIXME
+     * finishMovesetEntry method - FIXME
      * @param move
      * @param row
      */

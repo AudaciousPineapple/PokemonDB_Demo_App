@@ -50,15 +50,15 @@
 
             <Spinner
                 android:id="@+id/kanto_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"/>
+                android:layout_weight="0.50" />
 
             <Spinner
                 android:id="@+id/johto_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"/>
+                android:layout_weight="0.50"/>
 
         </LinearLayout>
 
@@ -70,15 +70,15 @@
 
             <Spinner
                 android:id="@+id/hoenn_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"/>
+                android:layout_weight="0.50"/>
 
             <Spinner
                 android:id="@+id/sinnoh_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"/>
+                android:layout_weight="0.50"/>
 
         </LinearLayout>
 
@@ -90,15 +90,15 @@
 
             <Spinner
                 android:id="@+id/unova_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"/>
+                android:layout_weight="0.50"/>
 
             <Spinner
                 android:id="@+id/kalos_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"/>
+                android:layout_weight="0.50"/>
 
         </LinearLayout>
 
@@ -110,15 +110,15 @@
 
             <Spinner
                 android:id="@+id/alola_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"/>
+                android:layout_weight="0.50"/>
 
             <Spinner
                 android:id="@+id/galar_hisui_spinner"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"/>
+                android:layout_weight="0.50"/>
 
         </LinearLayout>
 

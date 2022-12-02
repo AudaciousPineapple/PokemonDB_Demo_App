@@ -2,6 +2,7 @@ package com.example.pokemondbappv2;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -10,45 +11,82 @@ import java.text.DecimalFormat;
 public abstract class PokemonMethods {
 
     /**
-     * FIXME
-     * @param type
-     * @return
+     * fixPokemonName method - Takes the pokemon name returned from the API query and gives it proper capitalization
+     * @param name - the name String returned by the API query
+     * @return - The corrected String
      */
-    public static Drawable getTypeImg(Resources res, Type type) {
+    public static String fixPokemonName(String name) {
+        String pokemonName = name.substring(0, 1).toUpperCase() + name.substring(1);
+        if (pokemonName.indexOf('-') != -1) {
+            int idx = pokemonName.indexOf('-');
+            while (idx != -1) {
+                pokemonName = pokemonName.substring(0, idx) + ' '
+                        + pokemonName.substring(idx+1, idx+2).toUpperCase()
+                        + pokemonName.substring(idx + 2);
+                idx = pokemonName.indexOf('-', idx+2);
+            }
+        }
+        return pokemonName;
+    }
+
+    /**
+     * getTypeImg method - Sets the image for type based on the provided type
+     * @param res - Resources
+     * @param type - The type you wish to set the image for
+     * @param img - The ImageView you wish to update
+     */
+    public static void getTypeImg(Resources res, Type type, ImageView img) {
+        Drawable typeImg;
         switch (type) {
             case NOR:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_normal, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_normal, null);
+                break;
             case FIR:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_fire, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_fire, null);
+                break;
             case WAT:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_water, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_water, null);
+                break;
             case GRA:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_grass, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_grass, null);
+                break;
             case ELE:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_electric, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_electric, null);
+                break;
             case ICE:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_ice, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_ice, null);
+                break;
             case FIG:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_fighting, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_fighting, null);
+                break;
             case POI:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_poison, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_poison, null);
+                break;
             case GRO:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_ground, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_ground, null);
+                break;
             case FLY:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_flying, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_flying, null);
+                break;
             case PSY:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_psychic, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_psychic, null);
+                break;
             case BUG:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_bug, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_bug, null);
+                break;
             case ROC:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_rock, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_rock, null);
+                break;
             case GHO:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_ghost, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_ghost, null);
+                break;
             case DRA:
-                return ResourcesCompat.getDrawable(res, R.drawable.type_dragon, null);
+                typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_dragon, null);
+                break;
             default:
-                return null;
+                return;
         }
+        img.setImageDrawable(typeImg);
     }
 
     /**
