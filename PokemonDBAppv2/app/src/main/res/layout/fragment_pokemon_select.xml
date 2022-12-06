@@ -16,12 +16,19 @@
         android:text="@string/pokemon_welcome"
         android:textSize="20sp"/>
 
+    <Spinner
+        android:id="@+id/pokemon_gen_select_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/pokemon_welcome_text"/>
+
     <Button
         android:id="@+id/search_by_dexnum_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/pokemon_welcome_text"
+        android:layout_below="@id/pokemon_gen_select_spinner"
         android:text="@string/search_by_pok_dex_number"/>
 
     <Button

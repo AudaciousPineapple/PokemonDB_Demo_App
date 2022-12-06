@@ -43,8 +43,9 @@ public class PokemonSelectFragment extends Fragment {
     private FragmentPokemonSelectBinding binding;
     private Button numberBtn, nameBtn;
     private Spinner kantoSpinner, johtoSpinner, hoennSpinner, sinnohSpinner, unovaSpinner,
-    kalosSpinner, alolaSpinner, galarHisuiSpinner;
-    private int selection;
+    kalosSpinner, alolaSpinner, galarHisuiSpinner, genSelectSpinner;
+    private Spinner[] spinArray;
+    private int selection, genSelect;
 
     private DecimalFormat format;
 
@@ -72,13 +73,34 @@ public class PokemonSelectFragment extends Fragment {
         kalosSpinner = binding.kalosSpinner;
         alolaSpinner = binding.alolaSpinner;
         galarHisuiSpinner = binding.galarHisuiSpinner;
+        genSelectSpinner = binding.pokemonGenSelectSpinner;
+
+        spinArray = new Spinner[]{ kantoSpinner, johtoSpinner, hoennSpinner, sinnohSpinner,
+                unovaSpinner, kalosSpinner, alolaSpinner, galarHisuiSpinner};
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
+                R.array.gen_select_arr, android.R.layout.simple_spinner_item);
+        genSelectSpinner.setAdapter(adapter);
+        genSelect = -1;
+        genSelectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                genSelect = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         numberBtn = binding.searchByDexnumBtn;
-        numberBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new GetPokemonListByNum().execute();
-            }
+        numberBtn.setOnClickListener(view1 -> {
+
+            if (genSelect > 0)
+                new GetPokemonListByNum(genSelect).execute();
+            else
+                Toast.makeText(getContext(), "You must choose a generation!", Toast.LENGTH_LONG).show();
         });
 
         nameBtn = binding.searchByNameBtn;
@@ -92,11 +114,31 @@ public class PokemonSelectFragment extends Fragment {
     }
 
     private class GetPokemonListByNum extends AsyncTask<Void, Void, Void> implements AdapterView.OnItemSelectedListener {
-        String result = "";
+        String result;
+        int gen;
+        protected final int[] genLimit = { 151, 251, 386, 493, 649, 721, 809, 905 };
+        protected ArrayList<CharSequence>[] pokeLists;
+        protected ArrayList<CharSequence> kantoList, johtoList, hoennList, sinnohList, unovaList, kalosList,
+                alolaList, galarHisuiList;
+
+        private final int[] spinTopStringIds = { R.string.kanto_nums, R.string.johto_nums,
+                R.string.hoenn_nums, R.string.sinnoh_nums, R.string.unova_nums, R.string.kalos_nums,
+                R.string.alola_nums, R.string.galar_hisui_nums};
+
+        public GetPokemonListByNum(int gen) {
+            this.gen = gen;
+            result = "";
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pokeLists = new ArrayList[]{ kantoList, johtoList, hoennList, sinnohList,
+                    unovaList, kalosList, alolaList, galarHisuiList};
+            for (int i = 0; i < gen; i++) {
+                pokeLists[i] = new ArrayList<>();
+                pokeLists[i].add(getString(spinTopStringIds[i]));
+            }
         }
 
         @Override
@@ -145,6 +187,7 @@ public class PokemonSelectFragment extends Fragment {
                 numberBtn.setClickable(false);
                 nameBtn.setVisibility(View.INVISIBLE);
                 nameBtn.setClickable(false);
+                genSelectSpinner.setVisibility(View.GONE);
 
                 // Sets the search layout to visible
                 binding.searchByNumLayout.setVisibility(View.VISIBLE);
@@ -154,87 +197,46 @@ public class PokemonSelectFragment extends Fragment {
                     JSONArray pokemonArray = new JSONObject(result).getJSONArray("results");
 
                     String tempStr;
-                    ArrayList<CharSequence> kantoList = new ArrayList<>();
-                    kantoList.add(getString(R.string.kanto_nums));
-                    ArrayList<CharSequence> johtoList = new ArrayList<>();
-                    johtoList.add(getString(R.string.johto_nums));
-                    ArrayList<CharSequence> hoennList = new ArrayList<>();
-                    hoennList.add(getString(R.string.hoenn_nums));
-                    ArrayList<CharSequence> sinnohList = new ArrayList<>();
-                    sinnohList.add(getString(R.string.sinnoh_nums));
-                    ArrayList<CharSequence> unovaList = new ArrayList<>();
-                    unovaList.add(getString(R.string.unova_nums));
-                    ArrayList<CharSequence> kalosList = new ArrayList<>();
-                    kalosList.add(getString(R.string.kalos_nums));
-                    ArrayList<CharSequence> alolaList = new ArrayList<>();
-                    alolaList.add(getString(R.string.alola_nums));
-                    ArrayList<CharSequence> galarHisuiList = new ArrayList<>();
-                    galarHisuiList.add(getString(R.string.galar_hisui_nums));
 
-                    for (int i = 0; i < 905; i++) {
+                    for (int i = 0; i < genLimit[gen - 1]; i++) {
                         tempStr = pokemonArray.getJSONObject(i).getString("name");
                         tempStr = PokemonMethods.fixPokemonName(tempStr);
+                        //Log.d("PokemonSelectFragment", tempStr);
 
                         if (i < 151)
-                            kantoList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 251)
-                            johtoList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 386)
-                            hoennList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 493)
-                            sinnohList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 649)
-                            unovaList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 721)
-                            kalosList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 809)
-                            alolaList.add(format.format(i+1) + " " + tempStr);
-                        else if (i < 905)
-                            galarHisuiList.add(format.format(i+1) + " " + tempStr);
+                            pokeLists[0].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 2 && i < 251)
+                            pokeLists[1].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 3 && i < 386)
+                            pokeLists[2].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 4 && i < 493)
+                            pokeLists[3].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 5 && i < 649)
+                            pokeLists[4].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 6 && i < 721)
+                            pokeLists[5].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 7 && i < 809)
+                            pokeLists[6].add(format.format(i+1) + " " + tempStr);
+                        else if (gen >= 8 && i < 905)
+                            pokeLists[7].add(format.format(i+1) + " " + tempStr);
                         else
                             break;
+
+
                     }
 
-                    ArrayAdapter<CharSequence> tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, kantoList);
-                    kantoSpinner.setAdapter(tempAdapter);
-                    kantoSpinner.setOnItemSelectedListener(this);
+                    ArrayAdapter<CharSequence> tempAdapter;
 
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, johtoList);
-                    johtoSpinner.setAdapter(tempAdapter);
-                    johtoSpinner.setOnItemSelectedListener(this);
-
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, hoennList);
-                    hoennSpinner.setAdapter(tempAdapter);
-                    hoennSpinner.setOnItemSelectedListener(this);
-
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, sinnohList);
-                    sinnohSpinner.setAdapter(tempAdapter);
-                    sinnohSpinner.setOnItemSelectedListener(this);
-
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, unovaList);
-                    unovaSpinner.setAdapter(tempAdapter);
-                    unovaSpinner.setOnItemSelectedListener(this);
-
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, kalosList);
-                    kalosSpinner.setAdapter(tempAdapter);
-                    kalosSpinner.setOnItemSelectedListener(this);
-
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, alolaList);
-                    alolaSpinner.setAdapter(tempAdapter);
-                    alolaSpinner.setOnItemSelectedListener(this);
-
-                    tempAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.pokemon_select_spinner_item, galarHisuiList);
-                    galarHisuiSpinner.setAdapter(tempAdapter);
-                    galarHisuiSpinner.setOnItemSelectedListener(this);
-
+                    for (int i = 0; i < 8; i++) {
+                        if (i < gen) {
+                            tempAdapter = new ArrayAdapter<>(getContext(),
+                                    R.layout.pokemon_select_spinner_item, pokeLists[i]);
+                            spinArray[i].setAdapter(tempAdapter);
+                            spinArray[i].setOnItemSelectedListener(this);
+                        }
+                        else
+                            spinArray[i].setVisibility(View.GONE);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -253,8 +255,33 @@ public class PokemonSelectFragment extends Fragment {
                 pokeBundle.putInt("dex_num", selection);
                 getParentFragmentManager().setFragmentResult("dex_num", pokeBundle);
 
-                NavHostFragment.findNavController(PokemonSelectFragment.this)
-                        .navigate(R.id.action_PokemonSelectFragment_to_PokemonDataFragment);
+                switch (gen) {
+                    case 1:
+                        NavHostFragment.findNavController(PokemonSelectFragment.this)
+                                .navigate(R.id.action_PokemonSelectFragment_to_PokemonG1DataFragment);
+                        break;
+                    case 2:
+                        // TODO Add Gen 2 Fragment
+                        break;
+                    case 3:
+                        // TODO Add Gen 3 Fragment
+                        break;
+                    case 4:
+                        //TODO Add Gen 4 Fragment
+                        break;
+                    case 5:
+                        //TODO Add Gen 5 fragment
+                        break;
+                    case 6:
+                        // TODO Add gen 6 fragment
+                        break;
+                    case 7:
+                        //TODO add gen 7 fragment
+                        break;
+                    case 8:
+                        //TODO add gen 8 fragment
+                        break;
+                }
             }
         }
 

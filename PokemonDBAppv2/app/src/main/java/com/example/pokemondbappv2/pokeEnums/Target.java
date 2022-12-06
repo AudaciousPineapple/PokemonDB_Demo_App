@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2;
+package com.example.pokemondbappv2.pokeEnums;
 
 public enum Target {
 

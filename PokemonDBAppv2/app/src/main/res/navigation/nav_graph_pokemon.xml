@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph2"
     app:startDestination="@id/PokemonSelectFragment">
 
+    <!-- Pokemon Select Fragment -->
     <fragment
         android:id="@+id/PokemonSelectFragment"
         android:name="com.example.pokemondbappv2.pokedex.fragments.PokemonSelectFragment"
@@ -12,14 +13,16 @@
         tools:layout="@layout/fragment_pokemon_select">
 
         <action
-            android:id="@+id/action_PokemonSelectFragment_to_PokemonDataFragment"
-            app:destination="@id/PokemonDataFragment" />
+            android:id="@+id/action_PokemonSelectFragment_to_PokemonG1DataFragment"
+            app:destination="@id/PokemonG1DataFragment" />
     </fragment>
+
+    <!-- Gen 1 Pokemon Data Fragment -->
     <fragment
-        android:id="@+id/PokemonDataFragment"
-        android:name="com.example.pokemondbappv2.pokedex.fragments.PokemonDataFragment"
+        android:id="@+id/PokemonG1DataFragment"
+        android:name="com.example.pokemondbappv2.pokedex.fragments.PokemonG1DataFragment"
         android:label="@string/pokemon_fragment_label"
-        tools:layout="@layout/fragment_pokemon_data">
+        tools:layout="@layout/fragment_pokemon_g1_data">
 
     </fragment>
 </navigation>

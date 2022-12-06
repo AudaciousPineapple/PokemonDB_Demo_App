@@ -63,6 +63,7 @@
     <string name="select_generation_">Select Generation:\ </string>
 
     <string-array name="gen_select_arr">
+        <item>Pick a Generation:</item>
         <item>Gen I</item>
         <item>Gen II</item>
         <item>Gen III</item>
@@ -171,4 +172,17 @@
     <string name="tm_hm">TM/HM</string>
     <string name="search_by_pok_dex_number">Search by Pokédex Number</string>
     <string name="search_by_pok_mon_name">Search By Pokémon Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="effort_values_earned">Effort Values Earned</string>
+    <string name="red">Red</string>
+    <string name="green_jp">Green (Jp.)</string>
+    <string name="blue_intl">Blue (Intl.)</string>
+    <string name="blue_jp">Blue (Jp.)</string>
+    <string name="yellow">Yellow</string>
+    <string name="generation_i_level_up">Generation I Level Up</string>
+    <string name="special">Special</string>
+    <string name="left_arrow"><![CDATA[<---]]></string>
+    <string name="right_arrow"><![CDATA[--->]]></string>
+    <string name="source">Source</string>
 </resources>

@@ -7,27 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.pokemondbappv2.DBHandler;
-import com.example.pokemondbappv2.ModelMove;
-import com.example.pokemondbappv2.ModelMoveset;
-import com.example.pokemondbappv2.ModelPokemonG1;
 import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.R;
-import com.example.pokemondbappv2.Type;
+import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonDataBinding;
 import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
 
@@ -40,14 +27,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Objects;
 
+@Deprecated
 public class PokemonDataFragment extends Fragment{
 
     private DecimalFormat dFormat, dFormat2, dFormat3;
@@ -74,6 +60,7 @@ public class PokemonDataFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         dFormat = new DecimalFormat("000");
+        dFormat2 = new DecimalFormat("#.0");
         inflationList = new ArrayList<HashMap<String, String>>();
         res = this.getResources();
 
@@ -221,6 +208,32 @@ public class PokemonDataFragment extends Fragment{
                         ((TextView)(child.findViewById(R.id.dexNum_listEntry_txt))).setText(tempStr);
                         binding.dexNumList.addView(child);
                     }
+
+                    tempArray = pokemonObj.getJSONArray("types");
+
+                    PokemonMethods.setTypeImage(res, Objects.requireNonNull(
+                            Type.checkType(tempArray.getJSONObject(0)
+                            .getJSONObject("type").getString("name"))), binding.pokemonType1Img);
+
+                    if (tempArray.length() > 1)
+                        PokemonMethods.setTypeImage(res, Objects.requireNonNull(
+                                Type.checkType(tempArray.getJSONObject(1)
+                                .getJSONObject("type").getString("name"))), binding.pokemonType2Img);
+                    else
+                        binding.pokemonType2Img.setVisibility(View.GONE);
+
+                    tempArray = speciesObj.optJSONArray("genera");
+                    for (int i = 0; i < tempArray.length(); i++) {
+                        if ("en".contentEquals(tempArray.getJSONObject(i).getJSONObject("language")
+                                .getString("name"))) {
+                            binding.pokemonClassTxt.setText(tempArray.getJSONObject(i)
+                                    .getString("genus"));
+                            break;
+                        }
+                    }
+
+                    double tempDbl = pokemonObj.getInt("height") / 10;
+                    binding.pokemonHeightTxt.setText(dFormat2.format(tempDbl));
 
                 } catch (JSONException e) {
                     Log.i("JSON Parsing", "EXCEPTION: " + e.getMessage());
