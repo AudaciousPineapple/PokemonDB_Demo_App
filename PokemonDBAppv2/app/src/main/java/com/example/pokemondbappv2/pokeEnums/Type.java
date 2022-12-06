@@ -28,6 +28,10 @@ public enum Type {
         this.name = name;
     }
 
+    public static String getName(Type type) {
+        return type.getName();
+    }
+
     public String getName() { return name; }
 
     public static Type checkType(String type) {

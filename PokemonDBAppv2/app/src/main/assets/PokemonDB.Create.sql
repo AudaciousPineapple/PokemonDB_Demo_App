@@ -44,6 +44,8 @@ INSERT INTO "type" ("name") VALUES
 CREATE TABLE "pokemonG1" (
     "dexNum"        INTEGER NOT NULL UNIQUE,
     "name"          TEXT NOT NULL,
+    "sprite1"       BLOB NOT NULL,
+    "sprite2"       BLOB NOT NULL,
     "nameJp"        TEXT NOT NULL,
     "nameJpEng"     TEXT NOT NULL,
     "nameFr"        TEXT NOT NULL,

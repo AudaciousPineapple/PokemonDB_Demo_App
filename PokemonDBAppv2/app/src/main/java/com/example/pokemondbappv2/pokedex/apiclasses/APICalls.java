@@ -27,10 +27,15 @@ public class APICalls {
 
         private final String url;
         private ImageView imageView;
+        private Bitmap bitmap;
 
         public ImageLoadTask(String url, ImageView imageView) {
             this.url = url;
             this.imageView = imageView;
+        }
+
+        public Bitmap getBitmap () {
+            return bitmap;
         }
 
         @Override
@@ -54,6 +59,7 @@ public class APICalls {
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
             imageView.setImageBitmap(result);
+            bitmap = result;
         }
     }
 
@@ -67,6 +73,8 @@ public class APICalls {
             this.textView = textView;
             xpRateResult = "";
         }
+
+        public String getXpRateResult () { return xpRateResult; }
 
         @Override
         protected Void doInBackground(Void... voids) {

@@ -1,6 +1,7 @@
 package com.example.pokemondbappv2.pokedex.fragments;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -17,6 +18,8 @@ import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonG1DataBinding;
 import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
+import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonSourceG1;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +34,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 public class PokemonG1DataFragment extends Fragment {
 
@@ -40,6 +44,7 @@ public class PokemonG1DataFragment extends Fragment {
     private static final DecimalFormat dFormat2 = new DecimalFormat("0.#");
     private static final String NAME = "name";
     private Resources res;
+    PokemonSourceG1 source;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -52,11 +57,20 @@ public class PokemonG1DataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         res = this.getResources();
+        source = new PokemonSourceG1(this.getContext());
 
         getParentFragmentManager().setFragmentResultListener("dex_num", this,
                 ((requestKey, result) -> {
                     dexNum = result.getInt("dex_num");
-                    new getPokemonData().execute();
+                    Log.d ("**TESTING**", Integer.toString(dexNum));
+
+                    if (!source.isCached(dexNum))
+                        new getPokemonDataAPI().execute();
+                    else {
+                        PokemonEntryG1 pokemon = source.getPokemonEntry(dexNum);
+
+
+                    }
                 }));
     }
 
@@ -66,7 +80,7 @@ public class PokemonG1DataFragment extends Fragment {
         binding = null;
     }
 
-    private class getPokemonData extends AsyncTask<Void, Void, Void> {
+    private class getPokemonDataAPI extends AsyncTask<Void, Void, Void> {
         String speciesResult = "";
         String pokemonResult = "";
 
@@ -138,6 +152,7 @@ public class PokemonG1DataFragment extends Fragment {
         @Override
         protected void onPostExecute(Void r) {
             super.onPostExecute(r);
+            PokemonEntryG1 pokemon = new PokemonEntryG1();
 
             try {
                 JSONObject speciesObj = new JSONObject(speciesResult);
@@ -145,29 +160,59 @@ public class PokemonG1DataFragment extends Fragment {
 
                 // Set Dex Num
                 binding.g1PokemonNum.setText("#" + dFormat.format(dexNum));
+                pokemon.setDexNum(dexNum);
+                Log.d("**Num**", Integer.toString(dexNum));
 
                 // Set Name
                 String pokemonName = PokemonMethods.fixPokemonName(speciesObj.getString(NAME));
                 binding.g1PokemonName.setText(pokemonName);
+                pokemon.setName(pokemonName);
+                Log.d("**Name**", pokemonName);
 
                 // Sets the sprite images
-                String tempStr = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
+                String sprite1Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
                         .getJSONObject("generation-i").getJSONObject("red-blue")
                         .getString("front_transparent");
-                new APICalls.ImageLoadTask(tempStr, binding.g1PokemonSprite1).execute();
+                Log.d("**Sprite 1 URL**", sprite1Url);
+                APICalls.ImageLoadTask spriteLoader = new APICalls.ImageLoadTask(sprite1Url, binding.g1PokemonSprite1);
+                spriteLoader.execute();
+                pokemon.setSprite1(spriteLoader.getBitmap());
 
-                tempStr = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
+                String sprite2Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
                         .getJSONObject("generation-i").getJSONObject("yellow")
                         .getString("front_transparent");
-                new APICalls.ImageLoadTask(tempStr, binding.g1PokemonSprite2).execute();
+                Log.d("**Sprite 2 URL**", sprite2Url);
+                spriteLoader = new APICalls.ImageLoadTask(sprite2Url, binding.g1PokemonSprite2);
+                spriteLoader.execute();
+                pokemon.setSprite2(spriteLoader.getBitmap());
 
                 // Sets the alternate language names
                 JSONArray tempArray = speciesObj.getJSONArray("names");
-                binding.g1PokemonNameJp.setText(tempArray.getJSONObject(0).getString(NAME));
-                binding.g1PokemonNameJpEng.setText(tempArray.getJSONObject(1).getString(NAME));
-                binding.g1PokemonNameFr.setText(tempArray.getJSONObject(4).getString(NAME));
-                binding.g1PokemonNameGer.setText(tempArray.getJSONObject(5).getString(NAME));
-                binding.g1PokemonNameKor.setText(tempArray.getJSONObject(2).getString(NAME));
+
+                String nameJp = tempArray.getJSONObject(0).getString(NAME);
+                binding.g1PokemonNameJp.setText(nameJp);
+                pokemon.setNameJp(nameJp);
+                Log.d("**Japanese Name**", nameJp);
+
+                String nameJpEng = tempArray.getJSONObject(1).getString(NAME);
+                binding.g1PokemonNameJpEng.setText(nameJpEng);
+                pokemon.setNameJpEng(nameJpEng);
+                Log.d("**Jp-English Name**", nameJpEng);
+
+                String nameFr = tempArray.getJSONObject(4).getString(NAME);
+                binding.g1PokemonNameFr.setText(nameFr);
+                pokemon.setNameFr(nameFr);
+                Log.d("**French Name**", nameFr);
+
+                String nameGer = tempArray.getJSONObject(5).getString(NAME);
+                binding.g1PokemonNameGer.setText(nameGer);
+                pokemon.setNameGer(nameGer);
+                Log.d("**German Name**", nameGer);
+
+                String nameKor = tempArray.getJSONObject(2).getString(NAME);
+                binding.g1PokemonNameKor.setText(nameKor);
+                pokemon.setNameKor(nameKor);
+                Log.d("**Korean Name**", nameKor);
 
                 // sets the types
                 if (pokemonObj.getJSONArray("past_types").length() == 0)
@@ -175,122 +220,162 @@ public class PokemonG1DataFragment extends Fragment {
                 else
                     tempArray = pokemonObj.getJSONArray("past_types").getJSONObject(0)
                             .getJSONArray("types");
-                PokemonMethods.setTypeImage(res, Objects.requireNonNull(
-                        Type.checkType(tempArray.getJSONObject(0)
-                                .getJSONObject("type").getString("name"))),
-                        binding.g1PokemonType1);
-                if (tempArray.length() > 1)
-                    PokemonMethods.setTypeImage(res, Objects.requireNonNull(
-                            Type.checkType(tempArray.getJSONObject(1)
-                                    .getJSONObject("type").getString("name"))),
-                            binding.g1PokemonType2);
-                else
+
+                Type type1 = Type.checkType(tempArray.getJSONObject(0)
+                        .getJSONObject("type").getString("name"));
+                PokemonMethods.setTypeImage(res, type1, binding.g1PokemonType1);
+                pokemon.setType1(type1);
+                Log.d("**Type 1**", type1.getName());
+
+                if (tempArray.length() > 1) {
+                    Type type2 = Type.checkType(tempArray.getJSONObject(1)
+                            .getJSONObject("type").getString("name"));
+                    PokemonMethods.setTypeImage(res, type2, binding.g1PokemonType2);
+                    pokemon.setType2(type2);
+                    Log.d("**Type 2**", type2.getName());
+                }
+                else {
+                    pokemon.setType2(Type.UNK);
                     binding.g1PokemonType2.setVisibility(View.GONE);
+                }
 
                 // Sets the classification
                 tempArray = speciesObj.optJSONArray("genera");
                 for (int i = 0; i < tempArray.length(); i++) {
                     if ("en".contentEquals(tempArray.getJSONObject(i).getJSONObject("language")
                             .getString("name"))) {
-                        binding.g1PokemonClass.setText(tempArray.getJSONObject(i)
-                                .getString("genus"));
+                        String cls = tempArray.getJSONObject(i).getString("genus");
+                        binding.g1PokemonClass.setText(cls);
+                        pokemon.setClassification(cls);
+                        Log.d("**Classification**", cls);
                         break;
                     }
                 }
 
                 // Sets the height
-                BigDecimal height = new BigDecimal(pokemonObj.getInt("height")).movePointLeft(1);
-                binding.g1PokemonHeight.setText(dFormat2.format(height) + "m");
+                int height = pokemonObj.getInt("height");
+                BigDecimal heightDec = new BigDecimal(height).movePointLeft(1);
+                String heightStr = dFormat2.format(heightDec) + "m";
+                binding.g1PokemonHeight.setText(heightStr);
+                pokemon.setHeight(height);
+                Log.d("**Height**", heightStr);
 
                 // Sets the weight
-                BigDecimal weight = new BigDecimal(pokemonObj.getInt("weight")).movePointLeft(1);
-                binding.g1PokemonWeight.setText(dFormat2.format(weight) + "kg");
+                int weight = pokemonObj.getInt("weight");
+                BigDecimal weightDec = new BigDecimal(weight).movePointLeft(1);
+                String weightStr = dFormat2.format(weightDec) + "kg";
+                binding.g1PokemonWeight.setText(weightStr);
+                pokemon.setWeight(weight);
+                Log.d("**Weight**", weightStr);
 
                 // Set the capture rate
-                binding.g1PokemonCapRate.setText(speciesObj.getString("capture_rate"));
+                String capRate = speciesObj.getString("capture_rate");
+                binding.g1PokemonCapRate.setText(capRate);
+                pokemon.setCapRate(Integer.parseInt(capRate));
+                Log.d("**Capture Rate**", capRate);
 
                 // Set the XP Growth
-                new APICalls.GetXpRateInfo(speciesObj.getJSONObject("growth_rate").getString("url"),
-                        binding.g1PokemonXpGrowth).execute();
+                APICalls.GetXpRateInfo xpRateClass = new APICalls.GetXpRateInfo(
+                        speciesObj.getJSONObject("growth_rate").getString("url"),
+                        binding.g1PokemonXpGrowth);
+                xpRateClass.execute();
+                String xpString = xpRateClass.getXpRateResult();
+                pokemon.setXpRate(xpString);
+                Log.d("**XP Growth Rate**", xpString);
 
-                // Set EV Earned values
+                // Set Stats & EV Earned values
                 tempArray = pokemonObj.getJSONArray("stats");
 
                 // HP
-                tempStr = tempArray.getJSONObject(0).getString("base_stat");
-                binding.g1PokemonBaseHp.setText(tempStr);
-                tempStr += " HP";
-                binding.g1PokemonEvHp.setText(tempStr);
+                String baseHp = tempArray.getJSONObject(0).getString("base_stat");
+                binding.g1PokemonBaseHp.setText(baseHp);
+                pokemon.setBaseHp(Integer.parseInt(baseHp));
+                baseHp += " HP";
+                binding.g1PokemonEvHp.setText(baseHp);
+                Log.d("**Base HP**", baseHp);
 
                 // Attack
+                String baseAtk;
                 switch (dexNum) {
                     case 15:
                     case 51:
-                        tempStr = "80";
+                        baseAtk = "80";
                         break;
                     case 24:
                     case 62:
-                        tempStr = "85";
+                        baseAtk = "85";
                         break;
                     case 31:
-                        tempStr = "82";
+                        baseAtk = "82";
                         break;
                     case 34:
-                        tempStr = "92";
+                        baseAtk = "92";
                         break;
                     case 76:
-                        tempStr = "110";
+                        baseAtk = "110";
                         break;
                     case 83:
-                        tempStr = "65";
+                        baseAtk = "65";
                         break;
                     default:
-                        tempStr = tempArray.getJSONObject(1).getString("base_stat");
+                        baseAtk = tempArray.getJSONObject(1).getString("base_stat");
                         break;
                 }
-                binding.g1PokemonBaseAtk.setText(tempStr);
-                tempStr += " Attack";
-                binding.g1PokemonEvAttack.setText(tempStr);
+                binding.g1PokemonBaseAtk.setText(baseAtk);
+                pokemon.setBaseAtk(Integer.parseInt(baseAtk));
+                baseAtk += " Attack";
+                binding.g1PokemonEvAttack.setText(baseAtk);
+                Log.d("**Base Attack**", baseAtk);
 
                 // Defence
+                String baseDef;
                 if (dexNum == 25) {
-                    tempStr = "30";
+                    baseDef = "30";
                 } else {
-                    tempStr = tempArray.getJSONObject(2).getString("base_stat");
+                    baseDef = tempArray.getJSONObject(2).getString("base_stat");
                 }
-                binding.g1PokemonBaseDef.setText(tempStr);
-                tempStr += " Defence";
-                binding.g1PokemonEvDefence.setText(tempStr);
+                binding.g1PokemonBaseDef.setText(baseDef);
+                pokemon.setBaseDef(Integer.parseInt(baseDef));
+                baseDef += " Defence";
+                binding.g1PokemonEvDefence.setText(baseDef);
+                Log.d("**Base Defence**", baseDef);
 
                 // Special
-                tempStr = Integer.toString(PokemonMethods.specialStats[dexNum-1]);
-                binding.g1PokemonBaseSpc.setText(tempStr);
-                tempStr += " Special";
-                binding.g1PokemonEvSpecial.setText(tempStr);
+                String baseSpc = Integer.toString(PokemonMethods.specialStats[dexNum-1]);
+                binding.g1PokemonBaseSpc.setText(baseSpc);
+                pokemon.setBaseSpc(Integer.parseInt(baseSpc));
+                baseSpc += " Special";
+                binding.g1PokemonEvSpecial.setText(baseSpc);
+                Log.d("**Base Special", baseSpc);
 
                 // Speed
+                String baseSpe;
                 switch (dexNum) {
                     case 18:
-                        tempStr = "91";
+                        baseSpe = "91";
                         break;
                     case 26:
                     case 85:
-                        tempStr = "100";
+                        baseSpe = "100";
                         break;
                     case 101:
-                        tempStr = "140";
+                        baseSpe = "140";
                         break;
                     default:
-                        tempStr = tempArray.getJSONObject(5).getString("base_stat");
+                        baseSpe = tempArray.getJSONObject(5).getString("base_stat");
                         break;
                 }
-                binding.g1PokemonBaseSpe.setText(tempStr);
-                tempStr += " Speed";
-                binding.g1PokemonEvSpeed.setText(tempStr);
+                binding.g1PokemonBaseSpe.setText(baseSpe);
+                pokemon.setBaseSpe(Integer.parseInt(baseSpe));
+                baseSpe += " Speed";
+                binding.g1PokemonEvSpeed.setText(baseSpe);
+                Log.d("**Base Speed**", baseSpe);
+
+                source.addPokemon(pokemon);
 
                 // Evolutionary Chain graphic
-                tempStr = speciesObj.getJSONObject("evolution_chain").getString("url");
-                Log.d("**TESTING**", tempStr);
+                String evoChainUrl = speciesObj.getJSONObject("evolution_chain").getString("url");
+                Log.d("**Evo Chain URL**", evoChainUrl);
 
 
 
@@ -310,13 +395,13 @@ public class PokemonG1DataFragment extends Fragment {
 
         }
     }
-
-    private static class GetPokemonSpriteFromDexNun extends AsyncTask<Void, Void, Void> {
+    /*
+    private static class GetPokemonSpriteFromDexNum extends AsyncTask<Void, Void, Void> {
         private final String urlString;
         private String result;
         private ImageView imgView;
 
-        public GetPokemonSpriteFromDexNun(int dexNum, ImageView imgView) {
+        public GetPokemonSpriteFromDexNum(int dexNum, ImageView imgView) {
             result = "";
             this.imgView = imgView;
             urlString = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
@@ -365,6 +450,31 @@ public class PokemonG1DataFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
+    private void getPokemonDataSQL(PokemonEntryG1 pokemon) {
+        binding.g1PokemonNum.setText("#" + dFormat.format(pokemon.getDexNum()));
+        binding.g1PokemonName.setText(pokemon.getName());
+
+
+
+        binding.g1PokemonNameJp.setText(pokemon.getNameJp());
+        binding.g1PokemonNameJpEng.setText(pokemon.getNameJpEng());
+        binding.g1PokemonNameFr.setText(pokemon.getNameFr());
+        binding.g1PokemonNameGer.setText(pokemon.getNameGer());
+        binding.g1PokemonNameKor.setText(pokemon.getNameKor());
+        PokemonMethods.setTypeImage(res, pokemon.getType1(), binding.g1PokemonType1);
+        if (pokemon.getType2() != Type.UNK)
+            PokemonMethods.setTypeImage(res, pokemon.getType2(), binding.g1PokemonType2);
+        binding.g1PokemonClass.setText(pokemon.getClassification());
+        binding.g1PokemonHeight.setText(String.valueOf(pokemon.getHeight()));
+        binding.g1PokemonWeight.setText(String.valueOf(pokemon.getWeight()));
+        binding.g1PokemonCapRate.setText(String.valueOf(pokemon.getCapRate()));
+        binding.g1PokemonXpGrowth.setText(pokemon.getXpRate());
+        binding.g1PokemonBaseHp.setText(String.valueOf(pokemon.getBaseHp()));
+        binding.g1PokemonBaseAtk.setText(String.valueOf(pokemon.getBaseAtk()));
+        binding.g1PokemonBaseDef.setText(String.valueOf(pokemon.getBaseDef()));
+        binding.g1PokemonBaseSpc.setText(String.valueOf(pokemon.getBaseSpc()));
+        binding.g1PokemonBaseSpe.setText(String.valueOf(pokemon.getBaseSpe()));
+    }
 }

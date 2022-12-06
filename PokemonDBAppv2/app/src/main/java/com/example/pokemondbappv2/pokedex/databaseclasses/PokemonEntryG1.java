@@ -1,5 +1,7 @@
 package com.example.pokemondbappv2.pokedex.databaseclasses;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 
 import com.example.pokemondbappv2.pokeEnums.*;
@@ -10,10 +12,13 @@ public class PokemonEntryG1 {
     private String name, nameJp, nameJpEng, nameFr, nameGer, nameKor, classification, xpRate;
     private Type type1;
     private Type type2;
+    private Bitmap sprite1, sprite2;
 
     public PokemonEntryG1() {
         this.dexNum = 0;
         this.name = null;
+        this.sprite1 = null;
+        this.sprite2 = null;
         this.nameJp = null;
         this.nameJpEng = null;
         this.nameFr = null;
@@ -33,13 +38,15 @@ public class PokemonEntryG1 {
         this.baseSpe = 0;
     }
 
-    public PokemonEntryG1 (int dexNum, String name, String nameJp, String nameJpEng, String nameFr,
+    public PokemonEntryG1 (int dexNum, String name, Bitmap sprite1, Bitmap sprite2, String nameJp, String nameJpEng, String nameFr,
                             String nameGer, String nameKor, Type type1, Type type2,
                             String classification, int height, int weight, int capRate,
                             String xpRate, int baseHp, int baseAtk, int baseDef, int baseSpc,
                             int baseSpe, long id) {
         this.dexNum = dexNum;
         this.name = name;
+        this.sprite1 = sprite1;
+        this.sprite2 = sprite2;
         this.nameJp = nameJp;
         this.nameJpEng = nameJpEng;
         this.nameFr = nameFr;
@@ -62,6 +69,8 @@ public class PokemonEntryG1 {
     public int getId() { return id; }
     public int getDexNum() { return dexNum; }
     public String getName() { return name; }
+    public Bitmap getSprite1() { return sprite1; }
+    public Bitmap getSprite2() { return sprite2; }
     public String getNameJp() { return nameJp; }
     public String getNameJpEng() { return nameJpEng; }
     public String getNameFr() { return nameFr; }
@@ -82,6 +91,8 @@ public class PokemonEntryG1 {
 
     public void setDexNum(int dexNum) { this.dexNum = dexNum; }
     public void setName(String name) { this.name = name; }
+    public void setSprite1(Bitmap sprite1) { this.sprite1 = sprite1; }
+    public void setSprite2(Bitmap sprite2) { this.sprite2 = sprite2; }
     public void setNameJp(String Jp) { this.nameJp = nameJp; }
     public void setNameJpEng(String name) { this.nameJpEng = nameJpEng; }
     public void setNameFr(String nameFr) { this.nameFr = nameFr; }

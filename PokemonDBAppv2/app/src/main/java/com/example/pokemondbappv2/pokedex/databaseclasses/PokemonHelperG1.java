@@ -20,6 +20,8 @@ public class PokemonHelperG1 extends SQLiteOpenHelper {
     public static final String ID = "_id";
     public static final String DEX_NUM = "dexNum";
     public static final String NAME = "name";
+    public static final String SPRITE1 = "sprite1";
+    public static final String SPRITE2 = "sprite2";
     public static final String NAME_JP = "nameJp";
     public static final String NAME_JP_ENG = "nameJpEng";
     public static final String NAME_FR = "nameFr";
@@ -47,6 +49,8 @@ public class PokemonHelperG1 extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
                 DEX_NUM + " INTEGER NOT NULL UNIQUE, " +
                 NAME + " TEXT NOT NULL, " +
+                SPRITE1 + " BLOB NOT NULL, " +
+                SPRITE2 + " BLOB NOT NULL, " +
                 NAME_JP + " TEXT NOT NULL, " +
                 NAME_JP_ENG + " TEXT NOT NULL, " +
                 NAME_FR + " TEXT NOT NULL, " +
