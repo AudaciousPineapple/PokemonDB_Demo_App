@@ -47,6 +47,7 @@ public class PokemonHelperG1 extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
+                ID + " INTEGER PRIMARY KEY, " +
                 DEX_NUM + " INTEGER NOT NULL UNIQUE, " +
                 NAME + " TEXT NOT NULL, " +
                 SPRITE1 + " BLOB NOT NULL, " +
@@ -56,19 +57,18 @@ public class PokemonHelperG1 extends SQLiteOpenHelper {
                 NAME_FR + " TEXT NOT NULL, " +
                 NAME_GER + " TEXT NOT NULL, " +
                 NAME_KOR + " TEXT NOT NULL, " +
-                TYPE_1 + " INTEGER NOT NULL, " +
-                TYPE_2 + " INTEGER NOT NULL, " +
+                TYPE_1 + " TEXT NOT NULL, " +
+                TYPE_2 + " TEXT NOT NULL, " +
                 CLASS + " TEXT NOT NULL, " +
                 HEIGHT + " INTEGER NOT NULL, " +
                 WEIGHT + " INTEGER NOT NULL, " +
                 CAP_RATE + " INTEGER NOT NULL, " +
-                XP_RATE + " INTEGER NOT NULL, " +
+                XP_RATE + " TEXT NOT NULL, " +
                 BASE_HP + " INTEGER NOT NULL, " +
                 BASE_ATK + " INTEGER NOT NULL, " +
                 BASE_DEF + " INTEGER NOT NULL, " +
                 BASE_SPC + " INTEGER NOT NULL, " +
-                BASE_SPE + " INTEGER NOT NULL, " +
-                ID + " INTEGER PRIMARY KEY);");
+                BASE_SPE + " INTEGER NOT NULL);");
     }
 
     @Override

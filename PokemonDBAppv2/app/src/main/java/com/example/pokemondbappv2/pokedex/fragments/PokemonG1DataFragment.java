@@ -1,7 +1,10 @@
 package com.example.pokemondbappv2.pokedex.fragments;
 
+import static com.example.pokemondbappv2.PokemonMethods.getBitmapAsByteArray;
+
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -17,6 +20,7 @@ import android.widget.ImageView;
 import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonG1DataBinding;
+import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonSourceG1;
@@ -26,15 +30,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 public class PokemonG1DataFragment extends Fragment {
 
@@ -68,8 +72,8 @@ public class PokemonG1DataFragment extends Fragment {
                         new getPokemonDataAPI().execute();
                     else {
                         PokemonEntryG1 pokemon = source.getPokemonEntry(dexNum);
-
-
+                        Log.d("**TESTING**", pokemon.toString());
+                        getPokemonData(pokemon);
                     }
                 }));
     }
@@ -78,6 +82,7 @@ public class PokemonG1DataFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        source.close();
     }
 
     private class getPokemonDataAPI extends AsyncTask<Void, Void, Void> {
@@ -174,61 +179,67 @@ public class PokemonG1DataFragment extends Fragment {
                         .getJSONObject("generation-i").getJSONObject("red-blue")
                         .getString("front_transparent");
                 Log.d("**Sprite 1 URL**", sprite1Url);
-                APICalls.ImageLoadTask spriteLoader = new APICalls.ImageLoadTask(sprite1Url, binding.g1PokemonSprite1);
-                spriteLoader.execute();
-                pokemon.setSprite1(spriteLoader.getBitmap());
+                new APICalls.ImageLoadTask(sprite1Url, binding.g1PokemonSprite1).execute();
+                new SaveImageFromURL(sprite1Url, pokemon, true).execute();
 
                 String sprite2Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
                         .getJSONObject("generation-i").getJSONObject("yellow")
                         .getString("front_transparent");
                 Log.d("**Sprite 2 URL**", sprite2Url);
-                spriteLoader = new APICalls.ImageLoadTask(sprite2Url, binding.g1PokemonSprite2);
-                spriteLoader.execute();
-                pokemon.setSprite2(spriteLoader.getBitmap());
+                new APICalls.ImageLoadTask(sprite2Url, binding.g1PokemonSprite2).execute();
+                new SaveImageFromURL(sprite2Url, pokemon, false).execute();
 
                 // Sets the alternate language names
-                JSONArray tempArray = speciesObj.getJSONArray("names");
+                JSONArray nameArray = speciesObj.getJSONArray("names");
 
-                String nameJp = tempArray.getJSONObject(0).getString(NAME);
-                binding.g1PokemonNameJp.setText(nameJp);
-                pokemon.setNameJp(nameJp);
-                Log.d("**Japanese Name**", nameJp);
+                for (int i = 0; i < nameArray.length(); i++) {
+                    String language = nameArray.getJSONObject(i)
+                            .getJSONObject("language").getString("name");
+                    String name = nameArray.getJSONObject(i).getString("name");
 
-                String nameJpEng = tempArray.getJSONObject(1).getString(NAME);
-                binding.g1PokemonNameJpEng.setText(nameJpEng);
-                pokemon.setNameJpEng(nameJpEng);
-                Log.d("**Jp-English Name**", nameJpEng);
-
-                String nameFr = tempArray.getJSONObject(4).getString(NAME);
-                binding.g1PokemonNameFr.setText(nameFr);
-                pokemon.setNameFr(nameFr);
-                Log.d("**French Name**", nameFr);
-
-                String nameGer = tempArray.getJSONObject(5).getString(NAME);
-                binding.g1PokemonNameGer.setText(nameGer);
-                pokemon.setNameGer(nameGer);
-                Log.d("**German Name**", nameGer);
-
-                String nameKor = tempArray.getJSONObject(2).getString(NAME);
-                binding.g1PokemonNameKor.setText(nameKor);
-                pokemon.setNameKor(nameKor);
-                Log.d("**Korean Name**", nameKor);
+                    if (language.contentEquals("ja")) {
+                        binding.g1PokemonNameJp.setText(name);
+                        pokemon.setNameJp(name);
+                        Log.d("**Japanese Name**", name);
+                    }
+                    else if (language.contentEquals("roomaji")) {
+                        binding.g1PokemonNameJpEng.setText(name);
+                        pokemon.setNameJpEng(name);
+                        Log.d("**Jp-English Name**", name);
+                    }
+                    else if (language.contentEquals("fr")) {
+                        binding.g1PokemonNameFr.setText(name);
+                        pokemon.setNameFr(name);
+                        Log.d("**French Name**", name);
+                    }
+                    else if (language.contentEquals("de")) {
+                        binding.g1PokemonNameGer.setText(name);
+                        pokemon.setNameGer(name);
+                        Log.d("**German Name**", name);
+                    }
+                    else if (language.contentEquals("ko")) {
+                        binding.g1PokemonNameKor.setText(name);
+                        pokemon.setNameKor(name);
+                        Log.d("**Korean Name**", name);
+                    }
+                }
 
                 // sets the types
+                JSONArray typeArray;
                 if (pokemonObj.getJSONArray("past_types").length() == 0)
-                    tempArray = pokemonObj.getJSONArray("types");
+                    typeArray = pokemonObj.getJSONArray("types");
                 else
-                    tempArray = pokemonObj.getJSONArray("past_types").getJSONObject(0)
+                    typeArray = pokemonObj.getJSONArray("past_types").getJSONObject(0)
                             .getJSONArray("types");
 
-                Type type1 = Type.checkType(tempArray.getJSONObject(0)
+                Type type1 = Type.checkType(typeArray.getJSONObject(0)
                         .getJSONObject("type").getString("name"));
                 PokemonMethods.setTypeImage(res, type1, binding.g1PokemonType1);
                 pokemon.setType1(type1);
                 Log.d("**Type 1**", type1.getName());
 
-                if (tempArray.length() > 1) {
-                    Type type2 = Type.checkType(tempArray.getJSONObject(1)
+                if (typeArray.length() > 1) {
+                    Type type2 = Type.checkType(typeArray.getJSONObject(1)
                             .getJSONObject("type").getString("name"));
                     PokemonMethods.setTypeImage(res, type2, binding.g1PokemonType2);
                     pokemon.setType2(type2);
@@ -240,11 +251,12 @@ public class PokemonG1DataFragment extends Fragment {
                 }
 
                 // Sets the classification
-                tempArray = speciesObj.optJSONArray("genera");
-                for (int i = 0; i < tempArray.length(); i++) {
-                    if ("en".contentEquals(tempArray.getJSONObject(i).getJSONObject("language")
+                JSONArray classArray;
+                classArray = speciesObj.optJSONArray("genera");
+                for (int i = 0; i < classArray.length(); i++) {
+                    if ("en".contentEquals(classArray.getJSONObject(i).getJSONObject("language")
                             .getString("name"))) {
-                        String cls = tempArray.getJSONObject(i).getString("genus");
+                        String cls = classArray.getJSONObject(i).getString("genus");
                         binding.g1PokemonClass.setText(cls);
                         pokemon.setClassification(cls);
                         Log.d("**Classification**", cls);
@@ -275,19 +287,18 @@ public class PokemonG1DataFragment extends Fragment {
                 Log.d("**Capture Rate**", capRate);
 
                 // Set the XP Growth
-                APICalls.GetXpRateInfo xpRateClass = new APICalls.GetXpRateInfo(
-                        speciesObj.getJSONObject("growth_rate").getString("url"),
-                        binding.g1PokemonXpGrowth);
-                xpRateClass.execute();
-                String xpString = xpRateClass.getXpRateResult();
-                pokemon.setXpRate(xpString);
+                XpGrowth xpGrowth = XpGrowth.getGrowthRate(speciesObj.getJSONObject("growth_rate")
+                        .getString("name"));
+                String xpString = PokemonMethods.formatXpString(xpGrowth);
+                binding.g1PokemonXpGrowth.setText(xpString);
+                pokemon.setXpRate(xpGrowth);
                 Log.d("**XP Growth Rate**", xpString);
 
                 // Set Stats & EV Earned values
-                tempArray = pokemonObj.getJSONArray("stats");
+                JSONArray statsArray = pokemonObj.getJSONArray("stats");
 
                 // HP
-                String baseHp = tempArray.getJSONObject(0).getString("base_stat");
+                String baseHp = statsArray.getJSONObject(0).getString("base_stat");
                 binding.g1PokemonBaseHp.setText(baseHp);
                 pokemon.setBaseHp(Integer.parseInt(baseHp));
                 baseHp += " HP";
@@ -318,7 +329,7 @@ public class PokemonG1DataFragment extends Fragment {
                         baseAtk = "65";
                         break;
                     default:
-                        baseAtk = tempArray.getJSONObject(1).getString("base_stat");
+                        baseAtk = statsArray.getJSONObject(1).getString("base_stat");
                         break;
                 }
                 binding.g1PokemonBaseAtk.setText(baseAtk);
@@ -332,7 +343,7 @@ public class PokemonG1DataFragment extends Fragment {
                 if (dexNum == 25) {
                     baseDef = "30";
                 } else {
-                    baseDef = tempArray.getJSONObject(2).getString("base_stat");
+                    baseDef = statsArray.getJSONObject(2).getString("base_stat");
                 }
                 binding.g1PokemonBaseDef.setText(baseDef);
                 pokemon.setBaseDef(Integer.parseInt(baseDef));
@@ -362,7 +373,7 @@ public class PokemonG1DataFragment extends Fragment {
                         baseSpe = "140";
                         break;
                     default:
-                        baseSpe = tempArray.getJSONObject(5).getString("base_stat");
+                        baseSpe = statsArray.getJSONObject(5).getString("base_stat");
                         break;
                 }
                 binding.g1PokemonBaseSpe.setText(baseSpe);
@@ -376,10 +387,6 @@ public class PokemonG1DataFragment extends Fragment {
                 // Evolutionary Chain graphic
                 String evoChainUrl = speciesObj.getJSONObject("evolution_chain").getString("url");
                 Log.d("**Evo Chain URL**", evoChainUrl);
-
-
-
-
 
                 /*Log.d("**TESTING**", tempObj.getString("id"));
 
@@ -452,29 +459,99 @@ public class PokemonG1DataFragment extends Fragment {
         }
     }*/
 
-    private void getPokemonDataSQL(PokemonEntryG1 pokemon) {
+    private void getPokemonData(PokemonEntryG1 pokemon) {
         binding.g1PokemonNum.setText("#" + dFormat.format(pokemon.getDexNum()));
         binding.g1PokemonName.setText(pokemon.getName());
 
-
+        byte[] spr1 = pokemon.getSprite1();
+        binding.g1PokemonSprite1.setImageBitmap(BitmapFactory.decodeByteArray(spr1,
+                0, spr1.length));
+        byte[] spr2 = pokemon.getSprite2();
+        binding.g1PokemonSprite2.setImageBitmap(BitmapFactory.decodeByteArray(spr2,
+                0, spr2.length));
 
         binding.g1PokemonNameJp.setText(pokemon.getNameJp());
         binding.g1PokemonNameJpEng.setText(pokemon.getNameJpEng());
         binding.g1PokemonNameFr.setText(pokemon.getNameFr());
         binding.g1PokemonNameGer.setText(pokemon.getNameGer());
         binding.g1PokemonNameKor.setText(pokemon.getNameKor());
+
         PokemonMethods.setTypeImage(res, pokemon.getType1(), binding.g1PokemonType1);
-        if (pokemon.getType2() != Type.UNK)
-            PokemonMethods.setTypeImage(res, pokemon.getType2(), binding.g1PokemonType2);
+        if (!PokemonMethods.setTypeImage(res, pokemon.getType2(), binding.g1PokemonType2))
+            binding.g1PokemonType2.setVisibility(View.GONE);
+
         binding.g1PokemonClass.setText(pokemon.getClassification());
-        binding.g1PokemonHeight.setText(String.valueOf(pokemon.getHeight()));
-        binding.g1PokemonWeight.setText(String.valueOf(pokemon.getWeight()));
+        BigDecimal heightDec = new BigDecimal(pokemon.getHeight()).movePointLeft(1);
+        binding.g1PokemonHeight.setText(heightDec.toString() + "m");
+        BigDecimal weightDec = new BigDecimal(pokemon.getWeight()).movePointLeft(1);
+        binding.g1PokemonWeight.setText(weightDec.toString() + "kg");
         binding.g1PokemonCapRate.setText(String.valueOf(pokemon.getCapRate()));
-        binding.g1PokemonXpGrowth.setText(pokemon.getXpRate());
-        binding.g1PokemonBaseHp.setText(String.valueOf(pokemon.getBaseHp()));
-        binding.g1PokemonBaseAtk.setText(String.valueOf(pokemon.getBaseAtk()));
-        binding.g1PokemonBaseDef.setText(String.valueOf(pokemon.getBaseDef()));
-        binding.g1PokemonBaseSpc.setText(String.valueOf(pokemon.getBaseSpc()));
-        binding.g1PokemonBaseSpe.setText(String.valueOf(pokemon.getBaseSpe()));
+        binding.g1PokemonXpGrowth.setText(PokemonMethods.formatXpString(pokemon.getXpRate()));
+
+        String hpString = Integer.toString(pokemon.getBaseHp());
+        binding.g1PokemonBaseHp.setText(hpString);
+        hpString += " HP";
+        binding.g1PokemonEvHp.setText(hpString);
+
+        String atkString = Integer.toString(pokemon.getBaseAtk());
+        binding.g1PokemonBaseAtk.setText(atkString);
+        atkString += " Attack";
+        binding.g1PokemonEvAttack.setText(atkString);
+
+        String defString = Integer.toString(pokemon.getBaseDef());
+        binding.g1PokemonBaseDef.setText(defString);
+        defString += " Defence";
+        binding.g1PokemonEvDefence.setText(defString);
+
+        String spcString = Integer.toString(pokemon.getBaseSpc());
+        binding.g1PokemonBaseSpc.setText(spcString);
+        spcString += " Special";
+        binding.g1PokemonEvSpecial.setText(spcString);
+
+        String speString = Integer.toString(pokemon.getBaseSpe());
+        binding.g1PokemonBaseSpe.setText(speString);
+        speString += " Speed";
+        binding.g1PokemonEvSpeed.setText(speString);
+    }
+
+    private static class SaveImageFromURL extends AsyncTask<Void, Void, Bitmap> {
+
+        private final String url;
+        private PokemonEntryG1 pokemon;
+        private final boolean isFirstSprite;
+
+        public SaveImageFromURL (String url, PokemonEntryG1 pokemon, boolean isFirstSprite) {
+            this.url = url;
+            this.pokemon = pokemon;
+            this.isFirstSprite = isFirstSprite;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... params) {
+            try {
+                URL urlConnection = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
+
+                connection.setDoInput(true);
+                connection.connect();
+
+                InputStream input = connection.getInputStream();
+                return BitmapFactory.decodeStream(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            super.onPostExecute(result);
+
+            byte[] data = getBitmapAsByteArray(result);
+            if (isFirstSprite)
+                pokemon.setSprite1(data);
+            else
+                pokemon.setSprite2(data);
+        }
     }
 }

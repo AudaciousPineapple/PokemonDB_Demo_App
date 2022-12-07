@@ -67,10 +67,10 @@ public class ModelPokemonG1 {
         String str = "";
         String div = " | ";
         str += dexNum + div + name + div + type1.getName() + div + type2.getName() + div
-            + classification + " Pokemon" + div + height + div + weight + div + captureRate + div
-            + xpGrowth.getRate() + div + redLoc + div + blueLoc + div + greenLoc + div + yellowLoc
-            + div + hp + div + atk + div + def + div + spc + div + spe + div + evo + div + evoLvl
-            + div + prEvo + div;
+            + classification + div + height + div + weight + div + captureRate + div
+            + PokemonMethods.formatXpString(xpGrowth) + div + redLoc + div + blueLoc + div +
+            greenLoc + div + yellowLoc + div + hp + div + atk + div + def + div + spc + div + spe +
+            div + evo + div + evoLvl + div + prEvo + div;
 
         return str;
     }

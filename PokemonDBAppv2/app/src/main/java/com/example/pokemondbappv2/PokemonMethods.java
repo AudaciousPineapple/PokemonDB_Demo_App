@@ -1,13 +1,16 @@
 package com.example.pokemondbappv2;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.pokemondbappv2.pokeEnums.Type;
+import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 
 public abstract class PokemonMethods {
@@ -119,7 +122,7 @@ public abstract class PokemonMethods {
      * @param type - The type you wish to set the image for
      * @param img - The ImageView you wish to update
      */
-    public static void setTypeImage(Resources res, Type type, ImageView img) {
+    public static boolean setTypeImage(Resources res, Type type, ImageView img) {
         Drawable typeImg;
         switch (type) {
             case NOR:
@@ -177,9 +180,10 @@ public abstract class PokemonMethods {
                 typeImg = ResourcesCompat.getDrawable(res, R.drawable.type_fairy, null);
                 break;
             default:
-                return;
+                return false;
         }
         img.setImageDrawable(typeImg);
+        return true;
     }
 
     /**
@@ -201,6 +205,16 @@ public abstract class PokemonMethods {
             return "HM0" + tmNum;
         }
 
+    }
+
+    public static String formatXpString(XpGrowth xpGrowth) {
+        return xpGrowth.getMax() + " | " + xpGrowth.getName();
+    }
+
+    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
     }
 
 }

@@ -9,10 +9,11 @@ import com.example.pokemondbappv2.pokeEnums.*;
 public class PokemonEntryG1 {
 
     private int dexNum, height, weight, capRate, baseHp, baseAtk, baseDef, baseSpc, baseSpe, id;
-    private String name, nameJp, nameJpEng, nameFr, nameGer, nameKor, classification, xpRate;
+    private String name, nameJp, nameJpEng, nameFr, nameGer, nameKor, classification;
     private Type type1;
     private Type type2;
-    private Bitmap sprite1, sprite2;
+    private XpGrowth xpRate;
+    private byte[] sprite1, sprite2;
 
     public PokemonEntryG1() {
         this.dexNum = 0;
@@ -38,11 +39,11 @@ public class PokemonEntryG1 {
         this.baseSpe = 0;
     }
 
-    public PokemonEntryG1 (int dexNum, String name, Bitmap sprite1, Bitmap sprite2, String nameJp, String nameJpEng, String nameFr,
-                            String nameGer, String nameKor, Type type1, Type type2,
-                            String classification, int height, int weight, int capRate,
-                            String xpRate, int baseHp, int baseAtk, int baseDef, int baseSpc,
-                            int baseSpe, long id) {
+    public PokemonEntryG1 (int dexNum, String name, byte[] sprite1, byte[] sprite2, String nameJp,
+                           String nameJpEng, String nameFr, String nameGer, String nameKor,
+                           Type type1, Type type2, String classification, int height, int weight,
+                           int capRate, XpGrowth xpRate, int baseHp, int baseAtk, int baseDef,
+                           int baseSpc, int baseSpe, int id) {
         this.dexNum = dexNum;
         this.name = name;
         this.sprite1 = sprite1;
@@ -64,13 +65,14 @@ public class PokemonEntryG1 {
         this.baseDef = baseDef;
         this.baseSpc = baseSpc;
         this.baseSpe = baseSpe;
+        this.id = id;
     }
 
     public int getId() { return id; }
     public int getDexNum() { return dexNum; }
     public String getName() { return name; }
-    public Bitmap getSprite1() { return sprite1; }
-    public Bitmap getSprite2() { return sprite2; }
+    public byte[] getSprite1() { return sprite1; }
+    public byte[] getSprite2() { return sprite2; }
     public String getNameJp() { return nameJp; }
     public String getNameJpEng() { return nameJpEng; }
     public String getNameFr() { return nameFr; }
@@ -82,7 +84,7 @@ public class PokemonEntryG1 {
     public int getHeight() { return height; }
     public int getWeight() { return weight; }
     public int getCapRate() { return capRate; }
-    public String getXpRate() { return xpRate; }
+    public XpGrowth getXpRate() { return xpRate; }
     public int getBaseHp() { return baseHp; }
     public int getBaseAtk() { return baseAtk; }
     public int getBaseDef() { return baseDef; }
@@ -91,10 +93,10 @@ public class PokemonEntryG1 {
 
     public void setDexNum(int dexNum) { this.dexNum = dexNum; }
     public void setName(String name) { this.name = name; }
-    public void setSprite1(Bitmap sprite1) { this.sprite1 = sprite1; }
-    public void setSprite2(Bitmap sprite2) { this.sprite2 = sprite2; }
-    public void setNameJp(String Jp) { this.nameJp = nameJp; }
-    public void setNameJpEng(String name) { this.nameJpEng = nameJpEng; }
+    public void setSprite1(byte[] sprite1) { this.sprite1 = sprite1; }
+    public void setSprite2(byte[] sprite2) { this.sprite2 = sprite2; }
+    public void setNameJp(String nameJp) { this.nameJp = nameJp; }
+    public void setNameJpEng(String nameJpEng) { this.nameJpEng = nameJpEng; }
     public void setNameFr(String nameFr) { this.nameFr = nameFr; }
     public void setNameGer(String nameGer) { this.nameGer = nameGer; }
     public void setNameKor(String nameKor) { this.nameKor = nameKor; }
@@ -104,7 +106,7 @@ public class PokemonEntryG1 {
     public void setHeight(int height) { this.height = height; }
     public void setWeight(int weight) { this.weight = weight; }
     public void setCapRate(int capRate) { this.capRate = capRate; }
-    public void setXpRate(String xpRate) { this.xpRate = xpRate; }
+    public void setXpRate(XpGrowth xpRate) { this.xpRate = xpRate; }
     public void setBaseHp(int baseHp) { this.baseHp = baseHp; }
     public void setBaseAtk(int baseAtk) { this.baseAtk = baseAtk; }
     public void setBaseDef(int baseDef) { this.baseDef = baseDef; }

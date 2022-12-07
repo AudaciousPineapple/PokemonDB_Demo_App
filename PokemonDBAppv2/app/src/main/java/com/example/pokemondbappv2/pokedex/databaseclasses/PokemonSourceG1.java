@@ -10,7 +10,9 @@ import android.util.Log;
 
 import static com.example.pokemondbappv2.pokedex.databaseclasses.PokemonHelperG1.*;
 
+import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.pokeEnums.Type;
+import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -56,35 +58,41 @@ public class PokemonSourceG1 {
 
     public PokemonEntryG1 getPokemonEntry (int dexNum) {
 
-            String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + DEX_NUM + " = ?";
-            Cursor cur = db.rawQuery(sqlQuery, new String[]{String.valueOf(dexNum)});
+        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + DEX_NUM + " = ?";
+        Cursor cur = db.rawQuery(sqlQuery, new String[]{String.valueOf(dexNum)});
 
-            PokemonEntryG1 pokemon = new PokemonEntryG1(
+        PokemonEntryG1 pokemon;
+
+        if (cur.moveToFirst()) {
+            pokemon = new PokemonEntryG1(
                     dexNum,
-                    cur.getString(1),
-                    BitmapFactory.decodeByteArray(cur.getBlob(2), 0, cur.getBlob(2).length),
-                    BitmapFactory.decodeByteArray(cur.getBlob(3), 0, cur.getBlob(3).length),
-                    cur.getString(4),
+                    cur.getString(2),
+                    cur.getBlob(3),
+                    cur.getBlob(4),
                     cur.getString(5),
                     cur.getString(6),
                     cur.getString(7),
                     cur.getString(8),
-                    Type.checkType(cur.getString(9)),
+                    cur.getString(9),
                     Type.checkType(cur.getString(10)),
-                    cur.getString(11),
-                    cur.getInt(12),
+                    Type.checkType(cur.getString(11)),
+                    cur.getString(12),
                     cur.getInt(13),
                     cur.getInt(14),
-                    cur.getString(15),
-                    cur.getInt(16),
+                    cur.getInt(15),
+                    XpGrowth.checkName(cur.getString(16)),
                     cur.getInt(17),
                     cur.getInt(18),
                     cur.getInt(19),
                     cur.getInt(20),
+                    cur.getInt(21),
                     cur.getInt(0)
             );
-
+            cur.close();
             return pokemon;
+        }
+
+        return null;
     }
 
     public boolean addPokemon (PokemonEntryG1 pokemon) {
@@ -107,7 +115,7 @@ public class PokemonSourceG1 {
                     pokemon.getHeight(),
                     pokemon.getWeight(),
                     pokemon.getCapRate(),
-                    pokemon.getXpRate(),
+                    pokemon.getXpRate().getName(),
                     pokemon.getBaseHp(),
                     pokemon.getBaseAtk(),
                     pokemon.getBaseDef(),
@@ -128,10 +136,6 @@ public class PokemonSourceG1 {
             return true;
         }
         return false;
-    }
-
-    public int removeData() {
-        return db.delete(TABLE_NAME, null, null);
     }
 
     public boolean isCached(int dexNum) {

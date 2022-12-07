@@ -63,10 +63,12 @@ public class APICalls {
         }
     }
 
+    /*
     public static class GetXpRateInfo extends AsyncTask<Void, Void, Void> {
         private final String urlString;
         private String xpRateResult;
         private final TextView textView;
+
 
         public GetXpRateInfo (String url, TextView textView) {
             this.urlString = url;
@@ -74,7 +76,7 @@ public class APICalls {
             xpRateResult = "";
         }
 
-        public String getXpRateResult () { return xpRateResult; }
+        // public String getXpRateResult () { return xpRateResult; }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -122,7 +124,7 @@ public class APICalls {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
 }
 
