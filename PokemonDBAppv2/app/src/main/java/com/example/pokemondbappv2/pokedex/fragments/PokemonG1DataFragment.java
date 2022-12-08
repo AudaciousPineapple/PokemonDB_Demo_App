@@ -86,9 +86,10 @@ public class PokemonG1DataFragment extends Fragment {
         source.close();
     }
 
-    private class getPokemonDataAPI extends AsyncTask<Void, Void, Void> {
+    private class getPokemonDataAPI extends AsyncTask<Void, Void, Void> implements APICalls.OnTaskCompleted {
         String speciesResult = "";
         String pokemonResult = "";
+        PokemonEntryG1 pokemon;
 
         @Override
         protected void onPreExecute() {
@@ -158,7 +159,8 @@ public class PokemonG1DataFragment extends Fragment {
         @Override
         protected void onPostExecute(Void r) {
             super.onPostExecute(r);
-            PokemonEntryG1 pokemon = new PokemonEntryG1();
+            pokemon = new PokemonEntryG1();
+            boolean done = false;
 
             try {
                 JSONObject speciesObj = new JSONObject(speciesResult);
@@ -174,21 +176,6 @@ public class PokemonG1DataFragment extends Fragment {
                 binding.g1PokemonName.setText(pokemonName);
                 pokemon.setName(pokemonName);
                 Log.d("**Name**", pokemonName);
-
-                // Sets the sprite images
-                String sprite1Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
-                        .getJSONObject("generation-i").getJSONObject("red-blue")
-                        .getString("front_transparent");
-                Log.d("**Sprite 1 URL**", sprite1Url);
-                new APICalls.ImageLoadTask(sprite1Url, binding.g1PokemonSprite1).execute();
-                new SaveImageFromURL(sprite1Url, pokemon, true).execute();
-
-                String sprite2Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
-                        .getJSONObject("generation-i").getJSONObject("yellow")
-                        .getString("front_transparent");
-                Log.d("**Sprite 2 URL**", sprite2Url);
-                new APICalls.ImageLoadTask(sprite2Url, binding.g1PokemonSprite2).execute();
-                new SaveImageFromURL(sprite2Url, pokemon, false).execute();
 
                 // Sets the alternate language names
                 JSONArray nameArray = speciesObj.getJSONArray("names");
@@ -383,7 +370,20 @@ public class PokemonG1DataFragment extends Fragment {
                 binding.g1PokemonEvSpeed.setText(baseSpe);
                 Log.d("**Base Speed**", baseSpe);
 
-                source.addPokemon(pokemon);
+                // Sets the sprite images
+                String sprite1Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
+                        .getJSONObject("generation-i").getJSONObject("red-blue")
+                        .getString("front_transparent");
+                Log.d("**Sprite 1 URL**", sprite1Url);
+                new APICalls.SpriteLoadTask(sprite1Url, binding.g1PokemonSprite1, true,
+                        pokemon, this).execute();
+
+                String sprite2Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
+                        .getJSONObject("generation-i").getJSONObject("yellow")
+                        .getString("front_transparent");
+                Log.d("**Sprite 2 URL**", sprite2Url);
+                new APICalls.SpriteLoadTask(sprite2Url, binding.g1PokemonSprite2, false,
+                        pokemon, this).execute();
 
                 // Evolutionary Chain graphic
                 String evoChainUrl = speciesObj.getJSONObject("evolution_chain").getString("url");
@@ -401,6 +401,13 @@ public class PokemonG1DataFragment extends Fragment {
                 Log.i("JSON Parsing", "EXCEPTION: " + e.getMessage());
             }
 
+        }
+
+        @Override
+        public void OnTaskCompleted() {
+            source.addPokemon(pokemon);
+            Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite1().length));
+            Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite2().length));
         }
     }
     /*
@@ -464,8 +471,17 @@ public class PokemonG1DataFragment extends Fragment {
         binding.g1PokemonNum.setText("#" + dFormat.format(pokemon.getDexNum()));
         binding.g1PokemonName.setText(pokemon.getName());
 
-        binding.g1PokemonSprite1.setImageBitmap(pokemon.getSprite1());
-        binding.g1PokemonSprite2.setImageBitmap(pokemon.getSprite2());
+        byte[] test = pokemon.getSprite1();
+        String str = "";
+        for (int i = 0; i < test.length; i++)
+            str += test[i] + ",";
+        Log.d("**TESTING**", test.length + " | " + str);
+        byte[] bArray = pokemon.getSprite1();
+        binding.g1PokemonSprite1.setImageBitmap(BitmapFactory.decodeByteArray(bArray,0,
+                bArray.length));
+        bArray = pokemon.getSprite2();
+        binding.g1PokemonSprite2.setImageBitmap(BitmapFactory.decodeByteArray(bArray, 0,
+                bArray.length));
 
         binding.g1PokemonNameJp.setText(pokemon.getNameJp());
         binding.g1PokemonNameJpEng.setText(pokemon.getNameJpEng());
@@ -509,48 +525,5 @@ public class PokemonG1DataFragment extends Fragment {
         binding.g1PokemonBaseSpe.setText(speString);
         speString += " Speed";
         binding.g1PokemonEvSpeed.setText(speString);
-    }
-
-    private static class SaveImageFromURL extends AsyncTask<Void, Void, byte[]> {
-
-        private final String url;
-        private PokemonEntryG1 pokemon;
-        private final boolean isFirstSprite;
-
-        public SaveImageFromURL (String url, PokemonEntryG1 pokemon, boolean isFirstSprite) {
-            this.url = url;
-            this.pokemon = pokemon;
-            this.isFirstSprite = isFirstSprite;
-        }
-
-        @Override
-        protected byte[] doInBackground(Void... params) {
-            try {
-                URL urlConnection = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
-
-                connection.setDoInput(true);
-                connection.connect();
-
-                InputStream input = connection.getInputStream();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                Bitmap bmp = BitmapFactory.decodeStream(input);
-                bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
-                return stream.toByteArray();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            super.onPostExecute(result);
-            if (isFirstSprite)
-                pokemon.setSprite1(result);
-            else
-                pokemon.setSprite2(result);
-        }
     }
 }

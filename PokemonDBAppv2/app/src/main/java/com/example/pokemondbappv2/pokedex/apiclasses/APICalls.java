@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pokemondbappv2.PokemonMethods;
+import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,19 +25,18 @@ import java.net.URL;
 
 public class APICalls {
 
+    public interface OnTaskCompleted{
+        void OnTaskCompleted();
+    }
+
     public static class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
         private final String url;
         private ImageView imageView;
-        private Bitmap bitmap;
 
         public ImageLoadTask(String url, ImageView imageView) {
             this.url = url;
             this.imageView = imageView;
-        }
-
-        public Bitmap getBitmap () {
-            return bitmap;
         }
 
         @Override
@@ -59,73 +60,74 @@ public class APICalls {
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
             imageView.setImageBitmap(result);
-            bitmap = result;
         }
     }
 
-    /*
-    public static class GetXpRateInfo extends AsyncTask<Void, Void, Void> {
-        private final String urlString;
-        private String xpRateResult;
-        private final TextView textView;
+    public static class SpriteLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
+        private OnTaskCompleted listener;
+        private final String url;
+        private ImageView imageView;
+        private final boolean isFirstSprite;
+        PokemonEntryG1 pokemon;
+        private byte[] toDb;
 
-        public GetXpRateInfo (String url, TextView textView) {
-            this.urlString = url;
-            this.textView = textView;
-            xpRateResult = "";
+        public SpriteLoadTask(String url, ImageView imageView, boolean isFirstSprite,
+                              PokemonEntryG1 pokemon, OnTaskCompleted listener) {
+            this.url = url;
+            this.imageView = imageView;
+            this.isFirstSprite = isFirstSprite;
+            this.pokemon = pokemon;
+            this.listener = listener;
         }
 
-        // public String getXpRateResult () { return xpRateResult; }
-
         @Override
-        protected Void doInBackground(Void... voids) {
-            HttpURLConnection urlConnection;
-            BufferedReader reader;
-
+        protected Bitmap doInBackground(Void... params) {
             try {
-                URL url = new URL(urlString);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-                InputStream inputStream = urlConnection.getInputStream();
-                if (inputStream == null)
-                    return null;
+                URL urlConnection = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
 
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                String tempString;
-                while ((tempString = reader.readLine()) != null)
-                    xpRateResult += tempString;
+                connection.setDoInput(true);
+                connection.connect();
 
-                urlConnection.disconnect();
-                reader.close();
+                InputStream input = connection.getInputStream();
+                Bitmap result = BitmapFactory.decodeStream(input);
+                connection.disconnect();
+                input.close();
 
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                Bitmap bitmap = result.copy(result.getConfig(), result.isMutable());
+                Log.d("**TESTING**" , String.valueOf(bitmap.getByteCount()));
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                toDb = stream.toByteArray();
+
+                return result;
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("**TESTING**", "doInBackground not completed");
             }
-
-
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
+        protected void onPostExecute(Bitmap result) {
+            super.onPostExecute(result);
+            imageView.setImageBitmap(result);
 
-            try {
-                JSONObject xpObject = new JSONObject(xpRateResult);
-                String textViewStr = xpObject.getJSONArray("levels").getJSONObject(99)
-                        .getString("experience") + " | " + PokemonMethods.fixPokemonName(
-                        xpObject.getString("name"));
+            Log.d("**TESTING**" , String.valueOf(toDb.length));
+            String str = "";
+            for (int i = 0; i < toDb.length; i++) {
+                str += toDb[i];
+            }
+            Log.d("**TESTING**" , str);
 
-                textView.setText(textViewStr);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (isFirstSprite)
+                pokemon.setSprite1(toDb);
+            else {
+                pokemon.setSprite2(toDb);
+                listener.OnTaskCompleted();
             }
         }
-    }*/
-
+    }
 }
 
 

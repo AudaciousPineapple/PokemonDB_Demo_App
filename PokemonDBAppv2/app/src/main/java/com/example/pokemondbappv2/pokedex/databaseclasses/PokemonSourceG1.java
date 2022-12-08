@@ -99,9 +99,6 @@ public class PokemonSourceG1 {
     public boolean addPokemon (PokemonEntryG1 pokemon) {
         if (!isCached(pokemon.getDexNum())) {
             ContentValues pokemonValues = new ContentValues();
-            ByteArrayOutputStream spr1 = new ByteArrayOutputStream();
-            ByteArrayOutputStream spr2 = new ByteArrayOutputStream();
-
 
             Object[] pokemonObjects = new Object[]{
                     pokemon.getDexNum(),
@@ -127,14 +124,7 @@ public class PokemonSourceG1 {
                     pokemon.getBaseSpe()
             };
             for (int i = 0; i < columns.length - 1; i++) {
-                if (i == 2 || i == 3) {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    Bitmap bmp = (Bitmap) pokemonObjects[i];
-                    Log.d("**TESTING**", stream.toString());
-                    pokemonValues.put(columns[i], stream.toByteArray());
-                }
-                else
-                    pokemonValues.put(columns[i], String.valueOf(pokemonObjects[i]));
+                pokemonValues.put(columns[i], String.valueOf(pokemonObjects[i]));
             }
             db.insert(TABLE_NAME, null, pokemonValues);
             return true;

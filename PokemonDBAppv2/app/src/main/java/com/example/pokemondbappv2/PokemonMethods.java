@@ -11,6 +11,7 @@ import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 public abstract class PokemonMethods {
@@ -212,9 +213,16 @@ public abstract class PokemonMethods {
     }
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
+        try {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bArray = stream.toByteArray();
+            stream.close();
+            return bArray;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

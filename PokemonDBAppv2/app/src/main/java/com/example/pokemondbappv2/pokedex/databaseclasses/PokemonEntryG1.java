@@ -78,12 +78,8 @@ public class PokemonEntryG1 {
     public int getId() { return id; }
     public int getDexNum() { return dexNum; }
     public String getName() { return name; }
-    public Bitmap getSprite1() {
-        return BitmapFactory.decodeByteArray(sprite1, 0, sprite1.length);
-    }
-    public Bitmap getSprite2() {
-        return BitmapFactory.decodeByteArray(sprite2, 0, sprite2.length);
-    }
+    public byte[] getSprite1() { return sprite1; }
+    public byte[] getSprite2() { return sprite2; }
     public String getNameJp() { return nameJp; }
     public String getNameJpEng() { return nameJpEng; }
     public String getNameFr() { return nameFr; }
