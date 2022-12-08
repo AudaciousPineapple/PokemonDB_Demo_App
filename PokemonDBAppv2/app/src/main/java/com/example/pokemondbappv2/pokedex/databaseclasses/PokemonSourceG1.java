@@ -2,6 +2,7 @@ package com.example.pokemondbappv2.pokedex.databaseclasses;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -98,6 +99,9 @@ public class PokemonSourceG1 {
     public boolean addPokemon (PokemonEntryG1 pokemon) {
         if (!isCached(pokemon.getDexNum())) {
             ContentValues pokemonValues = new ContentValues();
+            ByteArrayOutputStream spr1 = new ByteArrayOutputStream();
+            ByteArrayOutputStream spr2 = new ByteArrayOutputStream();
+
 
             Object[] pokemonObjects = new Object[]{
                     pokemon.getDexNum(),

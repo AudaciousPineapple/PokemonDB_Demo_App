@@ -5,6 +5,7 @@ import static com.example.pokemondbappv2.PokemonMethods.getBitmapAsByteArray;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -463,12 +464,8 @@ public class PokemonG1DataFragment extends Fragment {
         binding.g1PokemonNum.setText("#" + dFormat.format(pokemon.getDexNum()));
         binding.g1PokemonName.setText(pokemon.getName());
 
-        byte[] spr1 = pokemon.getSprite1();
-        binding.g1PokemonSprite1.setImageBitmap(BitmapFactory.decodeByteArray(spr1,
-                0, spr1.length));
-        byte[] spr2 = pokemon.getSprite2();
-        binding.g1PokemonSprite2.setImageBitmap(BitmapFactory.decodeByteArray(spr2,
-                0, spr2.length));
+        binding.g1PokemonSprite1.setImageBitmap(pokemon.getSprite1());
+        binding.g1PokemonSprite2.setImageBitmap(pokemon.getSprite2());
 
         binding.g1PokemonNameJp.setText(pokemon.getNameJp());
         binding.g1PokemonNameJpEng.setText(pokemon.getNameJpEng());
@@ -514,7 +511,7 @@ public class PokemonG1DataFragment extends Fragment {
         binding.g1PokemonEvSpeed.setText(speString);
     }
 
-    private static class SaveImageFromURL extends AsyncTask<Void, Void, Bitmap> {
+    private static class SaveImageFromURL extends AsyncTask<Void, Void, byte[]> {
 
         private final String url;
         private PokemonEntryG1 pokemon;
@@ -527,7 +524,7 @@ public class PokemonG1DataFragment extends Fragment {
         }
 
         @Override
-        protected Bitmap doInBackground(Void... params) {
+        protected byte[] doInBackground(Void... params) {
             try {
                 URL urlConnection = new URL(url);
                 HttpURLConnection connection = (HttpURLConnection) urlConnection.openConnection();
@@ -536,7 +533,11 @@ public class PokemonG1DataFragment extends Fragment {
                 connection.connect();
 
                 InputStream input = connection.getInputStream();
-                return BitmapFactory.decodeStream(input);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                Bitmap bmp = BitmapFactory.decodeStream(input);
+                bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
+                return stream.toByteArray();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -546,12 +547,10 @@ public class PokemonG1DataFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
-
-            byte[] data = getBitmapAsByteArray(result);
             if (isFirstSprite)
-                pokemon.setSprite1(data);
+                pokemon.setSprite1(result);
             else
-                pokemon.setSprite2(data);
+                pokemon.setSprite2(result);
         }
     }
 }
