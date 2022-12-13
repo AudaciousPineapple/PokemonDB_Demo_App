@@ -9,6 +9,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;
+import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -118,6 +119,18 @@ public abstract class PokemonMethods {
     }
 
     /**
+     * FIXME
+     * @param name
+     * @return
+     */
+    public static String fixLocationNameG1(String name) {
+        fixPokemonName(name);
+        String locName = name.replace("Kanto ", "");
+        locName = locName.replace(" Area", "");
+        return locName;
+    }
+
+    /**
      * setTypeImage method - Sets the image for type based on the provided type
      * @param res - Resources
      * @param type - The type you wish to set the image for
@@ -223,6 +236,38 @@ public abstract class PokemonMethods {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static int[] getStatRangesG1G2(PokemonEntryG1 pokemon, int level) {
+        int minHp = getHpMaxG1G2(pokemon.getBaseHp(), level);
+        int maxHp = getHpMinG1G2(pokemon.getBaseHp(), level);
+        int minAtk = getNotHpMinG1G2(pokemon.getBaseAtk(), level);
+        int maxAtk = getNotHpMaxG1G2(pokemon.getBaseAtk(), level);
+        int minDef = getNotHpMinG1G2(pokemon.getBaseDef(), level);
+        int maxDef = getNotHpMaxG1G2(pokemon.getBaseDef(), level);
+        int minSpc = getNotHpMinG1G2(pokemon.getBaseSpc(), level);
+        int maxSpc = getNotHpMaxG1G2(pokemon.getBaseSpc(), level);
+        int minSpe = getNotHpMinG1G2(pokemon.getBaseSpe(), level);
+        int maxSpe = getNotHpMaxG1G2(pokemon.getBaseSpe(), level);
+
+        return new int[]
+                { minHp, maxHp, minAtk, maxAtk, minDef, maxDef, minSpc, maxSpc, minSpe, maxSpe };
+    }
+
+    public static int getHpMinG1G2(int baseHp, int level) {
+        return (((baseHp * 2 * level) / 100)) + level + 10;
+    }
+
+    public static int getHpMaxG1G2(int baseHp, int level) {
+        return ((((baseHp + 15) * 2 + 256 / 4) * level) / 100) + level + 10;
+    }
+
+    public static int getNotHpMinG1G2(int baseStat, int level) {
+        return ((baseStat * 2 * level) / 100) + 5;
+    }
+
+    public static int getNotHpMaxG1G2(int baseStat, int level) {
+        return ((((baseStat + 15) * 2 + 256 / 4) * level) / 100) + 5;
     }
 
 }

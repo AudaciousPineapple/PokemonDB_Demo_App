@@ -1,5 +1,7 @@
 package com.example.pokemondbappv2.pokedex.fragments;
 
+import static com.example.pokemondbappv2.PokemonMethods.fixLocationNameG1;
+import static com.example.pokemondbappv2.PokemonMethods.fixPokemonName;
 import static com.example.pokemondbappv2.PokemonMethods.getBitmapAsByteArray;
 
 import android.content.res.Resources;
@@ -18,8 +20,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.pokemondbappv2.PokemonMethods;
+import com.example.pokemondbappv2.R;
 import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonG1DataBinding;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;
@@ -91,6 +95,7 @@ public class PokemonG1DataFragment extends Fragment {
     private class getPokemonDataAPI extends AsyncTask<Void, Void, Void> implements APICalls.OnTaskCompleted {
         String speciesResult = "";
         String pokemonResult = "";
+        String locationsResult = "";
         PokemonEntryG1 pokemon;
 
         @Override
@@ -149,6 +154,28 @@ public class PokemonG1DataFragment extends Fragment {
                 urlConnection.disconnect();
                 reader.close();
 
+                tempStr = "https://pokeapi.co/api/v2/pokemon/" + dexNum + "/encounters";
+                url = new URL(tempStr);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                inputStream = urlConnection.getInputStream();
+
+                if (inputStream == null)
+                    return null;
+
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                while ((tempStr = reader.readLine()) != null)
+                    locationsResult += tempStr;
+
+                Log.d("API request returned: ", pokemonResult);
+
+                urlConnection.disconnect();
+                reader.close();
+
 
             } catch (IOException e) {
                 Log.i("HttpAsyncTask", "EXCEPTION: " + e.getMessage());
@@ -167,6 +194,7 @@ public class PokemonG1DataFragment extends Fragment {
             try {
                 JSONObject speciesObj = new JSONObject(speciesResult);
                 JSONObject pokemonObj = new JSONObject(pokemonResult);
+                JSONArray locationsArr = new JSONArray(locationsResult);
 
                 // Set Dex Num
                 binding.g1PokemonNum.setText("#" + dFormat.format(dexNum));
@@ -291,9 +319,21 @@ public class PokemonG1DataFragment extends Fragment {
                 String baseHp = statsArray.getJSONObject(0).getString("base_stat");
                 binding.g1PokemonBaseHp.setText(baseHp);
                 pokemon.setBaseHp(Integer.parseInt(baseHp));
-                baseHp += " HP";
-                binding.g1PokemonEvHp.setText(baseHp);
+                binding.g1PokemonEvHp.setText(baseHp + " HP");
                 Log.d("**Base HP**", baseHp);
+
+                int hp = Integer.parseInt(baseHp);
+                int hpMin50 = PokemonMethods.getHpMinG1G2(hp, 50);
+                int hpMax50 = PokemonMethods.getHpMaxG1G2(hp, 50);
+                int hpMin100 = PokemonMethods.getHpMinG1G2(hp, 100);
+                int hpMax100 = PokemonMethods.getHpMaxG1G2(hp, 100);
+
+                binding.g1Pokemon50Hp.setText(formatStatRange(hpMin50, hpMax50));
+                pokemon.setMinHp50(hpMin50);
+                pokemon.setMaxHp50(hpMax50);
+                binding.g1Pokemon100Hp.setText(formatStatRange(hpMin100, hpMax100));
+                pokemon.setMinHp100(hpMin100);
+                pokemon.setMaxHp100(hpMax100);
 
                 // Attack
                 String baseAtk;
@@ -322,11 +362,24 @@ public class PokemonG1DataFragment extends Fragment {
                         baseAtk = statsArray.getJSONObject(1).getString("base_stat");
                         break;
                 }
+
                 binding.g1PokemonBaseAtk.setText(baseAtk);
                 pokemon.setBaseAtk(Integer.parseInt(baseAtk));
-                baseAtk += " Attack";
-                binding.g1PokemonEvAttack.setText(baseAtk);
+                binding.g1PokemonEvAttack.setText(baseAtk + " Attack");
                 Log.d("**Base Attack**", baseAtk);
+
+                int atk = Integer.parseInt(baseAtk);
+                int atkMin50 = PokemonMethods.getNotHpMinG1G2(atk, 50);
+                int atkMax50 = PokemonMethods.getNotHpMaxG1G2(atk, 50);
+                int atkMin100 = PokemonMethods.getNotHpMinG1G2(atk, 100);
+                int atkMax100 = PokemonMethods.getNotHpMaxG1G2(atk, 100);
+
+                binding.g1Pokemon50Atk.setText(formatStatRange(atkMin50, atkMax50));
+                pokemon.setMinAtk50(atkMin50);
+                pokemon.setMaxAtk50(atkMax50);
+                binding.g1Pokemon100Atk.setText(formatStatRange(atkMin100, atkMax100));
+                pokemon.setMinAtk100(atkMin100);
+                pokemon.setMaxAtk100(atkMax100);
 
                 // Defence
                 String baseDef;
@@ -337,17 +390,41 @@ public class PokemonG1DataFragment extends Fragment {
                 }
                 binding.g1PokemonBaseDef.setText(baseDef);
                 pokemon.setBaseDef(Integer.parseInt(baseDef));
-                baseDef += " Defence";
-                binding.g1PokemonEvDefence.setText(baseDef);
+                binding.g1PokemonEvDefence.setText(baseDef + " Defence");
                 Log.d("**Base Defence**", baseDef);
+
+                int def = Integer.parseInt(baseDef);
+                int defMin50 = PokemonMethods.getNotHpMinG1G2(def, 50);
+                int defMax50 = PokemonMethods.getNotHpMaxG1G2(def, 50);
+                int defMin100 = PokemonMethods.getNotHpMinG1G2(def, 100);
+                int defMax100 = PokemonMethods.getNotHpMaxG1G2(def, 100);
+
+                binding.g1Pokemon50Def.setText(formatStatRange(defMin50, defMax50));
+                pokemon.setMinDef50(defMin50);
+                pokemon.setMaxDef50(defMax50);
+                binding.g1Pokemon100Def.setText(formatStatRange(defMin100, defMax100));
+                pokemon.setMinDef100(defMin100);
+                pokemon.setMaxDef100(defMax100);
 
                 // Special
                 String baseSpc = Integer.toString(PokemonMethods.specialStats[dexNum-1]);
                 binding.g1PokemonBaseSpc.setText(baseSpc);
                 pokemon.setBaseSpc(Integer.parseInt(baseSpc));
-                baseSpc += " Special";
-                binding.g1PokemonEvSpecial.setText(baseSpc);
+                binding.g1PokemonEvSpecial.setText(baseSpc + " Special");
                 Log.d("**Base Special", baseSpc);
+
+                int spc = Integer.parseInt(baseSpc);
+                int spcMin50 = PokemonMethods.getNotHpMinG1G2(spc, 50);
+                int spcMax50 = PokemonMethods.getNotHpMaxG1G2(spc, 50);
+                int spcMin100 = PokemonMethods.getNotHpMinG1G2(spc, 100);
+                int spcMax100 = PokemonMethods.getNotHpMaxG1G2(spc, 100);
+
+                binding.g1Pokemon50Spc.setText(formatStatRange(spcMin50, spcMax50));
+                pokemon.setMinSpc50(spcMin50);
+                pokemon.setMaxSpc50(spcMax50);
+                binding.g1Pokemon100Spc.setText(formatStatRange(spcMin100, spcMax100));
+                pokemon.setMinSpc100(spcMin100);
+                pokemon.setMaxSpc100(spcMax100);
 
                 // Speed
                 String baseSpe;
@@ -368,9 +445,21 @@ public class PokemonG1DataFragment extends Fragment {
                 }
                 binding.g1PokemonBaseSpe.setText(baseSpe);
                 pokemon.setBaseSpe(Integer.parseInt(baseSpe));
-                baseSpe += " Speed";
-                binding.g1PokemonEvSpeed.setText(baseSpe);
+                binding.g1PokemonEvSpeed.setText(baseSpe + " Speed");
                 Log.d("**Base Speed**", baseSpe);
+
+                int spe = Integer.parseInt(baseSpe);
+                int speMin50 = PokemonMethods.getNotHpMinG1G2(spe, 50);
+                int speMax50 = PokemonMethods.getNotHpMaxG1G2(spe, 50);
+                int speMin100 = PokemonMethods.getNotHpMinG1G2(spe, 100);
+                int speMax100 = PokemonMethods.getNotHpMaxG1G2(spe, 100);
+
+                binding.g1Pokemon50Spe.setText(formatStatRange(speMin50, speMax50));
+                pokemon.setMinSpe50(speMin50);
+                pokemon.setMaxSpe50(speMax50);
+                binding.g1Pokemon100Spe.setText(formatStatRange(speMin100, speMax100));
+                pokemon.setMinSpe100(speMin100);
+                pokemon.setMaxSpe100(speMax100);
 
                 // Sets the sprite images
                 String sprite1Url = pokemonObj.getJSONObject("sprites").getJSONObject("versions")
@@ -391,13 +480,50 @@ public class PokemonG1DataFragment extends Fragment {
                 String evoChainUrl = speciesObj.getJSONObject("evolution_chain").getString("url");
                 Log.d("**Evo Chain URL**", evoChainUrl);
 
-                /*Log.d("**TESTING**", tempObj.getString("id"));
+                String redLocationStr = "";
+                String blueLocationStr = "";
+                String yellowLocationStr = "";
 
-                tempStr = tempObj.getJSONObject("species").getString("url");
-                int tempInt = Integer.parseInt(tempStr.substring(tempStr.indexOf
-                        ('/', tempStr.lastIndexOf('/') - 3), tempStr.lastIndexOf('/')));
+                for (int i = 0; i < locationsArr.length(); i++) {
+                    String tempStr = locationsArr.getJSONObject(i).getJSONObject("location_area")
+                            .getString("name");
+                    tempStr = fixLocationNameG1(tempStr);
 
-                Log.d("**TESTING**", Integer.toString(tempInt));*/
+                    JSONArray tempArr = locationsArr.getJSONObject(i).getJSONArray("version_details");
+                    for (int j = 0; j < tempArr.length(); j++) {
+                        String versionName = tempArr.getJSONObject(j).getJSONObject("version")
+                                .getString("name");
+                        if (versionName.contentEquals("red")) {
+                            if (!redLocationStr.isEmpty())
+                                redLocationStr += ", ";
+                            redLocationStr += tempStr;
+                        }
+                        else if (versionName.contentEquals("blue")) {
+                            if (!blueLocationStr.isEmpty())
+                                blueLocationStr += ", ";
+                            blueLocationStr += tempStr;
+                        }
+                        else if (versionName.contentEquals("yellow")) {
+                            if (!yellowLocationStr.isEmpty())
+                                yellowLocationStr += ", ";
+                            yellowLocationStr += tempStr;
+                        }
+                    }
+                }
+                if (redLocationStr.isEmpty())
+                    binding.g1PokemonRedLocations.setText(R.string.evolution);
+                else
+                    binding.g1PokemonRedLocations.setText(redLocationStr);
+
+                if (blueLocationStr.isEmpty())
+                    binding.g1PokemonBlueLocations.setText(R.string.evolution);
+                else
+                    binding.g1PokemonBlueLocations.setText(blueLocationStr);
+
+                if (yellowLocationStr.isEmpty())
+                    binding.g1PokemonYellowLocations.setText(R.string.evolution);
+                else
+                    binding.g1PokemonYellowLocations.setText(yellowLocationStr);
 
             } catch (JSONException e) {
                 Log.i("JSON Parsing", "EXCEPTION: " + e.getMessage());
@@ -412,62 +538,6 @@ public class PokemonG1DataFragment extends Fragment {
             //Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite2().length));
         }
     }
-    /*
-    private static class GetPokemonSpriteFromDexNum extends AsyncTask<Void, Void, Void> {
-        private final String urlString;
-        private String result;
-        private ImageView imgView;
-
-        public GetPokemonSpriteFromDexNum(int dexNum, ImageView imgView) {
-            result = "";
-            this.imgView = imgView;
-            urlString = "https://pokeapi.co/api/v2/pokemon/" + dexNum;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            HttpURLConnection urlConnection;
-            BufferedReader reader;
-
-            try {
-                URL url = new URL(urlString);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-                InputStream inputStream = urlConnection.getInputStream();
-                if (inputStream == null)
-                    return null;
-
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-                String tempString;
-                while ((tempString = reader.readLine()) != null)
-                    result += tempString;
-
-                urlConnection.disconnect();
-                reader.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void r) {
-            super.onPostExecute(r);
-
-            try {
-                String imgUrl = new JSONObject(result).getJSONObject("sprites")
-                        .getJSONObject("versions").getJSONObject("generation-i")
-                        .getJSONObject("yellow").getString("front_transparent");
-
-                new APICalls.ImageLoadTask(imgUrl, imgView).execute();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     /**
      * FIXME
@@ -504,25 +574,40 @@ public class PokemonG1DataFragment extends Fragment {
         binding.g1PokemonBaseHp.setText(hpString);
         hpString += " HP";
         binding.g1PokemonEvHp.setText(hpString);
+        binding.g1Pokemon50Hp.setText(formatStatRange(pokemon.getMinAtk50(), pokemon.getMaxAtk50()));
+        binding.g1Pokemon100Hp.setText(formatStatRange(pokemon.getMinHp100(), pokemon.getMaxHp100()));
 
         String atkString = Integer.toString(pokemon.getBaseAtk());
         binding.g1PokemonBaseAtk.setText(atkString);
         atkString += " Attack";
         binding.g1PokemonEvAttack.setText(atkString);
+        binding.g1Pokemon50Atk.setText(formatStatRange(pokemon.getMinAtk50(), pokemon.getMaxAtk50()));
+        binding.g1Pokemon100Atk.setText(formatStatRange(pokemon.getMinAtk100(), pokemon.getMaxAtk100()));
 
         String defString = Integer.toString(pokemon.getBaseDef());
         binding.g1PokemonBaseDef.setText(defString);
         defString += " Defence";
         binding.g1PokemonEvDefence.setText(defString);
+        binding.g1Pokemon50Def.setText(formatStatRange(pokemon.getMinDef50(), pokemon.getMaxDef50()));
+        binding.g1Pokemon100Def.setText(formatStatRange(pokemon.getMinDef100(), pokemon.getMaxDef100()));
 
         String spcString = Integer.toString(pokemon.getBaseSpc());
         binding.g1PokemonBaseSpc.setText(spcString);
         spcString += " Special";
         binding.g1PokemonEvSpecial.setText(spcString);
+        binding.g1Pokemon50Spc.setText(formatStatRange(pokemon.getMinSpc50(), pokemon.getMaxSpc50()));
+        binding.g1Pokemon100Spc.setText(formatStatRange(pokemon.getMinSpc100(), pokemon.getMaxSpc100()));
 
         String speString = Integer.toString(pokemon.getBaseSpe());
         binding.g1PokemonBaseSpe.setText(speString);
         speString += " Speed";
         binding.g1PokemonEvSpeed.setText(speString);
+        binding.g1Pokemon50Spe.setText(formatStatRange(pokemon.getMinSpe50(), pokemon.getMaxSpe50()));
+        binding.g1Pokemon100Spe.setText(formatStatRange(pokemon.getMinSpe100(), pokemon.getMaxSpe100()));
     }
+
+    private String formatStatRange(int min, int max) {
+        return min + " - " + max;
+    }
+
 }

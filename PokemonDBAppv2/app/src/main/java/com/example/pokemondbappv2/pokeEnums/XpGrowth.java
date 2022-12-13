@@ -35,24 +35,6 @@ public enum XpGrowth {
             return null;
     }
 
-    /*
-    public static int checkMax(String apiName) {
-        if (apiName.contentEquals(FAST.apiName))
-            return FAST.max;
-        else if (apiName.contentEquals(MEDIUM_FAST.apiName))
-            return MEDIUM_FAST.max;
-        else if (apiName.contentEquals(MEDIUM_SLOW.apiName))
-            return MEDIUM_SLOW.max;
-        else if (apiName.contentEquals(SLOW.apiName))
-            return SLOW.max;
-        else if (apiName.contentEquals(ERRATIC.apiName))
-            return ERRATIC.max;
-        else if (apiName.contentEquals(FLUCTUATING.apiName))
-            return FLUCTUATING.max;
-        else
-            return 0;
-    } */
-
     public static XpGrowth checkName (String name) {
         if (name.contentEquals(FAST.name))
             return FAST;
@@ -70,7 +52,7 @@ public enum XpGrowth {
             return null;
     }
 
-    public String getName() { return name; }
-    public int getMax() { return max; }
+    public String getName() { return this.name; }
+    public int getMax() { return this.max; }
     public String getApiName() { return apiName; }
 }

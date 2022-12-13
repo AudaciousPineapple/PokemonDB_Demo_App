@@ -362,6 +362,7 @@
 
         <!-- Red Locations -->
         <LinearLayout
+            android:id="@+id/g1_pokemon_red_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -384,40 +385,9 @@
 
         </LinearLayout>
 
-        <!-- Green (Jp.) / Blue (Intl.) Locations -->
+        <!-- Blue Locations -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.15"
-                android:text="@string/green_jp"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.15"
-                android:text="@string/blue_intl"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
-
-            <TextView
-                android:id="@+id/g1_pokemon_greenJp_blueIntl_locations"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.70"
-                android:layout_gravity="center_vertical"
-                android:text="@string/placeholder_text"/>
-
-        </LinearLayout>
-
-        <!-- Blue (Jp.) Locations -->
-        <LinearLayout
+            android:id="@+id/g1_pokemon_blue_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -426,12 +396,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.30"
-                android:text="@string/blue_jp"
+                android:text="@string/blue"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"/>
 
             <TextView
-                android:id="@+id/g1_pokemon_blueJp_locations"
+                android:id="@+id/g1_pokemon_blue_locations"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.70"
@@ -442,6 +412,7 @@
 
         <!-- Yellow Locations -->
         <LinearLayout
+            android:id="@+id/g1_pokemon_yellow_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -1019,7 +990,7 @@
 
                 </LinearLayout>
 
-                <!-- Hindering Nature stats row -->
+                <!-- Max stats row -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1027,32 +998,25 @@
 
                     <LinearLayout
                         android:layout_width="120dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:gravity="center_vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="bottom"
+                            android:gravity="center"
                             android:text="@string/max_stats"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="top"
-                            android:text="@string/hindering_nature"
-                            android:textStyle="italic" />
 
                     </LinearLayout>
 
-                    <!-- Max Stats Hindering Nature -->
+                    <!-- Max Stats -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Max Stats Hindering Nature Lv. 50-->
+                        <!-- Max Stats Lv. 50-->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1065,38 +1029,38 @@
                                 android:text="@string/lv_50"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_50_hp"
+                                android:id="@+id/g1_pokemon_50_hp"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_50_atk"
+                                android:id="@+id/g1_pokemon_50_atk"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_50_def"
+                                android:id="@+id/g1_pokemon_50_def"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_50_spc"
+                                android:id="@+id/g1_pokemon_50_spc"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_50_spe"
+                                android:id="@+id/g1_pokemon_50_spe"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                         </LinearLayout>
 
-                        <!-- Max Stats Hindering Nature Lv. 100 -->
+                        <!-- Max Stats Lv. 100 -->
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1109,281 +1073,31 @@
                                 android:text="@string/lv_100"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_100_hp"
+                                android:id="@+id/g1_pokemon_100_hp"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_100_atk"
+                                android:id="@+id/g1_pokemon_100_atk"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_100_def"
+                                android:id="@+id/g1_pokemon_100_def"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_100_spc"
+                                android:id="@+id/g1_pokemon_100_spc"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>
 
                             <TextView
-                                android:id="@+id/g1_pokemon_hinder_100_spe"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Neutral Nature stats row -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:text="@string/max_stats"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="top"
-                            android:text="@string/neutral_nature"
-                            android:textStyle="italic" />
-
-                    </LinearLayout>
-
-                    <!-- Max Stats Neutral Nature -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <!-- Max Stats Neutral Nature  Lv. 50 -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:text="@string/lv_50"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_50_hp"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_50_atk"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_50_def"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_50_spc"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_50_spe"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                        </LinearLayout>
-
-                        <!-- Max Stats Neutral Nature Lv. 100 -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:text="@string/lv_100"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_100_hp"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_100_atk"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_100_def"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_100_spc"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_neutral_100_spe"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Beneficial Nature stats row -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:text="@string/max_stats"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="top"
-                            android:text="@string/beneficial_nature"
-                            android:textStyle="italic" />
-
-                    </LinearLayout>
-
-                    <!-- Max Stats Beneficial Nature -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <!-- Max Stats Beneficial Nature Lv. 50 -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:text="@string/lv_50"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_50_hp"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_50_atk"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_50_def"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_50_spc"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_50_spe"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                        </LinearLayout>
-
-                        <!-- Max Stats Beneficial Nature Lv. 100 -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="start"
-                                android:text="@string/lv_100"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_100_hp"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_100_atk"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_100_def"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_100_spc"
-                                android:layout_width="90dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_horizontal"/>
-
-                            <TextView
-                                android:id="@+id/g1_pokemon_good_100_spe"
+                                android:id="@+id/g1_pokemon_100_spe"
                                 android:layout_width="90dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"/>

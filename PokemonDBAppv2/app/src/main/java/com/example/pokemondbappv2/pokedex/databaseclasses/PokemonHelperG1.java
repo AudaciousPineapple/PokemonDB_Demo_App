@@ -4,14 +4,19 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 public class PokemonHelperG1 extends SQLiteOpenHelper {
 
     public static final String TAG = PokemonHelperG1.class.getSimpleName();
 
     // Database Name
     public static final String DATABASE_NAME = "PokemonDB.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private static final String DATABASE_CREATE_SQL = "PokemonDB.Create.sql";
+    private static final String DATABASE_DESTROY_SQL = "PokemonDB.Destroy.sql";
+    private Context mContext;
 
     // Table name
     public static final String TABLE_NAME = "pokemonG1";
@@ -40,12 +45,38 @@ public class PokemonHelperG1 extends SQLiteOpenHelper {
     public static final String BASE_SPC = "baseSpc";
     public static final String BASE_SPE  = "baseSpe";
 
+    public static final String MIN_HP_50 = "minHp50";
+    public static final String MAX_HP_50 = "maxHp50";
+    public static final String MIN_HP_100 = "minHp100";
+    public static final String MAX_HP_100 = "maxHp100";
+    public static final String MIN_ATK_50 = "minAtk50";
+    public static final String MAX_ATK_50 = "maxAtk50";
+    public static final String MIN_ATK_100 = "minAtk100";
+    public static final String MAX_ATK_100 = "maxAtk100";
+    public static final String MIN_DEF_50 = "minDef50";
+    public static final String MAX_DEF_50 = "maxDef50";
+    public static final String MIN_DEF_100 = "minDef100";
+    public static final String MAX_DEF_100 = "maxDef100";
+    public static final String MIN_SPC_50 = "minSpc50";
+    public static final String MAX_SPC_50 = "maxSpc50";
+    public static final String MIN_SPC_100 = "minSpc100";
+    public static final String MAX_SPC_100 = "maxSpc100";
+    public static final String MIN_SPE_50 = "minSpe50";
+    public static final String MAX_SPE_50 = "maxSpe50";
+    public static final String MIN_SPE_100 = "minSpe100";
+    public static final String MAX_SPE_100 = "maxSpe100";
+
     public PokemonHelperG1(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+        mContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        executeSqlFile(db, DATABASE_CREATE_SQL, DATABASE_NAME + " creation failed");
+
+        /*
         db.execSQL("CREATE TABLE " + TABLE_NAME + " (" +
                 ID + " INTEGER PRIMARY KEY, " +
                 DEX_NUM + " INTEGER NOT NULL UNIQUE, " +
@@ -69,12 +100,34 @@ public class PokemonHelperG1 extends SQLiteOpenHelper {
                 BASE_DEF + " INTEGER NOT NULL, " +
                 BASE_SPC + " INTEGER NOT NULL, " +
                 BASE_SPE + " INTEGER NOT NULL);");
+
+         */
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldV, int newV) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        executeSqlFile(db, DATABASE_DESTROY_SQL, DATABASE_NAME + " destruction failed");
 
         onCreate(db);
+    }
+
+    private void executeSqlFile(SQLiteDatabase db, String fileName, String errorMsg) {
+        db.beginTransaction();
+
+        try (Scanner scan = new Scanner(mContext.getAssets().open(fileName))) {
+
+            for (scan.useDelimiter(";"); scan.hasNext();) {
+                String sql = scan.next().trim();
+
+                if(!sql.isEmpty())
+                    db.execSQL(sql);
+            }
+            db.setTransactionSuccessful();
+
+        } catch (IOException e) {
+            throw new RuntimeException(errorMsg + ": " + e.getMessage(), e);
+        } finally {
+            db.endTransaction();
+        }
     }
 }
