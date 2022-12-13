@@ -16,11 +16,10 @@ import java.io.ByteArrayInputStream;
 public class PokemonEntryG1 {
 
     private int dexNum, height, weight, capRate, baseHp, baseAtk, baseDef, baseSpc, baseSpe, id;
-    private String name, nameJp, nameJpEng, nameFr, nameGer, nameKor, classification;
+    private String name, nameJp, nameJpEng, nameFr, nameGer, nameKor, classification, sprite1, sprite2;
     private Type type1;
     private Type type2;
     private XpGrowth xpRate;
-    private byte[] sprite1, sprite2;
 
     public PokemonEntryG1() {
         this.dexNum = 0;
@@ -46,7 +45,7 @@ public class PokemonEntryG1 {
         this.baseSpe = 0;
     }
 
-    public PokemonEntryG1 (int dexNum, String name, byte[] sprite1, byte[] sprite2, String nameJp,
+    public PokemonEntryG1 (int dexNum, String name, String sprite1, String sprite2, String nameJp,
                            String nameJpEng, String nameFr, String nameGer, String nameKor,
                            Type type1, Type type2, String classification, int height, int weight,
                            int capRate, XpGrowth xpRate, int baseHp, int baseAtk, int baseDef,
@@ -78,8 +77,8 @@ public class PokemonEntryG1 {
     public int getId() { return id; }
     public int getDexNum() { return dexNum; }
     public String getName() { return name; }
-    public byte[] getSprite1() { return sprite1; }
-    public byte[] getSprite2() { return sprite2; }
+    public String getSprite1() { return sprite1; }
+    public String getSprite2() { return sprite2; }
     public String getNameJp() { return nameJp; }
     public String getNameJpEng() { return nameJpEng; }
     public String getNameFr() { return nameFr; }
@@ -100,8 +99,8 @@ public class PokemonEntryG1 {
 
     public void setDexNum(int dexNum) { this.dexNum = dexNum; }
     public void setName(String name) { this.name = name; }
-    public void setSprite1(byte[] sprite1) { this.sprite1 = sprite1; }
-    public void setSprite2(byte[] sprite2) { this.sprite2 = sprite2; }
+    public void setSprite1(String sprite1) { this.sprite1 = sprite1; }
+    public void setSprite2(String sprite2) { this.sprite2 = sprite2; }
     public void setNameJp(String nameJp) { this.nameJp = nameJp; }
     public void setNameJpEng(String nameJpEng) { this.nameJpEng = nameJpEng; }
     public void setNameFr(String nameFr) { this.nameFr = nameFr; }

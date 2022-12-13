@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.bArrayConverter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +71,7 @@ public class APICalls {
         private ImageView imageView;
         private final boolean isFirstSprite;
         PokemonEntryG1 pokemon;
-        private byte[] toDb;
+        private String toDb;
 
         public SpriteLoadTask(String url, ImageView imageView, boolean isFirstSprite,
                               PokemonEntryG1 pokemon, OnTaskCompleted listener) {
@@ -95,11 +96,15 @@ public class APICalls {
                 connection.disconnect();
                 input.close();
 
+                toDb = bArrayConverter.bitmapToByte(result);
+
+                /*
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 Bitmap bitmap = result.copy(result.getConfig(), result.isMutable());
                 Log.d("**TESTING**" , String.valueOf(bitmap.getByteCount()));
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 toDb = stream.toByteArray();
+                 */
 
                 return result;
             } catch (IOException e) {
@@ -113,12 +118,14 @@ public class APICalls {
             super.onPostExecute(result);
             imageView.setImageBitmap(result);
 
+            /*
             Log.d("**TESTING**" , String.valueOf(toDb.length));
             String str = "";
             for (int i = 0; i < toDb.length; i++) {
                 str += toDb[i];
             }
             Log.d("**TESTING**" , str);
+             */
 
             if (isFirstSprite)
                 pokemon.setSprite1(toDb);

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonSourceG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.bArrayConverter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,13 +69,13 @@ public class PokemonG1DataFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("dex_num", this,
                 ((requestKey, result) -> {
                     dexNum = result.getInt("dex_num");
-                    Log.d ("**TESTING**", Integer.toString(dexNum));
+                    // Log.d ("**TESTING**", Integer.toString(dexNum));
 
                     if (!source.isCached(dexNum))
                         new getPokemonDataAPI().execute();
                     else {
                         PokemonEntryG1 pokemon = source.getPokemonEntry(dexNum);
-                        Log.d("**TESTING**", pokemon.toString());
+                        Log.d("**Pull from DB**", pokemon.toString());
                         getPokemonData(pokemon);
                     }
                 }));
@@ -406,8 +408,8 @@ public class PokemonG1DataFragment extends Fragment {
         @Override
         public void OnTaskCompleted() {
             source.addPokemon(pokemon);
-            Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite1().length));
-            Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite2().length));
+            //Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite1().length));
+            //Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite2().length));
         }
     }
     /*
@@ -467,21 +469,18 @@ public class PokemonG1DataFragment extends Fragment {
         }
     }*/
 
+    /**
+     * FIXME
+     * @param pokemon
+     */
     private void getPokemonData(PokemonEntryG1 pokemon) {
         binding.g1PokemonNum.setText("#" + dFormat.format(pokemon.getDexNum()));
         binding.g1PokemonName.setText(pokemon.getName());
 
-        byte[] test = pokemon.getSprite1();
-        String str = "";
-        for (int i = 0; i < test.length; i++)
-            str += test[i] + ",";
-        Log.d("**TESTING**", test.length + " | " + str);
-        byte[] bArray = pokemon.getSprite1();
-        binding.g1PokemonSprite1.setImageBitmap(BitmapFactory.decodeByteArray(bArray,0,
-                bArray.length));
+        String bArray = pokemon.getSprite1();
+        binding.g1PokemonSprite1.setImageBitmap(bArrayConverter.byteToBitmap(bArray));
         bArray = pokemon.getSprite2();
-        binding.g1PokemonSprite2.setImageBitmap(BitmapFactory.decodeByteArray(bArray, 0,
-                bArray.length));
+        binding.g1PokemonSprite2.setImageBitmap(bArrayConverter.byteToBitmap(bArray));
 
         binding.g1PokemonNameJp.setText(pokemon.getNameJp());
         binding.g1PokemonNameJpEng.setText(pokemon.getNameJpEng());

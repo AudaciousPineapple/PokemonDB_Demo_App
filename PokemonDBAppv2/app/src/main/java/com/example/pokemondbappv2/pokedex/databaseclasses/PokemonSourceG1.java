@@ -68,8 +68,8 @@ public class PokemonSourceG1 {
             pokemon = new PokemonEntryG1(
                     dexNum,
                     cur.getString(2),
-                    cur.getBlob(3),
-                    cur.getBlob(4),
+                    cur.getString(3),
+                    cur.getString(4),
                     cur.getString(5),
                     cur.getString(6),
                     cur.getString(7),
@@ -141,7 +141,6 @@ public class PokemonSourceG1 {
             return true;
 
         return false;
-
     }
 
     @Override
