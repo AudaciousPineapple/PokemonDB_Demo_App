@@ -124,9 +124,15 @@ public abstract class PokemonMethods {
      * @return
      */
     public static String fixLocationNameG1(String name) {
-        fixPokemonName(name);
-        String locName = name.replace("Kanto ", "");
-        locName = locName.replace(" Area", "");
+        String locName = name.substring(0, 1).toUpperCase() + name.substring(1);
+        int idx = 0;
+        while (locName.indexOf('-', idx) != -1) {
+            idx = locName.indexOf('-');
+            locName = locName.substring(0, idx) + ' '
+                    + locName.substring(idx+1, idx+2).toUpperCase()
+                    + locName.substring(idx+2);
+        }
+        locName = locName.replace("Kanto ", "");
         return locName;
     }
 

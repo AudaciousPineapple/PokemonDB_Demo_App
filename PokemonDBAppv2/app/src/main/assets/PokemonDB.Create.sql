@@ -2,17 +2,16 @@ CREATE TABLE "xpGrowthRate" (
     "name"      TEXT NOT NULL UNIQUE,
     "fullName"  TEXT NOT NULL,
     "maxExp"    INTEGER NOT NULL,
-    "formula"   TEXT NOT NULL,
     "_id"       INTEGER PRIMARY KEY
 );
 
-INSERT INTO "xpGrowthRate" ("name", "fullName", "maxExp", "formula") VALUES
-    ('slow', 'Slow', 1250000, '\\frac{5x^3}{4}'),
-    ('medium-slow', 'Medium Slow', 1059860, '\\frac{6x^3}{5} - 15x^2 + 100x - 140'),
-    ('medium', 'Medium Fast', 1000000, 'x^3'),
-    ('fast', 'Fast', 800000, '\\frac{4x^3}{5}'),
-    ('slow-then-very-fast', 'Erratic', 600000, '\\begin{cases}\n\\frac{ x^3 \\left( 100 - x \\right) }{50},    & \\text{if } x \\leq 50  \\\\\n\\frac{ x^3 \\left( 150 - x \\right) }{100},   & \\text{if } 50 < x \\leq 68  \\\\\n\\frac{ x^3 \\left( 1274 + (x \\bmod 3)^2 - 9 (x \\bmod 3) - 20 \\left\\lfloor \\frac{x}{3} \\right\\rfloor \\right) }{1000}, & \\text{if } 68 < x \\leq 98  \\\\\n\\frac{ x^3 \\left( 160 - x \\right) }{100},   & \\text{if } x > 98  \\\\\n\\end{cases}'),
-    ('fast-then-very-slow', 'Fluctuating', 1640000, '\\begin{cases}\n\\frac{ x^3 \\left( 24 + \\left\\lfloor \\frac{x+1}{3} \\right\\rfloor \\right) }{50},  & \\text{if } x \\leq 15  \\\\\n\\frac{ x^3 \\left( 14 + x \\right) }{50},     & \\text{if } 15 < x \\leq 35  \\\\\n\\frac{ x^3 \\left( 32 + \\left\\lfloor \\frac{x}{2} \\right\\rfloor \\right ) }{50},   & \\text{if } x > 35  \\\\\n\\end{cases}');
+INSERT INTO "xpGrowthRate" ("name", "fullName", "maxExp") VALUES
+    ('slow', 'Slow', 1250000),
+    ('medium-slow', 'Medium Slow', 1059860),
+    ('medium', 'Medium Fast', 1000000),
+    ('fast', 'Fast', 800000),
+    ('slow-then-very-fast', 'Erratic', 600000),
+    ('fast-then-very-slow', 'Fluctuating', 1640000);
 
 CREATE TABLE "type" (
     "name"  TEXT NOT NULL UNIQUE,
@@ -123,5 +122,5 @@ CREATE TABLE "encountersG1" (
     "chance"        INTEGER,
     "minLevel"      INTEGER,
     "maxLevel"      INTEGER,
-    "version"       TEXT NOT NULL,
+    "version"       TEXT NOT NULL
 );

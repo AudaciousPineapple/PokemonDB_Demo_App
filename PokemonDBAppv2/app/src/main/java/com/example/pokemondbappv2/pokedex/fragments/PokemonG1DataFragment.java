@@ -1,26 +1,18 @@
 package com.example.pokemondbappv2.pokedex.fragments;
 
 import static com.example.pokemondbappv2.PokemonMethods.fixLocationNameG1;
-import static com.example.pokemondbappv2.PokemonMethods.fixPokemonName;
-import static com.example.pokemondbappv2.PokemonMethods.getBitmapAsByteArray;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.pokemondbappv2.PokemonMethods;
 import com.example.pokemondbappv2.R;
@@ -28,6 +20,8 @@ import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonG1DataBinding;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
+import com.example.pokemondbappv2.pokedex.databaseclasses.EncounterG1Entry;
+import com.example.pokemondbappv2.pokedex.databaseclasses.EncounterG1Source;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
 import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonSourceG1;
 import com.example.pokemondbappv2.pokedex.databaseclasses.bArrayConverter;
@@ -37,15 +31,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class PokemonG1DataFragment extends Fragment {
 
@@ -55,7 +48,8 @@ public class PokemonG1DataFragment extends Fragment {
     private static final DecimalFormat dFormat2 = new DecimalFormat("0.#");
     private static final String NAME = "name";
     private Resources res;
-    PokemonSourceG1 source;
+    PokemonSourceG1 pokemonSource;
+    EncounterG1Source encounterSource;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -68,17 +62,18 @@ public class PokemonG1DataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         res = this.getResources();
-        source = new PokemonSourceG1(this.getContext());
+        pokemonSource = new PokemonSourceG1(this.getContext());
+        encounterSource = new EncounterG1Source(this.getContext());
 
         getParentFragmentManager().setFragmentResultListener("dex_num", this,
                 ((requestKey, result) -> {
                     dexNum = result.getInt("dex_num");
                     // Log.d ("**TESTING**", Integer.toString(dexNum));
 
-                    if (!source.isCached(dexNum))
+                    if (!pokemonSource.isCached(dexNum))
                         new getPokemonDataAPI().execute();
                     else {
-                        PokemonEntryG1 pokemon = source.getPokemonEntry(dexNum);
+                        PokemonEntryG1 pokemon = pokemonSource.getPokemonEntry(dexNum);
                         Log.d("**Pull from DB**", pokemon.toString());
                         getPokemonData(pokemon);
                     }
@@ -89,7 +84,7 @@ public class PokemonG1DataFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        source.close();
+        pokemonSource.close();
     }
 
     private class getPokemonDataAPI extends AsyncTask<Void, Void, Void> implements APICalls.OnTaskCompleted {
@@ -97,6 +92,7 @@ public class PokemonG1DataFragment extends Fragment {
         String pokemonResult = "";
         String locationsResult = "";
         PokemonEntryG1 pokemon;
+        ArrayList<EncounterG1Entry> encounters;
 
         @Override
         protected void onPreExecute() {
@@ -189,6 +185,8 @@ public class PokemonG1DataFragment extends Fragment {
         protected void onPostExecute(Void r) {
             super.onPostExecute(r);
             pokemon = new PokemonEntryG1();
+            encounters = new ArrayList<EncounterG1Entry>();
+
             boolean done = false;
 
             try {
@@ -476,49 +474,66 @@ public class PokemonG1DataFragment extends Fragment {
                 new APICalls.SpriteLoadTask(sprite2Url, binding.g1PokemonSprite2, false,
                         pokemon, this).execute();
 
-                // Evolutionary Chain graphic
+                // TODO Evolutionary Chain graphic
                 String evoChainUrl = speciesObj.getJSONObject("evolution_chain").getString("url");
                 Log.d("**Evo Chain URL**", evoChainUrl);
 
+                //Locations
+                //TODO add to encountersG1 db table
                 String redLocationStr = "";
                 String blueLocationStr = "";
                 String yellowLocationStr = "";
 
                 for (int i = 0; i < locationsArr.length(); i++) {
-                    String tempStr = locationsArr.getJSONObject(i).getJSONObject("location_area")
+                    String locationName = locationsArr.getJSONObject(i).getJSONObject("location_area")
                             .getString("name");
-                    tempStr = fixLocationNameG1(tempStr);
 
                     JSONArray tempArr = locationsArr.getJSONObject(i).getJSONArray("version_details");
                     for (int j = 0; j < tempArr.length(); j++) {
+                        JSONObject details = tempArr.getJSONObject(j)
+                                .getJSONArray("encounter_details").getJSONObject(0);
+
+                        String method = details.getJSONObject("method").getString("name");
+
+                        int chance = details.getInt("chance");
+                        int minLevel = details.getInt("min_level");
+                        int maxLevel = details.getInt("max_level");
+
                         String versionName = tempArr.getJSONObject(j).getJSONObject("version")
                                 .getString("name");
+
+                        EncounterG1Entry encounter = new EncounterG1Entry(0, dexNum, locationName,
+                                "", method, chance, minLevel, maxLevel, versionName);
+                        encounters.add(encounter);
+
                         if (versionName.contentEquals("red")) {
                             if (!redLocationStr.isEmpty())
                                 redLocationStr += ", ";
-                            redLocationStr += tempStr;
+                            redLocationStr += fixLocationNameG1(locationName);
                         }
                         else if (versionName.contentEquals("blue")) {
                             if (!blueLocationStr.isEmpty())
                                 blueLocationStr += ", ";
-                            blueLocationStr += tempStr;
+                            blueLocationStr += fixLocationNameG1(locationName);
                         }
                         else if (versionName.contentEquals("yellow")) {
                             if (!yellowLocationStr.isEmpty())
                                 yellowLocationStr += ", ";
-                            yellowLocationStr += tempStr;
+                            yellowLocationStr += fixLocationNameG1(locationName);
                         }
                     }
                 }
                 if (redLocationStr.isEmpty())
                     binding.g1PokemonRedLocations.setText(R.string.evolution);
                 else
-                    binding.g1PokemonRedLocations.setText(redLocationStr);
+                    binding.g1PokemonRedLocations.setText(
+                            PokemonMethods.fixLocationNameG1(redLocationStr));
 
                 if (blueLocationStr.isEmpty())
                     binding.g1PokemonBlueLocations.setText(R.string.evolution);
                 else
-                    binding.g1PokemonBlueLocations.setText(blueLocationStr);
+                    binding.g1PokemonBlueLocations.setText(
+                            PokemonMethods.fixLocationNameG1(blueLocationStr));
 
                 if (yellowLocationStr.isEmpty())
                     binding.g1PokemonYellowLocations.setText(R.string.evolution);
@@ -533,7 +548,12 @@ public class PokemonG1DataFragment extends Fragment {
 
         @Override
         public void OnTaskCompleted() {
-            source.addPokemon(pokemon);
+            pokemonSource.addPokemon(pokemon);
+
+            for (int i = 0; i < encounters.size(); i++) {
+                Log.d("Encounter " + i + ": ", encounters.toString());
+                encounterSource.addEncounter(encounters.get(i));
+            }
             //Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite1().length));
             //Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite2().length));
         }

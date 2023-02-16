@@ -197,6 +197,8 @@ public class PokemonSourceG1 {
                 pokemonValues.put(columns[i], String.valueOf(pokemonObjects[i]));
             }
             db.insert(TABLE_NAME, null, pokemonValues);
+
+            //TODO insert encounter locations into encountersG1 db table
             return true;
         }
         return false;
@@ -207,10 +209,7 @@ public class PokemonSourceG1 {
         String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + DEX_NUM + " = ?";
         Cursor cursor = db.rawQuery(sqlQuery, new String[]{String.valueOf(dexNum)});
 
-        if (cursor.moveToFirst())
-            return true;
-
-        return false;
+        return cursor.moveToFirst();
     }
 
     @Override
