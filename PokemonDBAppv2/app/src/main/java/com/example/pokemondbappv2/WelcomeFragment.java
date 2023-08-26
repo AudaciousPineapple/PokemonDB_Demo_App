@@ -12,11 +12,9 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pokemondbappv2.databinding.FragmentWelcomeBinding;
-
-import java.lang.reflect.Array;
+import com.example.pokemondbappv2.pokedex.fragments.PokemonActivity;
 
 public class WelcomeFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener  {
 

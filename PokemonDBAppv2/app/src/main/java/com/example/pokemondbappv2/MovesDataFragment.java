@@ -1,12 +1,7 @@
 package com.example.pokemondbappv2;
 
-import android.app.ActionBar;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +13,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pokemondbappv2.databinding.FragmentMovesDataBinding;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class MovesDataFragment extends Fragment {
@@ -67,7 +60,7 @@ public class MovesDataFragment extends Fragment {
                     move = lookup.getMove(moveName);
 
                     binding.moveNameTxt.setText(move.getName());
-                    binding.moveTypeImg.setImageDrawable(PokemonMethods.getTypeImg(res, move.getType()));
+                    PokemonMethods.setTypeImage(res, move.getType(), binding.moveTypeImg);
                     binding.movePpValueTxt.setText(String.format(Locale.getDefault(), "%d",
                             move.getPp()));
                     binding.movePowerValueTxt.setText(String.format(Locale.getDefault(), "%d",
@@ -143,8 +136,8 @@ public class MovesDataFragment extends Fragment {
                 // Pic Column
                 img = new ImageView(this.getContext());
                 img.setScaleType(ImageView.ScaleType.CENTER);
-                img.setImageDrawable(ResourcesCompat.getDrawable(res,
-                        R.drawable.g1_001_1 + ((dexNum - 1) * 3), null));
+                //img.setImageDrawable(ResourcesCompat.getDrawable(res,
+                        //R.drawable.g1_001_1 + ((dexNum - 1) * 3), null)); FIXME
 
                 row.addView(img, 1);
 
@@ -161,17 +154,15 @@ public class MovesDataFragment extends Fragment {
 
                 img = new ImageView(this.getContext());
                 img.setScaleType(ImageView.ScaleType.CENTER);
-                img.setImageDrawable(PokemonMethods.getTypeImg(res,
-                        entryMon.getType1()));
+               PokemonMethods.setTypeImage(res, entryMon.getType1(), img);
                 linLay.addView(img, 0);
-
+                /*
                 if (entryMon.getType2() != Type.NON) {
                     img = new ImageView(this.getContext());
                     img.setScaleType(ImageView.ScaleType.CENTER);
-                    img.setImageDrawable(PokemonMethods.getTypeImg(res,
-                            entryMon.getType2()));
+                    PokemonMethods.setTypeImage(res, entryMon.getType2(), img);
                     linLay.addView(img, 1);
-                }
+                }*/
 
                 row.addView(linLay, 3);
 

@@ -1,14 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Pokemon DB App v2</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="welcome_fragment_label">Welcome</string>
     <string name="pokemon_fragment_label">Pokédex</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="welcome_message">Welcome to the Pokémon Database App!</string>
     <string name="pokemon">Pokémon</string>
     <string name="moves">Moves</string>
@@ -17,30 +12,22 @@
     <string name="select_your_pokemon_">Select your Pokémon:\ </string>
     <string name="pokemon_welcome">Welcome to the Pokédex!</string>
 
+    <!-- Placeholder text -->
     <string name="placeholder_num">Num</string>
     <string name="placeholder_name">Name</string>
-    <string name="classification_">Classification:\ </string>
-    <string name="classification_2">\ Pokémon</string>
     <string name="placeholder_text">Placeholder text</string>
-    <string name="height_">Height:\ </string>
     <string name="placeholder_dec">0.0</string>
-    <string name="m">m</string>
-    <string name="weight_">Weight:\ </string>
-    <string name="kg">kg</string>
-    <string name="capture_rate_">Capture Rate:\ </string>
     <string name="placeholder_int">0</string>
-    <string name="experience_growth_">Experience Growth:\ </string>
     <string name="placeholder_xp_growth">0 | None</string>
-    <string name="stats_">Stats:\ </string>
-    <string name="hp_">\ HP</string>
-    <string name="attack_">\ Attack</string>
-    <string name="defense_">\ Defense</string>
-    <string name="special_">\ Special</string>
-    <string name="speed_">\ Speed</string>
     <string name="placeholder_evolution_graphic">Evolution graphic will be filled in at runtime!</string>
+    <string name="placeholder_location_text">Locations will be filled at runtime!</string>
+
+    <string name="classification_2">\ Pokémon</string>
+    <string name="height_">Height:\ </string>
+    <string name="m">m</string>
+    <string name="kg">kg</string>
     <string name="locations_">Locations:</string>
     <string name="red_">Red:\ </string>
-    <string name="placeholder_location_text">Locations will be filled at runtime!</string>
     <string name="green_jp_amp_blue_intl_"><![CDATA[Green(Jp.) & Blue(Intl.): ]]></string>
     <string name="blue_jp_">Blue(Jp.):\ </string>
     <string name="yellow_">Yellow:\ </string>
@@ -51,9 +38,6 @@
     <string name="power">\ Power\ </string>
     <string name="accuracy">\ Accuracy\ </string>
     <string name="pp">\ PP\ </string>
-    <string name="effect">Effect %</string>
-    <string name="tm_amp_hm_moves_"><![CDATA[TM & HM Moves:]]></string>
-    <string name="tm_hm">TM/HM</string>
     <string name="enter_a_pok_mon">Enter a Pokémon #</string>
     <string name="go">GO!</string>
     <string name="g1_image_3">G1 Image 3</string>
@@ -79,6 +63,7 @@
     <string name="select_generation_">Select Generation:\ </string>
 
     <string-array name="gen_select_arr">
+        <item>Pick a Generation:</item>
         <item>Gen I</item>
         <item>Gen II</item>
         <item>Gen III</item>
@@ -112,4 +97,94 @@
     <string name="spd">Spd</string>
     <string name="y">Y</string>
     <string name="rb">RB</string>
+
+    <!-- Strings used in the pokemon select fragment -->
+    <string name="kanto_nums">Kanto: 001 – 151</string>
+    <string name="johto_nums">Johto: 152 – 251</string>
+    <string name="hoenn_nums">Hoenn: 252 – 386</string>
+    <string name="sinnoh_nums">Sinnoh: 387 – 493</string>
+    <string name="unova_nums">Unova: 494 – 649</string>
+    <string name="kalos_nums">Kalos: 650 – 721</string>
+    <string name="alola_nums">Alola: 722 – 809</string>
+    <string name="galar_hisui_nums">Galar/Hisui: 810 – 905</string>
+
+    <!-- String used in the pokemon Data Fragment -->
+    <string name="names">Names</string>
+    <string name="english_">English:\ </string>
+    <string name="japan_">Japan:\ </string>
+    <string name="french_">French:\ </string>
+    <string name="german_">German:\ </string>
+    <string name="korean_">Korean:\ </string>
+    <string name="dex_numbers_">Dex Numbers:\ </string>
+    <string name="classification">Classification</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="gender_ratio">Gender Ratio</string>
+    <string name="male_">Male:\ </string>
+    <string name="female_">Female:\ </string>
+    <string name="capture_rate">Capture Rate</string>
+    <string name="base_egg_steps">Base Egg Steps</string>
+    <string name="abilities">Abilities</string>
+    <string name="xp_growth">XP Growth</string>
+    <string name="base_happiness">Base Happiness</string>
+    <string name="evs_earned">EVs Earned</string>
+    <string name="can_dynamax">Can Dynamax?</string>
+    <string name="wild_hold_item">Wild Hold Item</string>
+    <string name="egg_groups">Egg Groups</string>
+    <string name="evolutionary_chain">Evolutionary Chain</string>
+    <string name="gender_differences">Gender Differences</string>
+    <string name="alternate_forms">Alternate Forms</string>
+    <string name="flavor_text">Flavor Text</string>
+    <string name="standard_level_up">Standard Level Up</string>
+    <string name="cat">Cat.</string>
+    <string name="acc">Acc.</string>
+    <string name="effect_p">Effect %</string>
+    <string name="movesets">Movesets</string>
+    <string name="tm_hm_moves">TM/HM Moves</string>
+    <string name="tm">TM #</string>
+    <string name="tr">TR #</string>
+    <string name="egg_moves">Egg Moves</string>
+    <string name="tr_moves">TR Moves</string>
+    <string name="move_tutor_moves">Move Tutor Moves</string>
+    <string name="usable_z_moves">Usable Z Moves</string>
+    <string name="usable_z_moves_improved">Usable Z Moves (Transfer Only/Improved)</string>
+    <string name="max_atk">Max Atk.</string>
+    <string name="forms">Forms</string>
+    <string name="usable_max_moves">Usable Max Moves</string>
+    <string name="pre_evolution_only_moves">Pre-Evolution Only Moves</string>
+    <string name="stats">Stats</string>
+    <string name="attack">Attack</string>
+    <string name="defense">Defense</string>
+    <string name="sp_attack">Sp. Attack</string>
+    <string name="sp_defense">Sp. Defense</string>
+    <string name="speed">Speed</string>
+    <string name="base_stats_total_">Base Stats - Total:\ </string>
+    <string name="max_stats">Max Stats</string>
+    <string name="hindering_nature">Hindering Nature</string>
+    <string name="lv_50">Lv. 50</string>
+    <string name="lv_100">Lv. 100</string>
+    <string name="neutral_nature">Neutral Nature</string>
+    <string name="beneficial_nature">Beneficial Nature</string>
+    <string name="mega_evolution">Mega Evolution</string>
+    <string name="stats_mega_evolution">Stats - Mega Evolution</string>
+    <string name="gigantamax_form">Gigantamax Form</string>
+    <string name="effect">Effect %</string>
+    <string name="tm_hm">TM/HM</string>
+    <string name="search_by_pok_dex_number">Search by Pokédex Number</string>
+    <string name="search_by_pok_mon_name">Search By Pokémon Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="effort_values_earned">Effort Values Earned</string>
+    <string name="red">Red</string>
+    <string name="green_jp">Green (Jp.)</string>
+    <string name="blue_intl">Blue (Intl.)</string>
+    <string name="blue_jp">Blue (Jp.)</string>
+    <string name="yellow">Yellow</string>
+    <string name="generation_i_level_up">Generation I Level Up</string>
+    <string name="special">Special</string>
+    <string name="left_arrow"><![CDATA[<---]]></string>
+    <string name="right_arrow"><![CDATA[--->]]></string>
+    <string name="source">Source</string>
+    <string name="blue">Blue</string>
+    <string name="evolution">Evolvution</string>
 </resources>

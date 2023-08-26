@@ -1,5 +1,8 @@
 package com.example.pokemondbappv2;
 
+import com.example.pokemondbappv2.pokeEnums.Target;
+import com.example.pokemondbappv2.pokeEnums.Type;
+
 public class ModelMove {
     private final String name, effect;
     private final int pp, power, details, effectRate, tmNum, priority;

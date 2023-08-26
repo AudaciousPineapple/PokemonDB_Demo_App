@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/g1_move_entry3_name"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:text="@string/placeholder_name"
+        android:gravity="center"
+        android:layout_marginHorizontal="2dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/g1_move_entry3_type"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/type_poison"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="2dp"/>
+
+            <TextView
+                android:id="@+id/g1_move_entry3_atk"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="2dp"/>
+
+            <TextView
+                android:id="@+id/g1_move_entry3_acc"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="2dp"/>
+
+            <TextView
+                android:id="@+id/g1_move_entry3_pp"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="2dp"/>
+
+            <TextView
+                android:id="@+id/g1_move_entry3_effect_rate"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_num"
+                android:gravity="center_horizontal"
+                android:layout_marginHorizontal="2dp"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/g1_move_entry3_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_text"/>
+
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/g1_move_entry3_src_text"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"/>
+        
+
+</LinearLayout>

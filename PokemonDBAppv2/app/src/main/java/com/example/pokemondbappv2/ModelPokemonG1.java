@@ -1,5 +1,8 @@
 package com.example.pokemondbappv2;
 
+import com.example.pokemondbappv2.pokeEnums.Type;
+import com.example.pokemondbappv2.pokeEnums.XpGrowth;
+
 public class ModelPokemonG1 {
 
     private int dexNum, captureRate, hp, atk, def, spc, spe, evo, evoLvl, prEvo;
@@ -63,11 +66,11 @@ public class ModelPokemonG1 {
     public String toString() {
         String str = "";
         String div = " | ";
-        str += dexNum + div + name + div + type1.getValue() + div + type2.getValue() + div
-            + classification + " Pokemon" + div + height + div + weight + div + captureRate + div
-            + xpGrowth.getRate() + div + redLoc + div + blueLoc + div + greenLoc + div + yellowLoc
-            + div + hp + div + atk + div + def + div + spc + div + spe + div + evo + div + evoLvl
-            + div + prEvo + div;
+        str += dexNum + div + name + div + type1.getName() + div + type2.getName() + div
+            + classification + div + height + div + weight + div + captureRate + div
+            + PokemonMethods.formatXpString(xpGrowth) + div + redLoc + div + blueLoc + div +
+            greenLoc + div + yellowLoc + div + hp + div + atk + div + def + div + spc + div + spe +
+            div + evo + div + evoLvl + div + prEvo + div;
 
         return str;
     }

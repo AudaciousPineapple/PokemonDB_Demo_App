@@ -4,10 +4,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
+import com.example.pokemondbappv2.pokeEnums.Type;
+import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class DBHandler extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
