@@ -385,6 +385,8 @@
 
         </LinearLayout>
 
+        <View style="@style/Divider"/>
+
         <!-- Blue Locations -->
         <LinearLayout
             android:id="@+id/g1_pokemon_blue_layout"
@@ -409,6 +411,8 @@
                 android:layout_gravity="center_vertical"/>
 
         </LinearLayout>
+
+        <View style="@style/Divider"/>
 
         <!-- Yellow Locations -->
         <LinearLayout

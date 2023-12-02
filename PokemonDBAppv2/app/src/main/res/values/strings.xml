@@ -186,5 +186,5 @@
     <string name="right_arrow"><![CDATA[--->]]></string>
     <string name="source">Source</string>
     <string name="blue">Blue</string>
-    <string name="evolution">Evolvution</string>
+    <string name="noEncounter">Can\'t be caught</string>
 </resources>

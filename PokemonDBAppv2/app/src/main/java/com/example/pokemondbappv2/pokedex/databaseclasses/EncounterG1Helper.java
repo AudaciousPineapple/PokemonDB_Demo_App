@@ -22,7 +22,6 @@ public class EncounterG1Helper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "encountersG1";
 
     // table columns
-    public static final String ID = "_id";
     public static final String DEX_NUM = "dexNum";
     public static final String LOC_NAME = "locName";
     public static final String SUB_LOC_NAME = "subLocName";
@@ -31,6 +30,8 @@ public class EncounterG1Helper extends SQLiteOpenHelper {
     public static final String MIN_LEVEL = "minLevel";
     public static final String MAX_LEVEL = "maxLevel";
     public static final String VERSION = "version";
+
+    public static final String ID = "_id";
 
     public EncounterG1Helper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

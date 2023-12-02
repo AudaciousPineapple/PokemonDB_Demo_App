@@ -119,9 +119,10 @@ public abstract class PokemonMethods {
     }
 
     /**
-     * FIXME
-     * @param name
-     * @return
+     * fixLocationNameG1 - corrects the string for encounter location parsed from the JSON API
+     * so it's properly formatted
+     * @param name - the unedited versions of the String
+     * @return the corrected string
      */
     public static String fixLocationNameG1(String name) {
         String locName = name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -133,6 +134,7 @@ public abstract class PokemonMethods {
                     + locName.substring(idx+2);
         }
         locName = locName.replace("Kanto ", "");
+        locName = locName.replace("Area", "");
         return locName;
     }
 

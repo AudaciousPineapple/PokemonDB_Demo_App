@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import static com.example.pokemondbappv2.pokedex.databaseclasses.EncounterG1Helper.*;
-import static com.example.pokemondbappv2.pokedex.databaseclasses.PokemonHelperG1.DEX_NUM;
-import static com.example.pokemondbappv2.pokedex.databaseclasses.PokemonHelperG1.TABLE_NAME;
 
 import java.util.ArrayList;
 
@@ -15,7 +13,6 @@ public class EncounterG1Source {
     private final EncounterG1Helper encounterHelperG1;
     private static SQLiteDatabase db;
     private final String[] columns = new String[] {
-            ID,
             DEX_NUM,
             LOC_NAME,
             SUB_LOC_NAME,
@@ -48,15 +45,14 @@ public class EncounterG1Source {
         if (cur.moveToFirst()) {
             while (!done) {
                 tempEntry = new EncounterG1Entry(
-                        cur.getInt(0),      // ID
                         dexNum,
-                        cur.getString(2),   // Location Name
-                        cur.getString(3),   // Sub-Location Name
-                        cur.getString(4),   // Method
-                        cur.getInt(5),      // Chance
-                        cur.getInt(6),      // Min Level
-                        cur.getInt(7),      // Max Level
-                        cur.getString(8)    // Version
+                        cur.getString(1),   // Location Name
+                        cur.getString(2),   // Sub-Location Name
+                        cur.getString(3),   // Method
+                        cur.getInt(4),      // Chance
+                        cur.getInt(5),      // Min Level
+                        cur.getInt(6),      // Max Level
+                        cur.getString(7)    // Version
                 );
                 encounterG1Entries.add(tempEntry);
 
@@ -68,34 +64,23 @@ public class EncounterG1Source {
     }
 
     public boolean addEncounter (EncounterG1Entry encounter) {
-        if (!isCached(encounter.getDexNum())) {
-            ContentValues encounterValues = new ContentValues();
+        ContentValues encounterValues = new ContentValues();
 
-            Object[] encounterObjects = new Object[]{
-                    encounter.getDexNum(),
-                    encounter.getLocName(),
-                    encounter.getSubLocName(),
-                    encounter.getMethod(),
-                    encounter.getChance(),
-                    encounter.getMinLevel(),
-                    encounter.getMaxLevel(),
-                    encounter.getVersion()
-            };
+        Object[] encounterObjects = new Object[]{
+                encounter.getDexNum(),
+                encounter.getLocName(),
+                encounter.getSubLocName(),
+                encounter.getMethod(),
+                encounter.getChance(),
+                encounter.getMinLevel(),
+                encounter.getMaxLevel(),
+                encounter.getVersion()
+        };
 
-            for (int i = 1; i < columns.length; i++) {
-                encounterValues.put(columns[i], String.valueOf(encounterObjects[i]));
-            }
-            db.insert(TABLE_NAME, null, encounterValues);
-            return true;
+        for (int i = 0; i < columns.length; i++) {
+            encounterValues.put(columns[i], String.valueOf(encounterObjects[i]));
         }
-        return false;
-    }
-
-    public boolean isCached(int dexNum) {
-
-        String sqlQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + DEX_NUM + " = ?";
-        Cursor cursor = db.rawQuery(sqlQuery, new String[]{String.valueOf(dexNum)});
-
-        return cursor.moveToFirst();
+        db.insert(TABLE_NAME, null, encounterValues);
+        return true;
     }
 }

@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 
 public class EncounterG1Entry {
 
-    private int id, dexNum, chance, minLevel, maxLevel;
+    private int dexNum, chance, minLevel, maxLevel;
     private String locName, subLocName, method, version;
 
     public EncounterG1Entry() {
-        this.id = 0;
         this.dexNum = 0;
         this.locName = null;
         this.subLocName = null;
@@ -19,9 +18,8 @@ public class EncounterG1Entry {
         this.version = null;
     }
 
-    public EncounterG1Entry (int id, int dexNum, String locName, String subLocName, String method,
+    public EncounterG1Entry (int dexNum, String locName, String subLocName, String method,
                              int chance, int minLevel, int maxLevel, String version) {
-        this.id = id;
         this.dexNum = dexNum;
         this.locName = locName;
         this.subLocName = subLocName;
@@ -32,7 +30,6 @@ public class EncounterG1Entry {
         this.version = version;
     }
 
-    public int getId() { return id; }
     public int getDexNum() { return dexNum; }
     public String getLocName() { return locName; }
     public String getSubLocName() { return subLocName;}
@@ -41,7 +38,6 @@ public class EncounterG1Entry {
     public int getMinLevel() { return minLevel; }
     public int getMaxLevel() { return maxLevel; }
     public String getVersion() { return version; }
-
     public void setDexNum(int dexNum) { this.dexNum = dexNum; }
     public void setLocName(String locName) { this.locName = locName; }
     public void setSubLocName(String subLocName) { this.subLocName = subLocName; }
@@ -54,7 +50,7 @@ public class EncounterG1Entry {
     @NonNull
     @Override
     public String toString() {
-        return id + ": " + dexNum + " - " + locName + " - " + subLocName + " - " + method + " - "
-                + chance + "% - Min " + minLevel + " - Max " + maxLevel + " - " + version;
+        return dexNum + " - " + locName + " - " + subLocName + " - " + method + " - " + chance
+                + "% - Min " + minLevel + " - Max " + maxLevel + " - " + version;
     }
 }

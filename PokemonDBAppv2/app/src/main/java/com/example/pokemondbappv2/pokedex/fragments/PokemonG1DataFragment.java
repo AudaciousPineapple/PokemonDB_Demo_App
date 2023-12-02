@@ -74,8 +74,13 @@ public class PokemonG1DataFragment extends Fragment {
                         new getPokemonDataAPI().execute();
                     else {
                         PokemonEntryG1 pokemon = pokemonSource.getPokemonEntry(dexNum);
-                        Log.d("**Pull from DB**", pokemon.toString());
+                        // Log.d("**Pull from DB**", pokemon.toString());
                         getPokemonData(pokemon);
+
+                        // TODO retrieve encounter data
+                        ArrayList<EncounterG1Entry> encounters =
+                                encounterSource.getEncounterG1Entries(dexNum);
+                        getEncounterData(encounters);
                     }
                 }));
     }
@@ -479,14 +484,13 @@ public class PokemonG1DataFragment extends Fragment {
                 Log.d("**Evo Chain URL**", evoChainUrl);
 
                 //Locations
-                //TODO add to encountersG1 db table
                 String redLocationStr = "";
                 String blueLocationStr = "";
                 String yellowLocationStr = "";
 
                 for (int i = 0; i < locationsArr.length(); i++) {
-                    String locationName = locationsArr.getJSONObject(i).getJSONObject("location_area")
-                            .getString("name");
+                    String locationName = fixLocationNameG1(locationsArr.getJSONObject(i).getJSONObject("location_area")
+                            .getString("name"));
 
                     JSONArray tempArr = locationsArr.getJSONObject(i).getJSONArray("version_details");
                     for (int j = 0; j < tempArr.length(); j++) {
@@ -502,41 +506,44 @@ public class PokemonG1DataFragment extends Fragment {
                         String versionName = tempArr.getJSONObject(j).getJSONObject("version")
                                 .getString("name");
 
-                        EncounterG1Entry encounter = new EncounterG1Entry(0, dexNum, locationName,
+                        EncounterG1Entry encounter = new EncounterG1Entry(dexNum, locationName,
                                 "", method, chance, minLevel, maxLevel, versionName);
-                        encounters.add(encounter);
 
                         if (versionName.contentEquals("red")) {
                             if (!redLocationStr.isEmpty())
                                 redLocationStr += ", ";
-                            redLocationStr += fixLocationNameG1(locationName);
+                            redLocationStr += locationName;
+                            encounters.add(encounter);
+                            Log.d("Encounter: ", encounters.toString());
                         }
                         else if (versionName.contentEquals("blue")) {
                             if (!blueLocationStr.isEmpty())
                                 blueLocationStr += ", ";
-                            blueLocationStr += fixLocationNameG1(locationName);
+                            blueLocationStr += locationName;
+                            encounters.add(encounter);
+                            Log.d("Encounter: ", encounters.toString());
                         }
                         else if (versionName.contentEquals("yellow")) {
                             if (!yellowLocationStr.isEmpty())
                                 yellowLocationStr += ", ";
-                            yellowLocationStr += fixLocationNameG1(locationName);
+                            yellowLocationStr += locationName;
+                            encounters.add(encounter);
+                            Log.d("Encounter: ", encounters.toString());
                         }
                     }
                 }
                 if (redLocationStr.isEmpty())
-                    binding.g1PokemonRedLocations.setText(R.string.evolution);
+                    binding.g1PokemonRedLocations.setText(R.string.noEncounter);
                 else
-                    binding.g1PokemonRedLocations.setText(
-                            PokemonMethods.fixLocationNameG1(redLocationStr));
+                    binding.g1PokemonRedLocations.setText(redLocationStr);
 
                 if (blueLocationStr.isEmpty())
-                    binding.g1PokemonBlueLocations.setText(R.string.evolution);
+                    binding.g1PokemonBlueLocations.setText(R.string.noEncounter);
                 else
-                    binding.g1PokemonBlueLocations.setText(
-                            PokemonMethods.fixLocationNameG1(blueLocationStr));
+                    binding.g1PokemonBlueLocations.setText(blueLocationStr);
 
                 if (yellowLocationStr.isEmpty())
-                    binding.g1PokemonYellowLocations.setText(R.string.evolution);
+                    binding.g1PokemonYellowLocations.setText(R.string.noEncounter);
                 else
                     binding.g1PokemonYellowLocations.setText(yellowLocationStr);
 
@@ -548,10 +555,10 @@ public class PokemonG1DataFragment extends Fragment {
 
         @Override
         public void OnTaskCompleted() {
+            // Adds the information parsed from the JSON API and stores it into the local SQLite DB
             pokemonSource.addPokemon(pokemon);
 
             for (int i = 0; i < encounters.size(); i++) {
-                Log.d("Encounter " + i + ": ", encounters.toString());
                 encounterSource.addEncounter(encounters.get(i));
             }
             //Log.d("**DATA_TESTING**", String.valueOf(pokemon.getSprite1().length));
@@ -560,8 +567,9 @@ public class PokemonG1DataFragment extends Fragment {
     }
 
     /**
-     * FIXME
-     * @param pokemon
+     * getPokemonData method - accepts a PokemonEntryG1 object and fills in all the appropriate
+     * Views with the relevant information
+     * @param pokemon - the PokemonEntryG1 object you wish to parse the info from
      */
     private void getPokemonData(PokemonEntryG1 pokemon) {
         binding.g1PokemonNum.setText("#" + dFormat.format(pokemon.getDexNum()));
@@ -624,6 +632,52 @@ public class PokemonG1DataFragment extends Fragment {
         binding.g1PokemonEvSpeed.setText(speString);
         binding.g1Pokemon50Spe.setText(formatStatRange(pokemon.getMinSpe50(), pokemon.getMaxSpe50()));
         binding.g1Pokemon100Spe.setText(formatStatRange(pokemon.getMinSpe100(), pokemon.getMaxSpe100()));
+    }
+
+    /**
+     * getEncounterData method - accepts an array list of EncounterEntryG1 objects and places all of
+     * the relevant info into the appropriate Views
+     * @param list - the ArrayList of EncounterEntryG1 objects
+     */
+    private void getEncounterData(ArrayList<EncounterG1Entry> list) {
+        String redLocationStr = "";
+        String blueLocationStr = "";
+        String yellowLocationStr = "";
+        String versionName = "";
+
+        for (int i = 0; i < list.size(); i++) {
+            versionName = list.get(i).getVersion();
+            if (versionName.contentEquals("red")) {
+                if (!redLocationStr.isEmpty())
+                    redLocationStr += ", ";
+                redLocationStr += list.get(i).getLocName();
+            }
+            else if (versionName.contentEquals("blue")) {
+                if (!blueLocationStr.isEmpty())
+                    blueLocationStr += ", ";
+                blueLocationStr += list.get(i).getLocName();
+            }
+            else if (versionName.contentEquals("yellow")) {
+                if (!yellowLocationStr.isEmpty())
+                    yellowLocationStr += ", ";
+                yellowLocationStr += list.get(i).getLocName();
+            }
+        }
+
+        if (redLocationStr.isEmpty())
+            binding.g1PokemonRedLocations.setText(R.string.noEncounter);
+        else
+            binding.g1PokemonRedLocations.setText(redLocationStr);
+
+        if (blueLocationStr.isEmpty())
+            binding.g1PokemonBlueLocations.setText(R.string.noEncounter);
+        else
+            binding.g1PokemonBlueLocations.setText(blueLocationStr);
+
+        if (yellowLocationStr.isEmpty())
+            binding.g1PokemonYellowLocations.setText(R.string.noEncounter);
+        else
+            binding.g1PokemonYellowLocations.setText(yellowLocationStr);
     }
 
     private String formatStatRange(int min, int max) {

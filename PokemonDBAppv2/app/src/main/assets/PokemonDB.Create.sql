@@ -114,7 +114,6 @@ CREATE TABLE "movesetsG1" (
 );
 
 CREATE TABLE "encountersG1" (
-    "_id"           INTEGER PRIMARY KEY,
     "dexNum"        INTEGER NOT NULL,
     "locName"       TEXT NOT NULL,
     "subLocName"    TEXT,
@@ -122,5 +121,6 @@ CREATE TABLE "encountersG1" (
     "chance"        INTEGER,
     "minLevel"      INTEGER,
     "maxLevel"      INTEGER,
-    "version"       TEXT NOT NULL
+    "version"       TEXT NOT NULL,
+    "_id"           INTEGER PRIMARY KEY
 );
