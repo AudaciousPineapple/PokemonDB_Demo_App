@@ -1,17 +1,8 @@
-package com.example.pokemondbappv2.pokedex.databaseclasses;
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+package com.example.pokemondbappv2.pokedex.databaseclasses.g1;
 
 import androidx.annotation.NonNull;
 
 import com.example.pokemondbappv2.pokeEnums.*;
-
-import java.io.ByteArrayInputStream;
 
 public class PokemonEntryG1 {
 

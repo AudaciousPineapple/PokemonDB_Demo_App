@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2.pokedex.databaseclasses;
+package com.example.pokemondbappv2.pokedex.databaseclasses.g1;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

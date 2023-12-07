@@ -20,8 +20,9 @@
         android:id="@+id/pokemon_gen_select_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/pokemon_welcome_text"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/pokemon_welcome_text"/>
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/search_by_dexnum_btn"
@@ -32,13 +33,15 @@
         android:text="@string/search_by_pok_dex_number"/>
 
     <Button
+        android:clickable="false"
+        android:backgroundTint="@color/black"
         android:id="@+id/search_by_name_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_below="@id/search_by_dexnum_btn"
-        android:text="@string/search_by_pok_mon_name"/>
+        android:text="Only Gen 1 Currently Works"/>
 
     <!-- Search by number layout -->
     <LinearLayout

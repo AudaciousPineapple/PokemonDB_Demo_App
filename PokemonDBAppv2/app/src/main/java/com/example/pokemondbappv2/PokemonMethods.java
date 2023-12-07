@@ -9,7 +9,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;
-import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.g1.PokemonEntryG1;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -276,6 +276,20 @@ public abstract class PokemonMethods {
 
     public static int getNotHpMaxG1G2(int baseStat, int level) {
         return ((((baseStat + 15) * 2 + 256 / 4) * level) / 100) + 5;
+    }
+
+    public static String fixMoveName(String jsonName) {
+        String newName = jsonName.substring(0,1).toUpperCase() + jsonName.substring(1);
+        if (newName.indexOf('-') != -1) {
+            int idx = newName.indexOf('-');
+            while (idx != -1) {
+                newName = newName.substring(0, idx) + ' '
+                        + newName.substring(idx+1, idx+2).toUpperCase()
+                        + newName.substring(idx + 2);
+                idx = newName.indexOf('-', idx+2);
+            }
+        }
+        return newName;
     }
 
 }

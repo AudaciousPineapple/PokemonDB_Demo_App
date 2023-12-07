@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -261,10 +260,10 @@ public class PokemonSelectFragment extends Fragment {
                                 .navigate(R.id.action_PokemonSelectFragment_to_PokemonG1DataFragment);
                         break;
                     case 2:
-                        // TODO Add Gen 2 Fragment
+                        //TODO Add Gen 2 Fragment
                         break;
                     case 3:
-                        // TODO Add Gen 3 Fragment
+                        //TODO Add Gen 3 Fragment
                         break;
                     case 4:
                         //TODO Add Gen 4 Fragment
@@ -273,7 +272,7 @@ public class PokemonSelectFragment extends Fragment {
                         //TODO Add Gen 5 fragment
                         break;
                     case 6:
-                        // TODO Add gen 6 fragment
+                        //TODO Add gen 6 fragment
                         break;
                     case 7:
                         //TODO add gen 7 fragment

@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2.pokedex.databaseclasses;
+package com.example.pokemondbappv2.pokedex.databaseclasses.g1;
 
 import androidx.annotation.NonNull;
 

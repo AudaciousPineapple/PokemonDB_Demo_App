@@ -1,4 +1,4 @@
-package com.example.pokemondbappv2.pokedex.fragments;
+package com.example.pokemondbappv2.moves;
 
 import android.os.Bundle;
 
@@ -14,23 +14,23 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.pokemondbappv2.databinding.ActivityPokemonBinding;
+import com.example.pokemondbappv2.databinding.ActivityMovesBinding;
 
-public class PokemonActivity extends AppCompatActivity {
+public class MovesActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityPokemonBinding binding;
+    private ActivityMovesBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityPokemonBinding.inflate(getLayoutInflater());
+        binding = ActivityMovesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_pokemon);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_moves);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -38,7 +38,7 @@ public class PokemonActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_pokemon);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_moves);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }

@@ -1,11 +1,11 @@
-package com.example.pokemondbappv2.pokedex.databaseclasses;
+package com.example.pokemondbappv2.pokedex.databaseclasses.g1;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import static com.example.pokemondbappv2.pokedex.databaseclasses.PokemonHelperG1.*;
+import static com.example.pokemondbappv2.pokedex.databaseclasses.g1.PokemonHelperG1.*;
 
 import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;

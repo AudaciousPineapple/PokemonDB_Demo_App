@@ -1,10 +1,10 @@
-package com.example.pokemondbappv2.pokedex.databaseclasses;
+package com.example.pokemondbappv2.pokedex.databaseclasses.g1;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import static com.example.pokemondbappv2.pokedex.databaseclasses.EncounterG1Helper.*;
+import static com.example.pokemondbappv2.pokedex.databaseclasses.g1.EncounterG1Helper.*;
 
 import java.util.ArrayList;
 

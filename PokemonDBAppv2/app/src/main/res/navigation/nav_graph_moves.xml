@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/MoveSelectFragment"
-        android:name="com.example.pokemondbappv2.MoveSelectFragment"
+        android:name="com.example.pokemondbappv2.moves.fragments.MoveSelectFragment"
         android:label="@string/movedex"
         tools:layout="@layout/fragment_moves_select">
 
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/MoveDataFragment"
-        android:name="com.example.pokemondbappv2.MovesDataFragment"
+        android:name="com.example.pokemondbappv2.moves.fragments.MoveDataFragment"
         android:label="@string/movedex"
-        tools:layout="@layout/fragment_moves_data">
+        tools:layout="@layout/fragment_moves_data_g1">
 
     </fragment>
 </navigation>

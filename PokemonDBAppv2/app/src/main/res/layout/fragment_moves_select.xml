@@ -30,6 +30,7 @@
             android:text="@string/pick_your_move_" />
 
         <Spinner
+            android:clickable="false"
             android:id="@+id/move_select_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

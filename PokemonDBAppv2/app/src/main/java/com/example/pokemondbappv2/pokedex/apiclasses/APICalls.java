@@ -2,25 +2,15 @@ package com.example.pokemondbappv2.pokedex.apiclasses;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.AsyncTask;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.pokemondbappv2.PokemonMethods;
-import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.g1.PokemonEntryG1;
 import com.example.pokemondbappv2.pokedex.databaseclasses.bArrayConverter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 

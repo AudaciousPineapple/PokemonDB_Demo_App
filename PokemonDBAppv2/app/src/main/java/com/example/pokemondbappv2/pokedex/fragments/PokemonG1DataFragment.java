@@ -20,10 +20,10 @@ import com.example.pokemondbappv2.pokeEnums.Type;
 import com.example.pokemondbappv2.databinding.FragmentPokemonG1DataBinding;
 import com.example.pokemondbappv2.pokeEnums.XpGrowth;
 import com.example.pokemondbappv2.pokedex.apiclasses.APICalls;
-import com.example.pokemondbappv2.pokedex.databaseclasses.EncounterG1Entry;
-import com.example.pokemondbappv2.pokedex.databaseclasses.EncounterG1Source;
-import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonEntryG1;
-import com.example.pokemondbappv2.pokedex.databaseclasses.PokemonSourceG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.g1.EncounterG1Entry;
+import com.example.pokemondbappv2.pokedex.databaseclasses.g1.EncounterG1Source;
+import com.example.pokemondbappv2.pokedex.databaseclasses.g1.PokemonEntryG1;
+import com.example.pokemondbappv2.pokedex.databaseclasses.g1.PokemonSourceG1;
 import com.example.pokemondbappv2.pokedex.databaseclasses.bArrayConverter;
 
 import org.json.JSONArray;
@@ -77,7 +77,6 @@ public class PokemonG1DataFragment extends Fragment {
                         // Log.d("**Pull from DB**", pokemon.toString());
                         getPokemonData(pokemon);
 
-                        // TODO retrieve encounter data
                         ArrayList<EncounterG1Entry> encounters =
                                 encounterSource.getEncounterG1Entries(dexNum);
                         getEncounterData(encounters);
@@ -479,7 +478,7 @@ public class PokemonG1DataFragment extends Fragment {
                 new APICalls.SpriteLoadTask(sprite2Url, binding.g1PokemonSprite2, false,
                         pokemon, this).execute();
 
-                // TODO Evolutionary Chain graphic
+                //TODO Evolutionary Chain graphic
                 String evoChainUrl = speciesObj.getJSONObject("evolution_chain").getString("url");
                 Log.d("**Evo Chain URL**", evoChainUrl);
 
@@ -510,23 +509,26 @@ public class PokemonG1DataFragment extends Fragment {
                                 "", method, chance, minLevel, maxLevel, versionName);
 
                         if (versionName.contentEquals("red")) {
-                            if (!redLocationStr.isEmpty())
-                                redLocationStr += ", ";
+                            if (!redLocationStr.isEmpty()) { redLocationStr += ", "; }
                             redLocationStr += locationName;
+                            if (method.contentEquals("gift")) { redLocationStr += " (Gift)"; }
+
                             encounters.add(encounter);
                             Log.d("Encounter: ", encounters.toString());
                         }
                         else if (versionName.contentEquals("blue")) {
-                            if (!blueLocationStr.isEmpty())
-                                blueLocationStr += ", ";
+                            if (!blueLocationStr.isEmpty())  { blueLocationStr += ", "; }
                             blueLocationStr += locationName;
+                            if (method.contentEquals("gift")) { blueLocationStr += " (Gift)"; }
+
                             encounters.add(encounter);
                             Log.d("Encounter: ", encounters.toString());
                         }
                         else if (versionName.contentEquals("yellow")) {
-                            if (!yellowLocationStr.isEmpty())
-                                yellowLocationStr += ", ";
+                            if (!yellowLocationStr.isEmpty()) {yellowLocationStr += ", "; }
                             yellowLocationStr += locationName;
+                            if (method.contentEquals("gift")) { yellowLocationStr += " (Gift)"; }
+
                             encounters.add(encounter);
                             Log.d("Encounter: ", encounters.toString());
                         }
@@ -644,23 +646,32 @@ public class PokemonG1DataFragment extends Fragment {
         String blueLocationStr = "";
         String yellowLocationStr = "";
         String versionName = "";
+        EncounterG1Entry cur = null;
 
         for (int i = 0; i < list.size(); i++) {
-            versionName = list.get(i).getVersion();
+            cur = list.get(i);
+            versionName = cur.getVersion();
+
             if (versionName.contentEquals("red")) {
                 if (!redLocationStr.isEmpty())
                     redLocationStr += ", ";
-                redLocationStr += list.get(i).getLocName();
+                redLocationStr += cur.getLocName();
+                if (cur.getMethod().contentEquals("gift"))
+                    redLocationStr += "(Gift)";
             }
             else if (versionName.contentEquals("blue")) {
                 if (!blueLocationStr.isEmpty())
                     blueLocationStr += ", ";
                 blueLocationStr += list.get(i).getLocName();
+                if (cur.getMethod().contentEquals("gift"))
+                    blueLocationStr += "(Gift)";
             }
             else if (versionName.contentEquals("yellow")) {
                 if (!yellowLocationStr.isEmpty())
                     yellowLocationStr += ", ";
                 yellowLocationStr += list.get(i).getLocName();
+                if (cur.getMethod().contentEquals("gift"))
+                    yellowLocationStr += "(Gift)";
             }
         }
 
